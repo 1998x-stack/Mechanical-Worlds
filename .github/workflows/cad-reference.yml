@@ -1,0 +1,38 @@
+name: Mechanical Worlds B-Rep CAD Reference
+on:
+  push:
+    branches: [main]
+    paths:
+      - "tools/cad/**"
+      - "tests-cad/**"
+      - ".github/workflows/cad-reference.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  cad:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install source CAD and glTF tooling
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install cadquery==2.8.0
+          npm install
+      - name: Generate real parametric B-Rep + STEP and triangulated GLB
+        run: python tools/cad/generate_engine_reference.py --output dist-cad/engine-i4
+      - name: Check B-Rep geometry and 18 GLB identities with Three.js loader
+        run: node --test tests-cad/*.test.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: i4-concept-parametric-brep-step-glb
+          path: dist-cad/engine-i4/**
+          if-no-files-found: error
+          retention-days: 30
