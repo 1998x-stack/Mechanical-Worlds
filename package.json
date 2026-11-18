@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
-    "build": "npm run assets:validate && npm run assets:stage && tsc -p tsconfig.web.json && vite build",
+    "build": "npm run assets:validate && npm run assets:stage && npm run assets:contracts && tsc -p tsconfig.web.json && vite build",
     "test": "npm run build:core && node --test tests/*.test.mjs",
     "build:core": "tsc -p tsconfig.core.json",
     "check": "npm run skills:check && npm run assets:validate && npm run test && npm run build",
@@ -16,7 +16,8 @@
     "assets:validate": "node tools/asset-pipeline/validate-glb.mjs --report && node tools/asset-pipeline/validate-powertrain.mjs --report",
     "assets:stage": "node tools/asset-pipeline/stage-assets.mjs",
     "predev": "npm run assets:stage",
-    "assets:plan": "node tools/asset-pipeline/plan-next-batch.mjs"
+    "assets:plan": "node tools/asset-pipeline/plan-next-batch.mjs",
+    "assets:contracts": "npm run build:core && node tools/asset-pipeline/export-contracts.mjs"
   },
   "dependencies": {
     "three": "^0.181.2"
