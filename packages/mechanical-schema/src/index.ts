@@ -20,6 +20,8 @@ export interface PartNode {
   kind: "part"; id: string; name: string; parentId: string;
   definitionId: string;
   geometryKey: string;
+  /** Source file and unique glTF node binding; not a CAD verification claim. */
+  geometryRef?: { uri: string; nodeName: string; tier: "generated-conceptual" | "cad-reviewed" };
   designLocal: Transform;
 }
 export type MechanicalNode = AssemblyNode | PartNode;
@@ -33,6 +35,12 @@ export interface Mate {
   initialState: MateStatus; fastenerPartIds?: string[];
   /** When true, atomic locking requires geometry-aligned anchors. */
   verified?: boolean;
+  /** Runtime alignment acceptance, separate from manufacturing fit certification. */
+  tolerance?: {
+    positionM: number; angleRad: number;
+    evidence: "conceptual" | "cad-reviewed";
+    sourceId?: string;
+  };
 }
 export interface RevoluteJoint {
   id: string; type: "revolute"; mateId: string; drivenPartId: string;
@@ -150,6 +158,10 @@ export function validateAsset(asset: MechanicalAsset): ValidationIssue[] {
     }
     if (n.kind === "part" && !definitions.has(n.definitionId))
       fail("DEFINITION", n.id, "Unknown part definition");
+    if (n.kind === "part" && n.geometryRef && (
+        n.geometryRef.nodeName !== n.id || !n.geometryRef.uri.endsWith(".glb") ||
+        !["generated-conceptual", "cad-reviewed"].includes(n.geometryRef.tier)))
+      fail("GEOMETRY_REF", n.id, "Geometry node must equal physical Part ID and reference a GLB");
     if (!n.designLocal.position.every(Number.isFinite) ||
         !n.designLocal.rotation.every(Number.isFinite) ||
         Math.abs(Math.hypot(...n.designLocal.rotation) - 1) > 1e-5)
