@@ -1,6 +1,7 @@
 import "./style.css";
 import { MechanicalEngine, type AnimationDriver } from "../packages/mechanical-core/src/index.js";
-import { createWheelAsset, createGlassesAsset } from "../packages/mechanical-core/src/fixtures.js";
+import { createP1WheelAsset, createP1GlassesAsset } from "../packages/mechanical-core/src/p1-fixtures.js";
+import { mateAlignment } from "../packages/mechanical-core/src/p1.js";
 import { validateAsset, type MechanicalAsset } from "../packages/mechanical-schema/src/index.js";
 import { MechanicalViewer } from "../packages/mechanical-three/src/index.js";
 
@@ -24,7 +25,7 @@ class BrowserDriver implements AnimationDriver {
 }
 type Scenario="wheel"|"glasses";
 type Intent="disassemble"|"assemble";
-const assetFactories:Record<Scenario,()=>MechanicalAsset>={wheel:createWheelAsset,glasses:createGlassesAsset};
+const assetFactories:Record<Scenario,()=>MechanicalAsset>={wheel:createP1WheelAsset,glasses:createP1GlassesAsset};
 const planIds:Record<Scenario,Record<Intent,string>>={
   wheel:{disassemble:"plan.wheel.remove",assemble:"plan.wheel.install"},
   glasses:{disassemble:"plan.glasses.remove",assemble:"plan.glasses.install"}
@@ -62,6 +63,10 @@ $("app").innerHTML=`
           <button id="step" class="btn">▷ &nbsp; 下一步</button>
           <button id="explode" class="btn outline">✳ &nbsp; 爆炸视图</button>
           <button id="reset" class="btn outline">↺ &nbsp; 重置</button>
+        </div>
+        <div class="subactions" id="hinge-controls" style="display:none">
+          <button id="hinge-open">↗ 打开左右镜腿</button>
+          <button id="hinge-close">↘ 闭合左右镜腿</button>
         </div>
         <div class="subactions">
           <button id="pause">Ⅱ 暂停 / 继续</button><button id="cancel">✕ 取消</button>
@@ -106,12 +111,19 @@ function showInspector():void{
   const n=asset.nodes.find(n=>n.id===selected);
   if(!n){$("inspector").innerHTML="点击场景中的零件查看信息。";return;}
   const current=engine.getState();
+  const joint=asset.joints?.find(j=>j.drivenPartId===n.id);
+  const mats=asset.mates.filter(m=>
+    asset.connectors.some(c=>(c.id===m.connectorAId||c.id===m.connectorBId)&&c.ownerPartId===n.id));
+  const checked=mats.find(m=>m.verified);
+  const alignment=checked?mateAlignment(asset,current,checked.id):null;
   $("inspector").innerHTML=`
     <div class="inspector-head"><span>◇</span><div><strong>${n.name}</strong><small>${n.id}</small></div></div>
     <div class="property"><span>节点</span><b>${n.kind==="part"?"物理零件":"装配体"}</b></div>
     <div class="property"><span>状态</span><b>${n.kind==="part"?current.partStatus[n.id]:"ASSEMBLY"}</b></div>
     <div class="property"><span>锚点</span><b>${asset.connectors.filter(c=>c.ownerPartId===n.id).length}</b></div>
-    <div class="property"><span>装配父级</span><b>${n.parentId??"ROOT"}</b></div>`;
+    <div class="property"><span>装配父级</span><b>${n.parentId??"ROOT"}</b></div>
+    ${joint?`<div class="property"><span>铰链角度</span><b>${((current.jointAngles[joint.id]??0)*180/Math.PI).toFixed(1)}°</b></div>`:""}
+    ${alignment?`<div class="property"><span>锚点偏差</span><b>${(alignment.distanceM*1000).toFixed(1)} mm</b></div>`:""}`;
 }
 function update():void{
   const plan=currentPlan(),ops=engine.operationsFor(plan),p=engine.progress(plan);
@@ -139,15 +151,19 @@ function loadScenario():void{
   asset=assetFactories[scenario]();intent="disassemble";driver=new BrowserDriver();engine=new MechanicalEngine(asset,driver);
   selected=null;viewer?.dispose();
   viewer=new MechanicalViewer($("viewport"),asset,engine,id=>{selected=id;update();});
-  engine.subscribe(event=>{if(event.type==="commit"){
-    const op=asset.operations.find(o=>o.id===event.operationId);
-    status("已完成："+(op?.label??event.operationId));
-  }else if(event.type==="state")update();});
+  engine.subscribe(event=>{
+    if(event.type==="commit"){
+      const op=asset.operations.find(o=>o.id===event.operationId);
+      status("已完成："+(op?.label??event.operationId));
+    }else if(event.type==="diagnostic")status("几何提示："+event.message);
+    else if(event.type==="state")update();
+  });
   $("scenario-wheel").classList.toggle("active",scenario==="wheel");
   $("scenario-glasses").classList.toggle("active",scenario==="glasses");
   $("header-name").textContent=scenario==="wheel"?"左前轮拆装实验":"眼镜拆装实验";
   $("title").textContent=scenario==="wheel"?"汽车左前轮 · 拆解与回装":"机械眼镜 · 拆解与回装";
   $("description").textContent=asset.description;
+  $("hinge-controls").style.display=scenario==="glasses"?"flex":"none";
   $("test-results").innerHTML="";
   status("场景就绪。选择拆解、合成，或点击模型查看零件。");
   update();
@@ -168,6 +184,12 @@ $("scenario-wheel").addEventListener("click",()=>switchScenario("wheel"));
 $("scenario-glasses").addEventListener("click",()=>switchScenario("glasses"));
 $("mode-remove").addEventListener("click",()=>setIntent("disassemble"));
 $("mode-install").addEventListener("click",()=>setIntent("assemble"));
+$("hinge-open").addEventListener("click",()=>{
+  if(scenario==="glasses")void perform(signal=>engine.runPlan("plan.glasses.open",signal));
+});
+$("hinge-close").addEventListener("click",()=>{
+  if(scenario==="glasses")void perform(signal=>engine.runPlan("plan.glasses.close",signal));
+});
 $("remove").addEventListener("click",()=>{setIntent("disassemble");void perform(s=>engine.runPlan(currentPlan(),s));});
 $("install").addEventListener("click",()=>{setIntent("assemble");void perform(s=>engine.runPlan(currentPlan(),s));});
 $("step").addEventListener("click",()=>void perform(s=>engine.step(currentPlan(),s)));
@@ -194,6 +216,10 @@ $("acceptance").addEventListener("click",async()=>{
       const candidate=assetFactories[name](),issues=validateAsset(candidate);
       if(issues.length)throw new Error(issues.map(i=>i.code).join(", "));
       const testEngine=new MechanicalEngine(candidate);
+      if(name==="glasses"){
+        await testEngine.runPlan("plan.glasses.open");
+        await testEngine.runPlan("plan.glasses.close");
+      }
       await testEngine.runPlan(planIds[name].disassemble);
       if(!Object.values(testEngine.getState().partStatus).some(p=>p==="detached"))
         throw new Error("没有零件发生分离");
