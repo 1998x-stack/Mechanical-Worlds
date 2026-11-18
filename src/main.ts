@@ -39,9 +39,10 @@ $("app").innerHTML=`
     <div class="caption">验收案例 / SCENARIOS</div>
     <button id="scenario-wheel" class="scenario active"><span class="scenario-symbol">◉</span><span><b>汽车左前轮</b><small>五颗螺母 · 轮毂 · 制动系统</small></span>›</button>
     <button id="scenario-glasses" class="scenario"><span class="scenario-symbol">⌐</span><span><b>机械眼镜</b><small>镜片 · 镜腿 · 铰链 · 螺钉</small></span>›</button>
+    <a class="scenario" href="${import.meta.env.BASE_URL}automotive.html"><span class="scenario-symbol">▣</span><span><b>汽车 GLB 资产预览</b><small>76 个已生成零件 · 完整 3D 文件</small></span>›</a>
     <div class="caption second">机械结构 / ASSEMBLY TREE</div>
     <div id="tree" class="tree"></div>
-    <button id="show-catalog" class="catalog-launch"><span>▤ &nbsp; 整车零件目录</span><strong>317 PARTS</strong><small>六大系统 · 规划中的 CAD 资产</small></button>
+    <button id="show-catalog" class="catalog-launch"><span>▤ &nbsp; 整车零件目录</span><strong>76 GENERATED / 317 PLANNED</strong><small>76 个真实 GLB 零件，其余仍需建模</small></button>
     <div class="sidebar-foot"><span class="status-dot"></span>SCHEMA 0.1 · CORE 0.1</div>
   </aside>
   <main class="main">
@@ -95,7 +96,7 @@ $("app").innerHTML=`
     <div class="catalog-card">
       <div class="catalog-header">
         <div><div class="eyebrow">ASSET CATALOG / PLANNED</div><h2 id="catalog-title">汽车完整机械零件目录</h2>
-          <p>317 个待制作零件 · 42 个装配节点。仅表示结构规划，不代表已完成 GLB 或 CAD 校验。</p></div>
+          <p>共 317 个计划零件，76 个已生成可加载 GLB；其余 241 个尚未建模。全部零件均未进行 OEM CAD/制造精度验证。</p></div>
         <button id="close-catalog" aria-label="关闭目录">✕</button>
       </div>
       <div class="catalog-filters"><input id="catalog-search" type="search" placeholder="搜索零件名称或 ID…" aria-label="搜索零件"/>
@@ -107,7 +108,7 @@ $("app").innerHTML=`
         </select></div>
       <div id="catalog-count" class="catalog-count"></div>
       <div id="catalog-records" class="catalog-records"></div>
-      <div class="catalog-bottom">所有条目状态：PLANNED · 需要来源合规的 CAD/STEP、连接标注与拆装质量审核</div>
+      <div class="catalog-bottom">目录状态严格区分 GENERATED 和 PLANNED。GENERATED 是概念几何，不代表工程 CAD 审核。</div>
     </div>
   </div>
 </div>`;
@@ -275,7 +276,7 @@ function renderCatalog():void{
   $("catalog-records").innerHTML=matched.slice(0,120).map(n=>
     '<div class="catalog-record"><span class="catalog-kind">'+(n.kind==="assembly"?"ASSEMBLY":"PART")+
     '</span><div><strong>'+n.nameZh+'</strong><small>'+n.id+
-    '</small></div><span class="catalog-planned">PLANNED</span></div>').join("");
+    '</small></div><span class="catalog-planned">'+(n.geometryStatus==="generated"?"GLB READY":"PLANNED")+'</span></div>').join("");
 }
 $("show-catalog").addEventListener("click",()=>{
   $("catalog-modal").hidden=false;renderCatalog();
