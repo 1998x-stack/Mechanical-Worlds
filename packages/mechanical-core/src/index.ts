@@ -129,10 +129,9 @@ export class MechanicalEngine {
     const next=clone(this.state);
     next.jointAngles[jointId]=angleRad;
     next.revision=this.state.revision+1;
-    if (recordUndo) {
-      this.undoStack.push(clone(this.state));
-      this.redoStack=[];
-    }
+    if (recordUndo) this.undoStack.push(clone(this.state));
+    // Even a no-snapshot scrub is a new authoritative state transition.
+    this.redoStack=[];
     this.state=next;
     this.emit({type:"state",revision:next.revision});
   }

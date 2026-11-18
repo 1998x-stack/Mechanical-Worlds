@@ -171,6 +171,7 @@ for(let i=0;i<4;i++){
   const material=new THREE.LineBasicMaterial({color,depthTest:false});
   const line=new THREE.Line(geometry,material);
   line.renderOrder=20;
+  line.frustumCulled=false;
   engineGuideLayer.add(line);
   linePositions.push(positions);
   const ballMaterial=new THREE.MeshBasicMaterial({color,depthTest:false});
