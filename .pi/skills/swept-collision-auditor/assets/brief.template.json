@@ -1,0 +1,13 @@
+{
+  "kind": "clearance-audit",
+  "assetId": "",
+  "operationId": "",
+  "geometrySource": "conceptual",
+  "broadphase": "sampled-aabb",
+  "narrowphase": "not-implemented",
+  "continuousCollision": "not-implemented",
+  "sampleCount": null,
+  "allowedContactPairs": [],
+  "minimumClearanceM": null,
+  "result": "unverified"
+}

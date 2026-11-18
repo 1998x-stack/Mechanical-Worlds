@@ -1,0 +1,16 @@
+{
+  "kind": "cad-source-intake",
+  "partIds": [],
+  "sourceFiles": [],
+  "sourceSha256": null,
+  "format": "STEP-AP242",
+  "license": "unknown",
+  "redistributionAllowed": false,
+  "sourceLengthUnit": "mm",
+  "sourceForward": "+Z",
+  "projectForward": "-Z",
+  "frameConversionReviewed": false,
+  "assemblyStructureExtracted": false,
+  "pmiVerified": false,
+  "engineeringVerified": false
+}

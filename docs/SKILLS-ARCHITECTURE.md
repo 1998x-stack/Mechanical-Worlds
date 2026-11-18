@@ -78,3 +78,10 @@ Individual catalog rows should contain `id`, `parentId`, `nameZh`, `kind`, `geom
 - Arbitrary automatic import from online repositories is prohibited without provenance/license review.
 - First automotive geometry batch is a conceptual physically separate surface-mesh series; manufacturer dimensions, joints and production manufacturing requirements remain unverified.
 - Browser preview provides visual and selection validation; click-to-disassemble requires a separate certified operation DAG. Do not imply every generated catalog row is immediately mechanically detachable.
+
+## Newly added engineering specialist skills
+
+- `cad-source-ingestion`: STEP/AP242 provenance, assembly structure, PMI and explicit glTF/project frame conversion. This is a workflow specification; a full STEP B-Rep importer is not implemented yet.
+- `swept-collision-auditor`: contact exceptions, swept clearance audit and future continuous collision solver qualification. Current implementation remains discrete AABB; it is not described as having CAD-verified clearance.
+
+Current catalog: 106 generated conceptual meshes across 2 GLBs, 211 planned physical parts. Four wheel/brake corners have operation DAGs on named generated GLB nodes. The I4 powertrain geometry has not been mechanically constrained.
