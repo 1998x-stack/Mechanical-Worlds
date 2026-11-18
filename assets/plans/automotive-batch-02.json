@@ -1,0 +1,239 @@
+{
+  "planVersion": "0.1.0",
+  "batchId": "mw.car.fwd-i4.batch-02",
+  "catalogId": "mw.car.fwd-i4.catalog.001",
+  "system": "powertrain",
+  "qualityTarget": "generated",
+  "geometrySourceRequired": true,
+  "geometryStatus": "planned",
+  "engineeringVerified": false,
+  "reason": "Generate one subsystem-specific geometry release; no part may be promoted without a loadable named GLB mesh and QA evidence.",
+  "prerequisites": [
+    "authorized CAD or reproducible procedural source",
+    "stable physical part IDs",
+    "actual glTF mesh per instance",
+    "manifest",
+    "automated validation"
+  ],
+  "candidatePartIds": [
+    "engine.block.cast",
+    "engine.crankshaft",
+    "engine.crankshaft.pulley",
+    "engine.piston.1",
+    "engine.piston.2",
+    "engine.piston.3",
+    "engine.piston.4",
+    "engine.rod.1",
+    "engine.rod.2",
+    "engine.rod.3",
+    "engine.rod.4",
+    "engine.cam.exhaust",
+    "engine.cam.intake",
+    "engine.cylinder.head",
+    "engine.piston.pin.1",
+    "engine.piston.pin.2",
+    "engine.piston.pin.3",
+    "engine.piston.pin.4",
+    "engine.piston.rings.1",
+    "engine.piston.rings.2",
+    "engine.piston.rings.3",
+    "engine.piston.rings.4",
+    "engine.oil.pan",
+    "engine.timing.belt",
+    "engine.timing.cover",
+    "engine.timing.tensioner",
+    "engine.valve.cover",
+    "gearbox.differential.carrier",
+    "gearbox.differential.pinion",
+    "gearbox.differential.side"
+  ],
+  "candidates": [
+    {
+      "id": "engine.block.cast",
+      "nameZh": "缸体本体",
+      "geometryStatus": "planned",
+      "priority": 1
+    },
+    {
+      "id": "engine.crankshaft",
+      "nameZh": "曲轴",
+      "geometryStatus": "planned",
+      "priority": 1
+    },
+    {
+      "id": "engine.crankshaft.pulley",
+      "nameZh": "曲轴皮带轮",
+      "geometryStatus": "planned",
+      "priority": 1
+    },
+    {
+      "id": "engine.piston.1",
+      "nameZh": "第1缸活塞",
+      "geometryStatus": "planned",
+      "priority": 1
+    },
+    {
+      "id": "engine.piston.2",
+      "nameZh": "第2缸活塞",
+      "geometryStatus": "planned",
+      "priority": 1
+    },
+    {
+      "id": "engine.piston.3",
+      "nameZh": "第3缸活塞",
+      "geometryStatus": "planned",
+      "priority": 1
+    },
+    {
+      "id": "engine.piston.4",
+      "nameZh": "第4缸活塞",
+      "geometryStatus": "planned",
+      "priority": 1
+    },
+    {
+      "id": "engine.rod.1",
+      "nameZh": "第1缸连杆",
+      "geometryStatus": "planned",
+      "priority": 1
+    },
+    {
+      "id": "engine.rod.2",
+      "nameZh": "第2缸连杆",
+      "geometryStatus": "planned",
+      "priority": 1
+    },
+    {
+      "id": "engine.rod.3",
+      "nameZh": "第3缸连杆",
+      "geometryStatus": "planned",
+      "priority": 1
+    },
+    {
+      "id": "engine.rod.4",
+      "nameZh": "第4缸连杆",
+      "geometryStatus": "planned",
+      "priority": 1
+    },
+    {
+      "id": "engine.cam.exhaust",
+      "nameZh": "排气凸轮轴",
+      "geometryStatus": "planned",
+      "priority": 2
+    },
+    {
+      "id": "engine.cam.intake",
+      "nameZh": "进气凸轮轴",
+      "geometryStatus": "planned",
+      "priority": 2
+    },
+    {
+      "id": "engine.cylinder.head",
+      "nameZh": "气缸盖",
+      "geometryStatus": "planned",
+      "priority": 2
+    },
+    {
+      "id": "engine.piston.pin.1",
+      "nameZh": "第1缸活塞销",
+      "geometryStatus": "planned",
+      "priority": 2
+    },
+    {
+      "id": "engine.piston.pin.2",
+      "nameZh": "第2缸活塞销",
+      "geometryStatus": "planned",
+      "priority": 2
+    },
+    {
+      "id": "engine.piston.pin.3",
+      "nameZh": "第3缸活塞销",
+      "geometryStatus": "planned",
+      "priority": 2
+    },
+    {
+      "id": "engine.piston.pin.4",
+      "nameZh": "第4缸活塞销",
+      "geometryStatus": "planned",
+      "priority": 2
+    },
+    {
+      "id": "engine.piston.rings.1",
+      "nameZh": "第1缸活塞环组",
+      "geometryStatus": "planned",
+      "priority": 2
+    },
+    {
+      "id": "engine.piston.rings.2",
+      "nameZh": "第2缸活塞环组",
+      "geometryStatus": "planned",
+      "priority": 2
+    },
+    {
+      "id": "engine.piston.rings.3",
+      "nameZh": "第3缸活塞环组",
+      "geometryStatus": "planned",
+      "priority": 2
+    },
+    {
+      "id": "engine.piston.rings.4",
+      "nameZh": "第4缸活塞环组",
+      "geometryStatus": "planned",
+      "priority": 2
+    },
+    {
+      "id": "engine.oil.pan",
+      "nameZh": "油底壳",
+      "geometryStatus": "planned",
+      "priority": 3
+    },
+    {
+      "id": "engine.timing.belt",
+      "nameZh": "正时传动",
+      "geometryStatus": "planned",
+      "priority": 3
+    },
+    {
+      "id": "engine.timing.cover",
+      "nameZh": "正时传动盖",
+      "geometryStatus": "planned",
+      "priority": 3
+    },
+    {
+      "id": "engine.timing.tensioner",
+      "nameZh": "正时涨紧器",
+      "geometryStatus": "planned",
+      "priority": 3
+    },
+    {
+      "id": "engine.valve.cover",
+      "nameZh": "气门室盖",
+      "geometryStatus": "planned",
+      "priority": 3
+    },
+    {
+      "id": "gearbox.differential.carrier",
+      "nameZh": "差速器壳体",
+      "geometryStatus": "planned",
+      "priority": 4
+    },
+    {
+      "id": "gearbox.differential.pinion",
+      "nameZh": "行星齿轮组",
+      "geometryStatus": "planned",
+      "priority": 4
+    },
+    {
+      "id": "gearbox.differential.side",
+      "nameZh": "半轴齿轮组",
+      "geometryStatus": "planned",
+      "priority": 4
+    }
+  ],
+  "acceptance": [
+    "Build real binary GLB for each candidate",
+    "Every candidate has a non-empty named glTF node",
+    "Run GLB validation for the new manifest",
+    "Review licensing, units and source confidence",
+    "Implement Connector/Mate/Operation data before claiming L3 disassembly"
+  ]
+}

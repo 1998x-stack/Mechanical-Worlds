@@ -18,3 +18,7 @@ jobs:
       - run: npm run assets:build && npm run assets:validate
       - run: npm run test
       - run: npm run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: automotive-glb-qa
+          path: dist-reports/automotive-batch-01-qa.json
