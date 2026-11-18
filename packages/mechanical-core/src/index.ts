@@ -114,7 +114,16 @@ export class MechanicalEngine {
     return planOrder(plan, this.ops);
   }
   isComplete(op: Operation): boolean {
-    return op.effects.every(effect => effectSatisfied(this.state, effect));
+    if (op.effects.every(effect => effectSatisfied(this.state, effect))) return true;
+    // Downstream operations may legitimately change the state of secondary
+    // parts carried by an earlier transaction. An already committed operation
+    // remains satisfied while its OWN target still matches its committed
+    // target effects. This proof is invalidated by later target reinstallation.
+    if (!this.state.committedOperationIds.includes(op.id)) return false;
+    const primary = op.effects.filter(effect =>
+      (effect.kind === "part" || effect.kind === "offset") && effect.id === op.targetId);
+    return primary.length > 0 &&
+      primary.every(effect => effectSatisfied(this.state, effect));
   }
   progress(planId: string): { done: number; total: number; next?: Operation } {
     const ops = this.operationsFor(planId);
