@@ -81,7 +81,7 @@ test("engine crank joint rejects invalid angles and blocks motion once a require
   const a=create(),engine=new MechanicalEngine(a),joint=engineI4Constraint(a).crankJointId;
   assert.throws(()=>engine.setRevoluteAngle(joint,Number.NaN),RangeError);
   assert.throws(()=>engine.setRevoluteAngle(joint,-0.01),RangeError);
-  assert.throws(()=>engine.setRevoluteAngle(joint,Math.PI*2+.01),RangeError);
+  assert.throws(()=>engine.setRevoluteAngle(joint,Math.PI*4+.01),RangeError);
   engine.setRevoluteAngle(joint,Math.PI/2);
   close(engine.getState().jointAngles[joint],Math.PI/2);
   assert.equal(engine.getState().revision,1);
@@ -117,8 +117,8 @@ test("I4 teardown and separately authored reassembly restore all Parts, Mates an
   assert.ok(Object.values(restored.offsets).every(v=>v.every(n=>Math.abs(n)<=1e-12)));
   assert.equal(restored.jointAngles[engineI4Constraint(a).crankJointId],0);
   for(const mate of a.mates)assert.ok(mateAlignment(a,restored,mate.id).acceptable,mate.id);
-  engine.setRevoluteAngle(engineI4Constraint(a).crankJointId,Math.PI*2);
-  close(engine.getState().jointAngles[engineI4Constraint(a).crankJointId],Math.PI*2);
+  engine.setRevoluteAngle(engineI4Constraint(a).crankJointId,Math.PI*4);
+  close(engine.getState().jointAngles[engineI4Constraint(a).crankJointId],Math.PI*4);
 });
 test("cancelled I4 operation rolls back all committed state",async()=>{
   const failedDriver={async play(_duration,preview){

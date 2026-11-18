@@ -295,7 +295,7 @@ export function createEngineI4Asset(manifest:EngineI4Manifest):MechanicalAsset {
     joints:[{
       id:jointId,type:"revolute",mateId:names.bearing,drivenPartId:crank,
       pivotWorld:pos(crank),axisWorld:[1,0,0],
-      minRad:0,maxRad:Math.PI*2,initialRad:0
+      minRad:0,maxRad:Math.PI*4,initialRad:0
     }],
     kinematics:[constraint]
   };

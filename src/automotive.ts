@@ -94,7 +94,7 @@ $("car-app").innerHTML=`
       <div class="service-title">四缸发动机 · 曲柄连杆机构 <span>ANALYTIC SLIDER-CRANK / 4 CYLINDERS</span></div>
       <div class="engine-controls">
         <label for="engine-angle">曲轴角度 <output id="engine-angle-value">0°</output></label>
-        <input type="range" id="engine-angle" min="0" max="360" step="1" value="0" aria-label="曲轴角度"/>
+        <input type="range" id="engine-angle" min="0" max="720" step="1" value="0" aria-label="曲轴角度"/>
         <button id="engine-rotate">连续旋转</button>
         <button id="engine-stop">停止旋转</button>
         <button id="engine-focus">聚焦发动机</button>
@@ -504,7 +504,7 @@ function animate(now=0):void{
     const dt=Math.max(0,Math.min(100,now-enginePreviousFrame));
     enginePreviousFrame=now;
     const angle=engineMechanical.getState().jointAngles[engineJointId]??0;
-    const next=(angle+dt*Math.PI*2/4200)%(Math.PI*2);
+    const next=(angle+dt*Math.PI*2/4200)%(Math.PI*4);
     try{
       engineMechanical.setRevoluteAngle(engineJointId,next,false);
       updateEngineLabel(next);
