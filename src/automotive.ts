@@ -98,11 +98,13 @@ $("car-app").innerHTML=`
         <button id="engine-rotate">连续旋转</button>
         <button id="engine-stop">停止旋转</button>
         <button id="engine-focus">聚焦发动机</button>
+        <button id="engine-cutaway">剖视发动机</button>
         <button id="engine-teardown">发动机拆卸</button>
         <button id="engine-assemble">重新装配</button>
         <button id="engine-home">归零位置</button>
       </div>
       <div id="engine-status" role="status">运动学闭环和拆装状态由 Headless Mechanical Core 验证，载入后可操作。</div>
+      <div id="engine-telemetry" class="engine-telemetry">活塞高度：未加载 · 理论连杆闭环误差：未加载</div>
       <div class="engine-note">4 个活塞和连杆根据同一曲轴角度解析求解；进排气凸轮轴按 2:1 比例转动。发动机零件仍为程序生成概念几何，不代表实车工程配合、真实正时或扫掠碰撞已验证。</div>
     </section>
     <div class="disclaimer">106 个零件均可独立选择；四轮及制动组件、概念四缸发动机已接入独立机械操作 DAG。完整变速箱、自动碰撞窄相与 OEM CAD 制造精度仍未实现。视觉爆炸预览不会修改机械状态。</div>
@@ -170,6 +172,7 @@ let previewOffsets:Record<string,Vec3>={};
 let engineMechanical:MechanicalEngine|null=null;
 let enginePreviewOffsets:Record<string,Vec3>={};
 let engineSpinning=false;
+let engineCutaway=false;
 let enginePreviousFrame=0;
 const engineJointId="joint.engine.i4.crankshaft";
 const engineStatus=(message:string)=>{$("engine-status").textContent=message;};
@@ -225,6 +228,14 @@ function applyPositions():void{
       const rotation=authored.rotation;
       obj.quaternion.set(rotation[0],rotation[1],rotation[2],rotation[3]);
     }
+  }
+  if(engineFrame){
+    const y=engineFrame.cylinders.map((c,i)=>{
+      const id="engine.piston."+(i+1);
+      return "P"+(i+1)+": "+engineFrame.parts[id].position[1].toFixed(3)+"m";
+    }).join(" · ");
+    $("engine-telemetry").textContent=y+
+      " · 闭环数值误差 "+engineFrame.maxClosureErrorM.toExponential(1)+" m";
   }
   if(selectedHelper)selectedHelper.update();
 }
@@ -286,7 +297,12 @@ function select(id:string):void{
 function updateVisibility():void{
   for(const [id,node] of byId){
     const system=systemFor(id);
-    node.visible=!(bodyHidden&&system==="body")&&(!isolated||id===selectedId);
+    const isEngineShell=engineCutaway&&[
+      "engine.block.cast","engine.cylinder.head","engine.valve.cover",
+      "engine.timing.cover","engine.oil.pan"
+    ].includes(id);
+    node.visible=!(bodyHidden&&system==="body")&&!isEngineShell&&
+      (!isolated||id===selectedId);
   }
   if(selectedHelper)selectedHelper.visible=!selectedId?false:!!byId.get(selectedId)?.visible;
 }
@@ -372,6 +388,10 @@ $("engine-angle").addEventListener("input",()=>{
 $("engine-rotate").addEventListener("click",()=>{
   if(!engineMechanical||operating){engineStatus("引擎未就绪或拆装任务未完成。");return;}
   try{
+    engineCutaway=true;bodyHidden=true;
+    $("engine-cutaway").textContent="恢复发动机外壳";
+    $("body-toggle").textContent="显示车身骨架";
+    updateVisibility();
     const current=engineMechanical.getState().jointAngles[engineJointId]??0;
     engineMechanical.setRevoluteAngle(engineJointId,current,false);
     enginePreviousFrame=0;engineSpinning=true;
@@ -384,7 +404,16 @@ $("engine-stop").addEventListener("click",()=>{
 $("engine-focus").addEventListener("click",()=>{
   camera.position.set(2.9,2.25,.65);
   controls.target.set(.06,.94,-1.44);controls.update();
+  bodyHidden=true;engineCutaway=true;
+  $("body-toggle").textContent="显示车身骨架";
+  $("engine-cutaway").textContent="恢复发动机外壳";
+  updateVisibility();
   select("engine.crankshaft");
+});
+$("engine-cutaway").addEventListener("click",()=>{
+  engineCutaway=!engineCutaway;
+  $("engine-cutaway").textContent=engineCutaway?"恢复发动机外壳":"剖视发动机";
+  updateVisibility();
 });
 $("engine-home").addEventListener("click",()=>{
   engineSpinning=false;
