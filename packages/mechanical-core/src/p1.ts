@@ -80,7 +80,9 @@ export function mateAlignment(asset:MechanicalAsset,state:RuntimeState,mateId:st
   const d=Math.min(1,Math.abs(qa[0]*qb[0]+qa[1]*qb[1]+qa[2]*qb[2]+qa[3]*qb[3]));
   const angleRad=2*Math.acos(d);
   const revolute=asset.joints?.some(j=>j.mateId===mateId&&j.type==="revolute");
-  return {distanceM,angleRad,acceptable:distanceM<=.015&&(revolute||angleRad<=.03)};
+  const distanceLimit=mate.tolerance?.positionM??.015;
+  const angleLimit=mate.tolerance?.angleRad??.03;
+  return {distanceM,angleRad,acceptable:distanceM<=distanceLimit&&(revolute||angleRad<=angleLimit)};
 }
 export function snapPosition(asset:MechanicalAsset,state:RuntimeState,
   sourceConnectorId:string,targetConnectorId:string):Vec3{

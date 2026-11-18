@@ -176,6 +176,11 @@ export function validateAsset(asset: MechanicalAsset): ValidationIssue[] {
     if (m.connectorAId === m.connectorBId) fail("MATE_ENDPOINT", m.id, "Self connection");
     for (const p of m.fastenerPartIds ?? [])
       if (!parts.has(p)) fail("FASTENER", m.id, "Fastener part missing: " + p);
+    if (m.tolerance && (
+      !Number.isFinite(m.tolerance.positionM) || m.tolerance.positionM < 0 ||
+      !Number.isFinite(m.tolerance.angleRad) || m.tolerance.angleRad < 0 ||
+      (m.tolerance.evidence === "cad-reviewed" && !m.tolerance.sourceId?.trim())))
+      fail("MATE_TOLERANCE", m.id, "Invalid tolerance or missing CAD evidence source");
   }
   const nearlyUnit = (v: Vec3) => v.every(Number.isFinite) &&
     Math.abs(Math.hypot(...v) - 1) <= 1e-5;
