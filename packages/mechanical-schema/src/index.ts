@@ -46,6 +46,28 @@ export interface RevoluteJoint {
   id: string; type: "revolute"; mateId: string; drivenPartId: string;
   pivotWorld: Vec3; axisWorld: Vec3; minRad: number; maxRad: number; initialRad: number;
 }
+/**
+ * Four-stroke inline-four slider/crank closure. This is an explicitly authored,
+ * unit-aware kinematic relation, not a general multibody constraint solver.
+ */
+export interface SliderCrankConstraint {
+  id: string; type: "slider-crank";
+  crankJointId: string; crankPartId: string;
+  crankCenterWorld: Vec3;
+  crankAxisWorld: Vec3; pistonAxisWorld: Vec3;
+  throwRadiusM: number; rodLengthM: number;
+  /** Per-cylinder crank phase, indexed in lockstep with the Part IDs. */
+  phasesRad: number[];
+  pistonPartIds: string[]; rodPartIds: string[];
+  pinPartIds: string[]; ringPartIds: string[];
+  /** Source-dependent neutral position from the generated meshes, in meters. */
+  pistonPinToCenterM: number;
+  rodCenterFromCrankM: number;
+  pistonRingFromCenterM: number;
+  authoringTier: "generated-conceptual" | "cad-reviewed";
+  sourceId?: string;
+  requiresMateIds?: string[];
+}
 export type MechanicalJoint = RevoluteJoint;
 export interface CollisionProxy {
   partId: string;
@@ -105,6 +127,7 @@ export interface MechanicalAsset {
   operations: Operation[];
   plans: OperationPlan[];
   joints?: MechanicalJoint[];
+  kinematics?: SliderCrankConstraint[];
   motionPaths?: MotionPath[];
   collisionProxies?: CollisionProxy[];
   flags?: Record<string, boolean>;
@@ -126,7 +149,7 @@ export function validateAsset(asset: MechanicalAsset): ValidationIssue[] {
     issues.push({ severity: "error", code, path, message });
   if (asset.schemaVersion !== "0.1.0") fail("SCHEMA_VERSION", "schemaVersion", "Unsupported schema");
   const entries = [...asset.definitions, ...asset.nodes, ...asset.connectors, ...asset.mates,
-    ...asset.operations, ...asset.plans, ...(asset.joints ?? []), ...(asset.motionPaths ?? [])];
+    ...asset.operations, ...asset.plans, ...(asset.joints ?? []), ...(asset.kinematics ?? []), ...(asset.motionPaths ?? [])];
   const ids = new Set<string>();
   for (const entry of entries) {
     if (!entry.id || ids.has(entry.id)) fail("DUPLICATE_ID", entry.id, "ID missing or duplicated");
@@ -181,6 +204,36 @@ export function validateAsset(asset: MechanicalAsset): ValidationIssue[] {
       !Number.isFinite(m.tolerance.angleRad) || m.tolerance.angleRad < 0 ||
       (m.tolerance.evidence === "cad-reviewed" && !m.tolerance.sourceId?.trim())))
       fail("MATE_TOLERANCE", m.id, "Invalid tolerance or missing CAD evidence source");
+  }
+  for (const k of asset.kinematics ?? []) {
+    if (k.type !== "slider-crank") fail("KINEMATICS_TYPE", k.id, "Unknown mechanism");
+    if (!joints.has(k.crankJointId) || !parts.has(k.crankPartId))
+      fail("KINEMATICS_CRANK", k.id, "Missing driving joint or shaft Part");
+    const driving = joints.get(k.crankJointId);
+    if (driving?.drivenPartId !== k.crankPartId)
+      fail("KINEMATICS_DRIVER", k.id, "Driving joint must rotate the referenced crank Part");
+    const lengths = [k.phasesRad.length,k.pistonPartIds.length,k.rodPartIds.length,
+      k.pinPartIds.length,k.ringPartIds.length];
+    if (lengths.some(n => n !== 4)) fail("KINEMATICS_CYLINDERS", k.id, "I4 requires four unique cylinders");
+    for (const partId of [...k.pistonPartIds,...k.rodPartIds,...k.pinPartIds,...k.ringPartIds])
+      if (!parts.has(partId)) fail("KINEMATICS_PART", k.id, "Missing mechanism Part "+partId);
+    for (const refs of [k.pistonPartIds,k.rodPartIds,k.pinPartIds,k.ringPartIds])
+      if (new Set(refs).size !== refs.length) fail("KINEMATICS_DUPLICATE", k.id, "Repeated Part within a slider set");
+    const values = [k.throwRadiusM,k.rodLengthM,k.pistonPinToCenterM,
+      k.rodCenterFromCrankM,k.pistonRingFromCenterM,...k.phasesRad,...k.crankCenterWorld];
+    if (!values.every(Number.isFinite) || !(k.throwRadiusM > 0) ||
+        !(k.rodLengthM > k.throwRadiusM) ||
+        !(k.rodCenterFromCrankM >= 0 && k.rodCenterFromCrankM <= k.rodLengthM))
+      fail("KINEMATICS_DIMENSIONS", k.id, "Invalid slider-crank dimensions");
+    for (const axis of [k.crankAxisWorld,k.pistonAxisWorld])
+      if (!axis.every(Number.isFinite) || Math.abs(Math.hypot(...axis)-1)>1e-6)
+        fail("KINEMATICS_AXIS", k.id, "Kinematics axis must be a unit vector");
+    const dot = k.crankAxisWorld.reduce((sum,v,i)=>sum+v*k.pistonAxisWorld[i],0);
+    if (Math.abs(dot) > 1e-6) fail("KINEMATICS_AXIS", k.id, "Crank axis must be perpendicular to piston slide");
+    for (const mateId of k.requiresMateIds ?? [])
+      if (!mates.has(mateId)) fail("KINEMATICS_MATE", k.id, "Unknown required mate "+mateId);
+    if (k.authoringTier === "cad-reviewed" && !k.sourceId?.trim())
+      fail("KINEMATICS_SOURCE", k.id, "CAD reviewed mechanism needs source evidence");
   }
   const nearlyUnit = (v: Vec3) => v.every(Number.isFinite) &&
     Math.abs(Math.hypot(...v) - 1) <= 1e-5;
