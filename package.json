@@ -1,15 +1,20 @@
 {
   "name": "mechanical-worlds",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
-    "build": "tsc -p tsconfig.web.json && vite build",
+    "build": "npm run assets:validate && npm run assets:stage && tsc -p tsconfig.web.json && vite build",
     "test": "npm run build:core && node --test tests/*.test.mjs",
     "build:core": "tsc -p tsconfig.core.json",
-    "check": "npm run test && npm run build",
-    "preview": "vite preview --host 0.0.0.0"
+    "check": "npm run skills:check && npm run assets:validate && npm run test && npm run build",
+    "preview": "vite preview --host 0.0.0.0",
+    "skills:sync": "node tools/skills/sync.mjs sync",
+    "skills:check": "node tools/skills/sync.mjs check",
+    "assets:build": "node tools/asset-pipeline/generate-automotive.mjs",
+    "assets:validate": "node tools/asset-pipeline/validate-glb.mjs --report",
+    "assets:stage": "node tools/asset-pipeline/stage-assets.mjs"
   },
   "dependencies": {
     "three": "^0.181.2"

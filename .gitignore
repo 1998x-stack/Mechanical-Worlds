@@ -4,3 +4,6 @@ dist-core/
 .vite/
 .DS_Store
 *.tsbuildinfo
+
+public/models/
+dist-reports/

@@ -22,6 +22,8 @@ jobs:
         with:
           node-version: "22"
       - run: npm install
+      - run: npm run skills:check
+      - run: npm run assets:validate
       - run: npm run test
       - run: GITHUB_PAGES=true npm run build
       - uses: actions/configure-pages@v5
