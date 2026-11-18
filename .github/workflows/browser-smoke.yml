@@ -21,6 +21,12 @@ jobs:
           node-version: "22"
       - run: npm install
       - run: npx playwright install --with-deps chromium
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install cadquery==2.8.0
+      - name: Build BRep GLB so Chromium tests actual CAD mesh replacement
+        run: python tools/cad/generate_engine_reference.py --skip-step --output public/models
       - run: npm run build
       - name: Real Chromium WebGL GLB page and wheel integration smoke
         run: node tests-browser/smoke.mjs

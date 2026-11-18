@@ -41,6 +41,10 @@ try {
   assert.equal(records,106);
   const canvas=await page.locator("#viewport canvas").count();
   assert.equal(canvas,1);
+  await page.waitForFunction(()=>
+    document.getElementById("engine-cad-status")?.textContent?.includes("已加载 18 件真实 B-Rep"),
+    null,{timeout:60000}
+  );
   await page.locator("#engine-focus").click();
   await page.locator("#engine-angle").evaluate(element=>{
     element.value="180";element.dispatchEvent(new Event("input",{bubbles:true}));
@@ -57,7 +61,7 @@ try {
   await page.screenshot({path:"dist-reports/automotive-browser-smoke.png",fullPage:true});
   assert.deepEqual(errors,[],"Browser threw JavaScript exception(s)");
   console.log(JSON.stringify({result:"PASS",loadedGLBParts:records,canvas,
-    crankAngle:180,wheelFlow:"FL remove",browserPageErrors:errors.length},null,2));
+    crankAngle:180,wheelFlow:"FL remove",cadBrepNodes:18,browserPageErrors:errors.length},null,2));
   await context.close();
 } finally {
   if(browser)await browser.close();
