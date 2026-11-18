@@ -4,6 +4,8 @@ dist-core/
 .vite/
 .DS_Store
 *.tsbuildinfo
+.venv/
+__pycache__/
 
 public/models/
 dist-reports/
