@@ -4,7 +4,7 @@ import {
   type MechanicalAsset, type Operation, type OperationPlan,
   type Predicate, type Effect, type Vec3, type PartStatus, type MateStatus
 } from "../../mechanical-schema/src/index.js";
-import { inspectMotion, mateAlignment, screwPreview, jointPreview } from "./p1.js";
+import { inspectMotion, mateAlignment, screwPreview, jointPreview, screwOffset } from "./p1.js";
 
 export interface RuntimeState {
   revision: number;
@@ -138,13 +138,11 @@ export class MechanicalEngine {
     ];
     if (blockers.length) throw new BlockedOperationError(op.id, blockers);
     if (signal?.aborted) throw new Error("Operation aborted");
-    this.busy = true;
     const start = clone(this.state);
     const target = clone(start);
     applyEffects(target, op.effects);
     const collision = inspectMotion(this.asset, start, target, op);
     if (collision && !collision.ok) {
-      this.busy = false;
       throw new BlockedOperationError(op.id, [
         "new collision in " + collision.pathId + " (first obstacle: " +
         collision.contacts[0]?.obstaclePartId + ")"
@@ -153,7 +151,6 @@ export class MechanicalEngine {
     for (const e of op.effects) if (e.kind === "mate" && e.state === "locked") {
       const mate = this.asset.mates.find(m => m.id === e.id);
       if (mate?.verified && !mateAlignment(this.asset, target, e.id).acceptable) {
-        this.busy = false;
         throw new BlockedOperationError(op.id, ["mate anchors misaligned: " + e.id]);
       }
     }
@@ -164,14 +161,19 @@ export class MechanicalEngine {
     const preview = (t: number) => {
       const progress = Math.max(0, Math.min(1, t));
       const offsets: Record<string, Vec3> = {};
-      for (const e of op.effects) if (e.kind === "offset")
-        offsets[e.id] = lerp(start.offsets[e.id] ?? zero(), e.value, progress);
+      for (const e of op.effects) if (e.kind === "offset") {
+        const path = this.asset.motionPaths?.find(path => path.id === op.pathId);
+        offsets[e.id] = path?.kind === "screw"
+          ? screwOffset(path, start.offsets[e.id] ?? zero(), e.value, progress, op.intent)
+          : lerp(start.offsets[e.id] ?? zero(), e.value, progress);
+      }
       this.emit({
         type: "preview", operationId, progress, offsets,
         jointAngles: jointPreview(op, start, progress),
         screwRotations: screwPreview(this.asset, op, progress)
       });
     };
+    this.busy = true;
     try {
       await this.driver.play(op.durationMs, preview, signal);
       if (signal?.aborted) throw new Error("Operation aborted");
