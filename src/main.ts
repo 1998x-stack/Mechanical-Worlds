@@ -1,4 +1,5 @@
 import "./style.css";
+import automotiveCatalog from "../assets/catalog/automotive-fwd-i4-001.json";
 import { MechanicalEngine, type AnimationDriver } from "../packages/mechanical-core/src/index.js";
 import { createP1WheelAsset, createP1GlassesAsset } from "../packages/mechanical-core/src/p1-fixtures.js";
 import { mateAlignment } from "../packages/mechanical-core/src/p1.js";
@@ -40,6 +41,7 @@ $("app").innerHTML=`
     <button id="scenario-glasses" class="scenario"><span class="scenario-symbol">⌐</span><span><b>机械眼镜</b><small>镜片 · 镜腿 · 铰链 · 螺钉</small></span>›</button>
     <div class="caption second">机械结构 / ASSEMBLY TREE</div>
     <div id="tree" class="tree"></div>
+    <button id="show-catalog" class="catalog-launch"><span>▤ &nbsp; 整车零件目录</span><strong>317 PARTS</strong><small>六大系统 · 规划中的 CAD 资产</small></button>
     <div class="sidebar-foot"><span class="status-dot"></span>SCHEMA 0.1 · CORE 0.1</div>
   </aside>
   <main class="main">
@@ -89,6 +91,25 @@ $("app").innerHTML=`
     </div>
     <footer><span>TRANSACTIONAL ASSEMBLY ENGINE</span><span>程序化演示几何 · 非实际维修指引</span><span id="revision">REV 0</span></footer>
   </main>
+  <div id="catalog-modal" class="catalog-modal" hidden role="dialog" aria-modal="true" aria-labelledby="catalog-title">
+    <div class="catalog-card">
+      <div class="catalog-header">
+        <div><div class="eyebrow">ASSET CATALOG / PLANNED</div><h2 id="catalog-title">汽车完整机械零件目录</h2>
+          <p>317 个待制作零件 · 42 个装配节点。仅表示结构规划，不代表已完成 GLB 或 CAD 校验。</p></div>
+        <button id="close-catalog" aria-label="关闭目录">✕</button>
+      </div>
+      <div class="catalog-filters"><input id="catalog-search" type="search" placeholder="搜索零件名称或 ID…" aria-label="搜索零件"/>
+        <select id="catalog-system" aria-label="筛选系统">
+          <option value="all">全部系统</option><option value="body">车身系统</option>
+          <option value="chassis">底盘系统</option><option value="powertrain">动力系统</option>
+          <option value="wheels">车轮系统</option><option value="interior">内饰系统</option>
+          <option value="electrical">电气系统</option>
+        </select></div>
+      <div id="catalog-count" class="catalog-count"></div>
+      <div id="catalog-records" class="catalog-records"></div>
+      <div class="catalog-bottom">所有条目状态：PLANNED · 需要来源合规的 CAD/STEP、连接标注与拆装质量审核</div>
+    </div>
+  </div>
 </div>`;
 
 let scenario:Scenario="wheel";
@@ -236,3 +257,36 @@ $("acceptance").addEventListener("click",async()=>{
   status(rows.every(r=>r.includes("pass"))?"双案例验收通过。":"自动验收未全部通过，请检查错误信息。");
 });
 loadScenario();
+
+const catalogRecords=automotiveCatalog.records;
+const catalogIndex=new Map(catalogRecords.map(n=>[n.id,n]));
+const catalogSystemOf=(id:string):string=>{
+  let current=catalogIndex.get(id);
+  while(current && current.parentId && current.parentId!=="vehicle")
+    current=catalogIndex.get(current.parentId);
+  return current?.id??"unknown";
+};
+function renderCatalog():void{
+  const query=($("catalog-search") as HTMLInputElement).value.trim().toLowerCase();
+  const system=($("catalog-system") as HTMLSelectElement).value;
+  const matched=catalogRecords.filter(n=>(system==="all"||catalogSystemOf(n.id)===system) &&
+    (!query||n.nameZh.toLowerCase().includes(query)||n.id.toLowerCase().includes(query)));
+  $("catalog-count").textContent="匹配 "+matched.length+" 条 · 显示前 "+Math.min(120,matched.length)+" 条";
+  $("catalog-records").innerHTML=matched.slice(0,120).map(n=>
+    '<div class="catalog-record"><span class="catalog-kind">'+(n.kind==="assembly"?"ASSEMBLY":"PART")+
+    '</span><div><strong>'+n.nameZh+'</strong><small>'+n.id+
+    '</small></div><span class="catalog-planned">PLANNED</span></div>').join("");
+}
+$("show-catalog").addEventListener("click",()=>{
+  $("catalog-modal").hidden=false;renderCatalog();
+  ($("catalog-search") as HTMLInputElement).focus();
+});
+$("close-catalog").addEventListener("click",()=>{$("catalog-modal").hidden=true;});
+$("catalog-modal").addEventListener("click",event=>{
+  if(event.target===$("catalog-modal"))$("catalog-modal").hidden=true;
+});
+$("catalog-search").addEventListener("input",renderCatalog);
+$("catalog-system").addEventListener("change",renderCatalog);
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape")$("catalog-modal").hidden=true;
+});
