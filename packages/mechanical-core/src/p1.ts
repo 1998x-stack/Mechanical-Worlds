@@ -104,8 +104,24 @@ function bounds(asset:MechanicalAsset,state:RuntimeState,proxy:CollisionProxy):B
 function overlap(a:Box,b:Box):boolean{
   return [0,1,2].every(i=>a.min[i]<b.max[i]-1e-8&&b.min[i]<a.max[i]-1e-8);
 }
+export function screwOffset(path:MotionPath,start:Vec3,end:Vec3,t:number,
+  intent:"disassemble"|"assemble"|"operate"):Vec3{
+  if(path.kind!=="screw"||!path.axisWorld||!path.axialTravelM)return lerp(start,end,t);
+  const fraction=path.screwPhaseFraction??.5;
+  const axial=scale(path.axisWorld,path.axialTravelM);
+  if(intent==="assemble"){
+    const approachFraction=1-fraction;
+    const approach=sub(end,axial);
+    return t<=approachFraction
+      ?lerp(start,approach,t/approachFraction)
+      :lerp(approach,end,(t-approachFraction)/fraction);
+  }
+  const endOfThreads=add(start,axial);
+  return t<=fraction?lerp(start,endOfThreads,t/fraction):
+    lerp(endOfThreads,end,(t-fraction)/(1-fraction));
+}
 export function checkPathCollision(asset:MechanicalAsset,before:RuntimeState,after:RuntimeState,
-  path:MotionPath):CollisionReport{
+  path:MotionPath,intent:"disassemble"|"assemble"|"operate"="disassemble"):CollisionReport{
   const proxies=asset.collisionProxies??[];
   const moving=new Set(path.targetPartIds),ignored=new Set(path.ignorePartIds??[]);
   const movers=proxies.filter(p=>moving.has(p.partId));
@@ -119,7 +135,10 @@ export function checkPathCollision(asset:MechanicalAsset,before:RuntimeState,aft
   for(let step=1;step<=samples;step++){
     const t=step/samples;
     const s:RuntimeState={...before,offsets:{...before.offsets},jointAngles:{...before.jointAngles}};
-    for(const id of moving)s.offsets[id]=lerp(before.offsets[id]??[0,0,0],after.offsets[id]??[0,0,0],t);
+    for(const id of moving){
+      const start:Vec3=before.offsets[id]??[0,0,0],end:Vec3=after.offsets[id]??[0,0,0];
+      s.offsets[id]=path.kind==="screw"?screwOffset(path,start,end,t,intent):lerp(start,end,t);
+    }
     if(path.kind==="hinge"&&path.jointId)
       s.jointAngles[path.jointId]=(before.jointAngles[path.jointId]??0)+
         ((after.jointAngles[path.jointId]??0)-(before.jointAngles[path.jointId]??0))*t;
@@ -141,15 +160,19 @@ export function inspectMotion(asset:MechanicalAsset,before:RuntimeState,after:Ru
   if(!op.pathId)return null;
   const path=asset.motionPaths?.find(p=>p.id===op.pathId);
   if(!path)throw new Error("Unknown path "+op.pathId);
-  return checkPathCollision(asset,before,after,path);
+  return checkPathCollision(asset,before,after,path,op.intent);
 }
 export function screwPreview(asset:MechanicalAsset,op:Operation,t:number):
   Record<string,{axis:Vec3;angleRad:number}>{
   const path=asset.motionPaths?.find(p=>p.id===op.pathId);
   if(path?.kind!=="screw"||!path.axisWorld||!path.turns)return {};
   const axis=path.axisWorld,turns=path.turns;
+  const fraction=path.screwPhaseFraction??.5;
+  const spinProgress=op.intent==="assemble"
+    ?Math.max(0,Math.min(1,(t-(1-fraction))/fraction))
+    :Math.max(0,Math.min(1,t/fraction));
   return Object.fromEntries(path.targetPartIds.map(id=>
-    [id,{axis,angleRad:2*Math.PI*turns*t}]));
+    [id,{axis,angleRad:2*Math.PI*turns*spinProgress}]));
 }
 export function jointPreview(op:Operation,state:RuntimeState,t:number):Record<string,number>{
   const values:Record<string,number>={};
