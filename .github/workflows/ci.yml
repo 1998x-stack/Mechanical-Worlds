@@ -21,4 +21,4 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: automotive-glb-qa
-          path: dist-reports/automotive-batch-01-qa.json
+          path: dist-reports/*.json

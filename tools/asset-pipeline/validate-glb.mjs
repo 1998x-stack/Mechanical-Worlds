@@ -99,7 +99,7 @@ const catalogIndex=new Map(catalog.records.map(row=>[row.id,row]));
 assert.equal(catalogIndex.size,catalog.records.length,"Duplicate catalog records");
 let rendered=0;
 for(const entry of catalog.records.filter(r=>r.kind==="part")){
-  if(entry.geometryStatus==="generated"){
+  if(entry.geometryStatus==="generated" && entry.geometryUri===manifest.geometryUri){
     rendered++;
     assert.ok(expected.has(entry.id),"Catalog falsely marked generated: "+entry.id);
     assert.equal(entry.geometryNodeName,entry.id);
@@ -118,7 +118,7 @@ for(const part of manifest.parts){
   assert.ok(part.triangles>0);
 }
 assert.equal(rendered,manifest.parts.length,"Generated status count");
-assert.equal(catalog.stats.generatedParts,rendered);
+assert.equal(catalog.stats.generatedParts,catalog.records.filter(row=>row.kind==="part"&&row.geometryStatus==="generated").length);
 assert.equal(catalog.stats.plannedParts,catalog.records.filter(row=>row.kind==="part"&&row.geometryStatus==="planned").length);
 const gitSha=createHash("sha1").update(Buffer.from("blob "+bytes.length+"\0")).update(bytes).digest("hex");
 assert.equal(gitSha,manifest.gitBlobSha,"Committed binary differs from declared Git content hash");
