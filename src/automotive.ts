@@ -3,16 +3,18 @@ import * as THREE from "three";
 import {GLTFLoader} from "three/addons/loaders/GLTFLoader.js";
 import {OrbitControls} from "three/addons/controls/OrbitControls.js";
 import catalog from "../assets/catalog/automotive-fwd-i4-001.json";
-import manifest from "../assets/generated/automotive/manifest.json";
+import manifest01 from "../assets/generated/automotive/manifest.json";
+import manifest02 from "../assets/generated/automotive/manifest-02.json";
+const manifests=[manifest01,manifest02];
 
 type CatalogPart=typeof catalog.records[number];
 const generated=catalog.records.filter(row=>row.kind==="part"&&row.geometryStatus==="generated");
 const recordMap=new Map(catalog.records.map(row=>[row.id,row]));
-const geometryMap=new Map(manifest.parts.map(row=>[row.id,row]));
+const geometryMap=new Map(manifests.flatMap(manifest=>manifest.parts.map(row=>[row.id,{...row,batchId:manifest.batchId}])));
 const $=(id:string)=>document.getElementById(id)!;
 const systemNames:Record<string,string>={
   all:"全部系统",body:"车身骨架",chassis:"底盘／制动／悬架",
-  wheels:"车轮总成",powertrain:"动力总成（待建模）",
+  wheels:"车轮总成",powertrain:"发动机 / 传动系",
   interior:"内饰（待建模）",electrical:"电气（待建模）"
 };
 function systemFor(id:string):string{
@@ -45,14 +47,14 @@ $("car-app").innerHTML=`
       <a class="github" href="https://github.com/1998x-stack/Mechanical-Worlds" target="_blank" rel="noopener noreferrer">查看源码 ↗</a>
     </header>
     <section class="heading">
-      <div><div class="eyebrow">FIRST REAL GLB GEOMETRY BATCH</div>
+      <div><div class="eyebrow">TWO REAL GLB GEOMETRY BATCHES</div>
         <h1>汽车 · 结构化三维资产</h1>
-        <p>已输出带独立部件 ID 的 glTF 2.0 模型：车身骨架、四轮、轮毂、制动器、悬架与转向部件。</p></div>
+        <p>已输出两批独立零件 GLB：车身骨架、四轮、悬架、制动系统，以及四缸发动机和差速器概念几何。</p></div>
       <span class="status">● GENERATED GEOMETRY</span>
     </section>
     <div id="viewport-wrap">
       <div id="viewport"></div>
-      <div class="viewport-top">THREE.JS · GLTFLOADER · ${manifest.parts.length} NAMED PARTS</div>
+      <div class="viewport-top">THREE.JS · GLTFLOADER · ${generated.length} NAMED PARTS</div>
       <div class="viewport-bottom">左键拖动旋转 · 右键平移 · 滚轮缩放 · 点击模型选择</div>
       <div id="loading" class="loading">正在加载真实 GLB 几何与材质…</div>
     </div>
@@ -71,17 +73,17 @@ $("car-app").innerHTML=`
     <div id="inspector" class="inspector empty">点击场景中的零件，或在左侧列表选中查看属性。</div>
     <div class="panel-label">GEOMETRY RELEASE</div>
     <div class="release">
-      <div class="pair"><span>批次 ID</span><b>${manifest.batchId}</b></div>
-      <div class="pair"><span>Part Nodes</span><b>${manifest.parts.length}</b></div>
-      <div class="pair"><span>Mesh Templates</span><b>${manifest.uniqueMeshTemplates}</b></div>
-      <div class="pair"><span>Triangle Faces</span><b>${manifest.uniqueTriangles.toLocaleString()}</b></div>
-      <div class="pair"><span>GLB 大小</span><b>${(manifest.bytes/1048576).toFixed(2)} MiB</b></div>
+      <div class="pair"><span>资产批次</span><b>Batch 01 / 02</b></div>
+      <div class="pair"><span>Part Nodes</span><b>${generated.length}</b></div>
+      <div class="pair"><span>Mesh Templates</span><b>${manifests.reduce((sum,m)=>sum+m.uniqueMeshTemplates,0)}</b></div>
+      <div class="pair"><span>Template Triangles</span><b>${manifests.reduce((sum,m)=>sum+m.uniqueTriangles,0).toLocaleString()}</b></div>
+      <div class="pair"><span>GLB 大小</span><b>${(manifests.reduce((sum,m)=>sum+m.bytes,0)/1048576).toFixed(2)} MiB</b></div>
       <div class="pair"><span>坐标单位</span><b>m · RH +Y</b></div>
       <div class="pair"><span>工程复核</span><b class="warn">NOT VERIFIED</b></div>
     </div>
-    <a class="manifest-link" href="${import.meta.env.BASE_URL}models/automotive-fwd-i4-batch-01-manifest.json" target="_blank" rel="noopener noreferrer">查看几何资产 Manifest ↗</a>
+    <a class="manifest-link" href="${import.meta.env.BASE_URL}models/automotive-fwd-i4-batch-02-manifest.json" target="_blank" rel="noopener noreferrer">查看新增动力系统 Manifest ↗</a>
     <div class="panel-label next">NEXT BATCH</div>
-    <p class="pending">发动机、传动箱、完整座椅、车门和电气组件仍处于规划阶段，需后续逐批建模、验证和接入。</p>
+    <p class="pending">发动机已经生成首批 30 件概念 GLB；完整齿轮箱、座椅、车门和电气系统仍有大量规划零件尚未建模。</p>
   </aside>
 </div>`;
 const scene=new THREE.Scene();
@@ -150,6 +152,7 @@ function displayPart(id:string):void{
     '<div class="monospace">'+record.id+'</div>',
     '<div class="pair"><span>子系统</span><b>'+systemNames[systemFor(id)]+'</b></div>',
     '<div class="pair"><span>Mesh 类别</span><b>'+g.meshType+'</b></div>',
+    '<div class="pair"><span>来源批次</span><b>'+g.batchId+'</b></div>',
     '<div class="pair"><span>模板三角面</span><b>'+g.triangles.toLocaleString()+'</b></div>',
     '<div class="pair"><span>世界尺寸</span><b>'+dims+'</b></div>',
     '<div class="pair"><span>几何状态</span><b class="good">generated</b></div>',
@@ -175,7 +178,7 @@ function updateVisibility():void{
   }
   if(selectedHelper)selectedHelper.visible=!selectedId?false:!!byId.get(selectedId)?.visible;
 }
-const systemKeys=["all","body","chassis","wheels"];
+const systemKeys=["all","body","chassis","wheels","powertrain"];
 function renderFilters():void{
   $("filters").innerHTML=systemKeys.map(id=>'<button class="filter '+(filter===id?'active':'')+'" data-filter="'+id+'">'+systemNames[id]+'</button>').join("");
   document.querySelectorAll<HTMLElement>("[data-filter]").forEach(node=>
@@ -221,29 +224,38 @@ $("explosion").addEventListener("click",()=>{
 });
 $("camera").addEventListener("click",()=>{camera.position.set(5.2,3.8,5.8);controls.target.set(0,.6,0);controls.update();});
 renderFilters();renderList();
-const url=import.meta.env.BASE_URL+"models/automotive-fwd-i4-batch-01.glb";
-new GLTFLoader().load(url,gltf=>{
-  root=gltf.scene;
-  scene.add(root);
-  // The generator exports exactly one top-level glTF node per catalog Part instance.
-  for(let i=0;i<root.children.length;i++){
-    const node=root.children[i],id=manifest.parts[i]?.id;
-    if(!id)continue;
-    node.userData.partId=id;
-    node.traverse(child=>child.userData.partId=id);
-    byId.set(id,node);
-    originalPos.set(id,node.position.clone());
-  }
-  const missing=manifest.parts.filter(part=>!byId.has(part.id));
-  if(missing.length){$("loading").textContent="GLB 节点映射不完整："+missing.length+" 个";return;}
+const loader=new GLTFLoader();
+const imported=new THREE.Group();
+const waiters=manifests.map((manifest,batchIndex)=>new Promise<void>((resolve,reject)=>{
+  const filename="automotive-fwd-i4-batch-"+String(batchIndex+1).padStart(2,"0")+".glb";
+  loader.load(import.meta.env.BASE_URL+"models/"+filename,gltf=>{
+    if(gltf.scene.children.length!==manifest.parts.length){
+      reject(new Error(filename+": expected "+manifest.parts.length+" named Parts, found "+gltf.scene.children.length));return;
+    }
+    for(let i=0;i<manifest.parts.length;i++){
+      const node=gltf.scene.children[i],id=manifest.parts[i].id;
+      if(byId.has(id)){reject(new Error("Duplicate GLB Part ID: "+id));return;}
+      node.name=id;
+      node.userData.partId=id;
+      node.traverse(child=>child.userData.partId=id);
+      imported.add(node);
+      byId.set(id,node);
+      originalPos.set(id,node.position.clone());
+    }
+    $("loading").textContent="已加载 "+byId.size+" / "+generated.length+" 个实际 GLB 零件";
+    resolve();
+  },undefined,reject);
+}));
+Promise.all(waiters).then(()=>{
+  root=imported;scene.add(root);
+  const missing=generated.filter(row=>!byId.has(row.id));
+  if(missing.length)throw new Error("缺少 "+missing.length+" 个已标记生成的 GLB 零件");
   $("loading").style.display="none";
-  $("render-info").textContent=manifest.parts.length+" GLB PARTS LOADED";
+  $("render-info").textContent=byId.size+" GLB PARTS LOADED";
   updateVisibility();
-  select(manifest.parts.find(p=>p.id==="wheel.fl.rim")?.id??manifest.parts[0].id);
-},progress=>{
-  if(progress.total)$("loading").textContent="GLB 加载："+Math.round(100*progress.loaded/progress.total)+"%";
-},error=>{
-  $("loading").textContent="GLB 加载失败："+String(error);
+  select(geometryMap.has("engine.crankshaft")?"engine.crankshaft":generated[0].id);
+}).catch(error=>{
+  $("loading").textContent="资产载入失败："+String(error);
   $("render-info").textContent="LOAD ERROR";
 });
 function animate():void{
