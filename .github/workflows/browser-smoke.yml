@@ -30,9 +30,15 @@ jobs:
       - run: npm run build
       - name: Real Chromium WebGL GLB page and wheel integration smoke
         run: node tests-browser/smoke.mjs
+      - name: Real Chromium acceptance (4 corners, crank phases, teardown guard, undo/redo, catalog)
+        run: node tests-browser/acceptance.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: automotive-playwright-smoke-screenshot
-          path: dist-reports/automotive-browser-smoke.png
+          path: |
+            dist-reports/automotive-browser-smoke.png
+            dist-reports/acceptance-automotive.png
+            dist-reports/acceptance-index.png
+            dist-reports/browser-acceptance.json
           if-no-files-found: ignore
