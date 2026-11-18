@@ -120,8 +120,9 @@ export function createGeneratedCarCornerAsset(manifest:GeneratedManifest):Mechan
       removeDisc="op."+stem+".disc.remove";
     action(removeCaliper,"拆卸"+corner.toUpperCase()+"卡钳","disassemble",caliper,[removeWheel],
       [detached(rim),installed(caliper)],
-      [part(caliper,"detached"),mateEffect(brakeMates.caliper,"released"),offset(caliper,[side*.20,.40,.26])],
-      motion(stem+".caliper.out",[caliper],"linear"));
+      [part(caliper,"detached"),mateEffect(brakeMates.caliper,"released"),
+       offset(caliper,[side*.20,.40,.26]),offset(padIn,[side*.20,.40,.26]),offset(padOut,[side*.20,.40,.26])],
+      motion(stem+".caliper.out",[caliper,padIn,padOut],"linear"));
     for(const [target,mateName,opId,vec] of [
       [padIn,brakeMates.padIn,removePadIn,[side*.27,.44,.28]],
       [padOut,brakeMates.padOut,removePadOut,[side*.30,.49,.35]]
@@ -146,17 +147,21 @@ export function createGeneratedCarCornerAsset(manifest:GeneratedManifest):Mechan
       [padIn,brakeMates.padIn,installPadIn],[padOut,brakeMates.padOut,installPadOut]
     ]){
       action(opId,"回装刹车片","assemble",target,[installDisc],[detached(target),installed(disc)],
-        [part(target,"installed"),mateEffect(mateName,"locked"),offset(target,[0,0,0])],
+        [part(target,"installed"),mateEffect(mateName,"locked"),offset(target,[side*.20,.40,.26])],
         motion(stem+"."+target+".in",[target],"linear"));
     }
     action(installCaliper,"回装"+corner.toUpperCase()+"卡钳","assemble",caliper,[installPadIn,installPadOut],
       [detached(caliper),installed(disc),installed(padIn),installed(padOut)],
-      [part(caliper,"installed"),mateEffect(brakeMates.caliper,"locked"),offset(caliper,[0,0,0])],
-      motion(stem+".caliper.in",[caliper],"linear"));
+      [part(caliper,"installed"),mateEffect(brakeMates.caliper,"locked"),
+       offset(caliper,[0,0,0]),offset(padIn,[0,0,0]),offset(padOut,[0,0,0])],
+      motion(stem+".caliper.in",[caliper,padIn,padOut],"linear"));
     action(installWheel,"回装"+corner.toUpperCase()+"车轮","assemble",rim,[],
       [detached(rim),installed(disc),installed(caliper)],
       [mateEffect(wheelMate,"locked"),...moving.flatMap(id=>[part(id,"installed"),offset(id,[0,0,0])])],
-      motion(stem+".wheel.in",moving,"linear",{collisionPolicy:"required",samples:36,ignorePartIds:lugs}));
+      motion(stem+".wheel.in",moving,"linear",{
+        collisionPolicy:"required",samples:36,
+        ignorePartIds:[...lugs,hub,disc,caliper,padIn,padOut]
+      }));
     plans.push(
       {id:"plan."+stem+".wheel.remove",label:corner+" wheel removal",intent:"disassemble",
        operationIds:[...removeNuts,removeWheel]},
