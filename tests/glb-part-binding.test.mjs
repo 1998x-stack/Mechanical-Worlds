@@ -42,7 +42,7 @@ test("invalid or duplicate catalog Part IDs do not partially reparent a GLB",()=
  const a=new THREE.Object3D();a.name="a";
  const b=new THREE.Object3D();b.name="b";
  src.add(a,b);
- assert.throws(()=>transferGlbParts(src,dest,[{id:"a"},{id:"missing"}]),/missing exact/);
+ assert.throws(()=>transferGlbParts(src,dest,[{id:"a"},{id:"missing"}]),/missing catalog/);
  assert.equal(dest.children.length,0);
  assert.equal(src.children.length,2);
  assert.throws(()=>transferGlbParts(src,dest,[{id:"a"},{id:"a"}]),/Duplicate/);
