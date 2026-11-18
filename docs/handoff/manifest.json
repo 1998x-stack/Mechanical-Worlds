@@ -95,11 +95,18 @@
     {"path": "dist-cad/engine-i4/engine-i4-mesh-ccd-audit.json", "note": "NOT_VERIFIED; true-pose 720-degree sweep"}
   ],
   "deployment": {
-    "status": "NOT_VERIFIED",
+    "status": "PR_OPEN_NOT_DEPLOYED",
     "url": "https://1998x-stack.github.io/Mechanical-Worlds/",
-    "evidence": "Live (previous) deployment reachable: automotive.html HTTP 200, STEP HTTP 200. This commit is not yet deployed; re-verify after push."
+    "evidence": "Live (previous) deployment reachable: automotive.html HTTP 200, STEP HTTP 200. This branch is NOT deployed: pages.yml only runs on a push to main. Re-verify after merge."
   },
-  "pullRequest": {"status": "PENDING_AUTHORIZATION", "url": null, "branch": "agent/pi/handoff-and-browser-acceptance"},
+  "ci": {
+    "trigger": "pull_request on PR #1",
+    "validate": {"workflow": "ci.yml", "result": "success", "seconds": 16, "runId": 44267081379},
+    "cad": {"workflow": "cad-reference.yml", "result": "success", "seconds": 426, "runId": 44267081336},
+    "browser": {"workflow": "browser-smoke.yml", "result": "success", "seconds": 397, "runId": 44267081578},
+    "pages": {"workflow": "pages.yml", "result": "skipped (main-only)"}
+  },
+  "pullRequest": {"status": "OPEN", "url": "https://github.com/1998x-stack/Mechanical-Worlds/pull/1", "number": 1, "mergeable": "MERGEABLE", "branch": "agent/pi/handoff-and-browser-acceptance"},
   "geometryConfidence": {
     "tier": "generated-conceptual",
     "cadBRepTier": "parametric-brep-unreviewed",

@@ -30,8 +30,9 @@
 | 18 | Core 驱动阻断 | 验收 [E] | 26 步拆解后旋转曲轴被阻断 | PASS | acceptance json | 否 |
 | 19 | Undo/Redo/Reset + 数量真实性 | 验收 [G] | 撤销/重做/重置通过；首页 `106 GENERATED / 211 PLANNED` | PASS | acceptance json | 否 |
 | 20 | **Pages base 子路径** | `npm run test:pages-base` | `/Mechanical-Worlds/` 下 index+automotive 200、106 parts、18 CAD、`?utm_source` 生效、0 pageerror/0 同源失败 | PASS | dist-pages/ | 否 |
-| 21 | 线上 Pages（只读） | `curl` | `automotive.html` 200、STEP 200 | PASS（旧部署） | curl | 是（部署后重跑） |
-| 22 | CI / CAD / Browser 工作流 | GitHub Actions | 本提交未推送 → 未触发 | NOT_RUN | — | 是（推送后核对） |
+| 21 | 线上 Pages（只读） | `curl` | `automotive.html` 200、STEP 200 | PASS（旧部署） | curl | 是（合并后重跑） |
+| 22 | **CI / CAD / Browser 工作流（PR）** | GitHub Actions on PR #1 | `validate` 16s PASS；`cad` 7m06s PASS；`chromium-glb` 6m37s PASS | PASS | run 44267081379 / 44267081336 / 44267081578 | 否 |
+| 23 | Pages 部署工作流 | `pages.yml` | 仅在 `main` 推送时触发；PR 未部署 | NOT_RUN | — | 是（合并后核对） |
 
 ## 待人工复核
 

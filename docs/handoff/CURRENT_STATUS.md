@@ -12,7 +12,7 @@
 | `main` 基线 | `bb74622cdc9327eab82b409f37bd3e56ce1eb521`（未改动） |
 | 本轮起始 SHA | `c843033b5d0e7bd27f06cc35d0fcd8b92fe75180`（第一轮 HEAD） |
 | 本轮结果 SHA | 见 `manifest.json` 的 `resultCommit` |
-| 远端/PR | 见 `manifest.json` 的 `deployment`/`pullRequest` |
+| 远端/PR | 分支已推送；PR **#1**（OPEN，MERGEABLE）：https://github.com/1998x-stack/Mechanical-Worlds/pull/1 |
 
 ## 环境（本轮实测）
 

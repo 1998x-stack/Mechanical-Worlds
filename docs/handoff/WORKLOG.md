@@ -129,11 +129,14 @@ README.md / .gitignore                    # 文档与忽略 dist-pages/
 docs/handoff/*                            # 本目录更新
 ```
 
-### 提交
+### 提交 / 远端 / CI
 
-- 工作分支：`agent/pi/handoff-and-browser-acceptance`
-- 结果 SHA：见 `manifest.json`
-- 推送/PR：见 `manifest.json` 的 `deployment`、`pullRequest`。
+- 工作分支：`agent/pi/handoff-and-browser-acceptance`（已推送）。
+- 结果 SHA：`96ab23f`（代码+文档主提交）；其后为 bookkeeping / CI 工作流提交。
+- PR：**#1** https://github.com/1998x-stack/Mechanical-Worlds/pull/1 （OPEN，MERGEABLE；`main` 未改动）。
+- **补上 CI 覆盖缺口**：`cad-reference.yml`、`browser-smoke.yml` 原先只在 `main` 触发，PR 得不到 CAD/浏览器验证；已加 `pull_request` 触发。
+- PR 检查（`pull_request`）：`validate`（ci.yml）**success 16s**、`cad`（cad-reference.yml）**success 7m06s**、`chromium-glb`（browser-smoke.yml）**success 6m37s**。
+- Pages（`pages.yml`）：仅 `main` 推送触发 → 本 PR **未部署**（合并后重跑）。
 
 ### 未完成 / 延续
 
