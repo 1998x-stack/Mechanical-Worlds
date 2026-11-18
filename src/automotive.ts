@@ -110,7 +110,7 @@ $("car-app").innerHTML=`
       <div id="engine-cad-status" class="engine-telemetry">基础 GLB：概念网格；CAD B-Rep 版本尚未载入。</div>
       <div class="engine-note">剖视模式中的彩色连杆线和关节点，是数学约束中心线（非制造几何）；4 个活塞和连杆均由同一曲轴角度求解，凸轮轴按 2:1 转动。源 GLB 的曲柄形状仍有需要通过 CAD 修正的偏差。<a href="${import.meta.env.BASE_URL}models/engine-i4-kinematics-contract.json" target="_blank" rel="noopener noreferrer">检查运动学合同</a> · <a href="${import.meta.env.BASE_URL}models/engine-i4-axial-clearance.json" target="_blank" rel="noopener noreferrer">查看跨缸几何间隔审查</a> · <a href="${import.meta.env.BASE_URL}models/engine-i4-concept-reference.step" download>下载 18 件 B-Rep CAD STEP</a></div>
     </section>
-    <div class="disclaimer">106 个零件均可独立选择；四轮及制动组件、概念四缸发动机已接入独立机械操作 DAG。完整变速箱、自动碰撞窄相与 OEM CAD 制造精度仍未实现。视觉爆炸预览不会修改机械状态。</div>
+    <div class="disclaimer">${generated.length} 个零件均可独立选择；四轮及制动组件、概念四缸发动机已接入独立机械操作 DAG。完整变速箱、自动碰撞窄相与 OEM CAD 制造精度仍未实现。视觉爆炸预览不会修改机械状态。</div>
     <footer>MECHANICAL WORLDS · CONCEPT GEOMETRY ENGINE <span id="render-info">GLB LOADING</span></footer>
   </main>
   <aside class="right">

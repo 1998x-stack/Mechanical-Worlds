@@ -6,6 +6,13 @@ on:
       - "tools/cad/**"
       - "tests-cad/**"
       - ".github/workflows/cad-reference.yml"
+  pull_request:
+    paths:
+      - "tools/cad/**"
+      - "tests-cad/**"
+      - "src/mesh-ccd.mjs"
+      - "packages/mechanical-core/src/engine-i4.ts"
+      - ".github/workflows/cad-reference.yml"
   workflow_dispatch:
 permissions:
   contents: read

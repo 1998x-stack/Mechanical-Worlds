@@ -4,7 +4,7 @@ import {readFileSync} from "node:fs";
 import {MechanicalEngine,BlockedOperationError} from "../dist-core/packages/mechanical-core/src/index.js";
 import {validateAsset} from "../dist-core/packages/mechanical-schema/src/index.js";
 import {
-  createEngineI4Asset,engineI4Constraint,solveEngineI4
+  createEngineI4Asset,engineI4Constraint,solveEngineI4,engineI4SpeedBounds
 } from "../dist-core/packages/mechanical-core/src/engine-i4.js";
 import {mateAlignment} from "../dist-core/packages/mechanical-core/src/p1.js";
 
@@ -142,4 +142,50 @@ test("schema rejects malformed crank geometry and unknown cylinder instance IDs"
   withoutEvidence.kinematics[0].authoringTier="cad-reviewed";
   withoutEvidence.kinematics[0].sourceId="";
   assert.ok(validateAsset(withoutEvidence).some(x=>x.code==="KINEMATICS_SOURCE"));
+});
+
+test("engineI4 speed bounds are rigorous upper bounds on the true slider-crank motion",()=>{
+  const a=create(), constraint=engineI4Constraint(a);
+  const bounds=engineI4SpeedBounds(constraint);
+  const movable=Object.keys(bounds);
+  assert.ok(movable.length>=13, "expect crank, pulley, 2 cams, 4 pistons, 4 rods, 4 pins/rings");
+  const h=1e-4, samples=4001, span=Math.PI*8;
+  const maxTrans={}, maxRot={};
+  const pose=(id,t)=>solveEngineI4(constraint,t,source).parts[id];
+  const angleBetween=(q0,q1)=>2*Math.acos(Math.min(1,Math.abs(
+    q0[0]*q1[0]+q0[1]*q1[1]+q0[2]*q1[2]+q0[3]*q1[3])));
+  for(const id of movable){
+    maxTrans[id]=0; maxRot[id]=0;
+    for(let k=0;k<=samples;k++){
+      const t=k*span/samples;
+      const lo=pose(id,t-h),hi=pose(id,t+h);
+      const dt=Math.hypot(hi.position[0]-lo.position[0],hi.position[1]-lo.position[1],
+        hi.position[2]-lo.position[2])/(2*h);
+      const dr=angleBetween(lo.rotation,hi.rotation)/(2*h);
+      if(dt>maxTrans[id])maxTrans[id]=dt;
+      if(dr>maxRot[id])maxRot[id]=dr;
+    }
+  }
+  for(const id of movable){
+    assert.ok(bounds[id].translationPerRad>=maxTrans[id]-1e-6,
+      id+" translation speed exceeds declared bound: "+maxTrans[id]+" > "+bounds[id].translationPerRad);
+    assert.ok(bounds[id].rotationPerRad>=maxRot[id]-1e-6,
+      id+" rotation speed exceeds declared bound: "+maxRot[id]+" > "+bounds[id].rotationPerRad);
+  }
+  // static engine Parts must not be declared movable
+  for(const id of ["engine.block.cast","engine.cylinder.head","engine.oil.pan","engine.valve.cover"])
+    assert.equal(bounds[id],undefined,id+" should be static in this mechanism");
+});
+
+test("slider-crank rod/piston paths are nonlinear, so an endpoint chord is not a valid sweep",()=>{
+  const a=create(), constraint=engineI4Constraint(a);
+  const pose=id=>th=>solveEngineI4(constraint,th,source).parts[id];
+  for(const id of ["engine.rod.1","engine.piston.1","engine.piston.pin.1"]){
+    const at=pose(id), start=0.7, end=0.7+Math.PI/3;
+    const mid=at((start+end)/2);
+    const chordMid=[0,1,2].map(i=>(at(start).position[i]+at(end).position[i])/2);
+    const deviation=Math.hypot(mid.position[0]-chordMid[0],mid.position[1]-chordMid[1],
+      mid.position[2]-chordMid[2]);
+    assert.ok(deviation>1e-4,id+" chord deviation "+deviation+" too small to be nonlinear");
+  }
 });

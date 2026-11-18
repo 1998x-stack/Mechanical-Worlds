@@ -22,7 +22,10 @@
     "engine:clearance": "npm run build:core && node tools/asset-pipeline/audit-engine-clearance.mjs",
     "cad:build": "python tools/cad/generate_engine_reference.py --output dist-cad/engine-i4",
     "cad:mesh-audit": "npm run build:core && node tools/cad/audit_cad_mesh.mjs --step-deg=180",
-    "test:browser": "node tests-browser/smoke.mjs"
+    "assets:cad-stage": "python tools/cad/generate_engine_reference.py --skip-step --output public/models",
+    "test:browser": "node tests-browser/smoke.mjs",
+    "test:acceptance": "node tests-browser/acceptance.mjs",
+    "test:pages-base": "node tests-browser/pages-base.mjs"
   },
   "dependencies": {
     "three": "^0.181.2",

@@ -1,0 +1,118 @@
+{
+  "project": "Mechanical-Worlds",
+  "handoffVersion": "1.1",
+  "baseCommit": "c843033b5d0e7bd27f06cc35d0fcd8b92fe75180",
+  "resultCommit": "96ab23f4a04f28be8aa7306b60f0248fc546d092",
+  "branch": "agent/pi/handoff-and-browser-acceptance",
+  "agent": "Pi (second round: collision trajectory fix, cross-environment reproduction, merge prep)",
+  "repositoryBase": "bb74622cdc9327eab82b409f37bd3e56ce1eb521",
+  "environment": {
+    "os": "macOS (Apple Git-157)",
+    "nodePrimary": "v26.13.1",
+    "nodeCiTarget": "v22.23.5",
+    "nodeBroken": "v24 (local brew binary missing libsimdjson.34.dylib; environment only)",
+    "npm": "11.20.0",
+    "python": ["3.12.15 (.venv)", "3.11.18"],
+    "cadquery": "2.8.0",
+    "cadqueryOcp": "7.9.3.1.1",
+    "browser": "Playwright Chromium (headless, SwiftShader WebGL)"
+  },
+  "commandsExecuted": [
+    "npm run check", "npm run check (node@22)",
+    "npm run test", "node --test tests/*.test.mjs (node@22 @24)",
+    "npm run engine:audit", "npm run engine:clearance",
+    "npm run cad:build", "npm run cad:mesh-audit",
+    "node --test tests-cad/*.test.mjs",
+    "python3.11 vs python3.12 generate_engine_reference.py (sha compare)",
+    "npm run test:browser", "npm run test:acceptance", "npm run test:pages-base"
+  ],
+  "tests": [
+    {"id": "node26", "command": "npm run test", "result": "63 pass / 0 fail", "status": "PASS"},
+    {"id": "node22", "command": "node@22 node --test tests/*.test.mjs", "result": "63 pass / 0 fail", "status": "PASS"},
+    {"id": "skills", "command": "npm run skills:check", "result": "12 canonical / 144 mirrored", "status": "PASS"},
+    {"id": "assets", "command": "npm run assets:validate", "result": "batch-01 76 + batch-02 30", "status": "PASS"},
+    {"id": "check26", "command": "npm run check", "result": "exit 0", "status": "PASS"},
+    {"id": "check22", "command": "node@22 npm run check", "result": "exit 0", "status": "PASS"},
+    {"id": "engine-audit", "command": "npm run engine:audit", "result": "720 closure + 26-step round trip; collisionCertified false", "status": "PASS"},
+    {"id": "engine-clearance", "command": "npm run engine:clearance", "result": "16 parts / 96 pairs / 0.049 m axial only", "status": "PASS"},
+    {"id": "cad-build", "command": "npm run cad:build", "result": "18 B-Rep; GLB 400452 B; STEP deterministic", "status": "PASS"},
+    {"id": "cad-mesh-audit", "command": "npm run cad:mesh-audit", "result": "612 pairs: broadphase-clear 400 / surface-clear 148 / surface-contact 32 / unresolved 32; all non-clear pairs are mated design interfaces", "status": "NOT_VERIFIED"},
+    {"id": "ccd-counterexample", "command": "node --test tests/mesh-ccd.test.mjs", "result": "endpoint-chord false-clear reproduced; checkTrajectory reports contact", "status": "PASS"},
+    {"id": "speed-bound-rigor", "command": "node --test tests/engine-i4.test.mjs", "result": "analytic bounds >= 4001-sample numeric speed; nonlinear path", "status": "PASS"},
+    {"id": "tests-cad", "command": "node --test tests-cad/*.test.mjs", "result": "7 pass / 0 fail", "status": "PASS"},
+    {"id": "cross-python-cad", "command": "python3.11 vs 3.12 sha256 compare", "result": "STEP and GLB byte-identical (STEP 25d6f292.., GLB dadfd980..)", "status": "PASS"},
+    {"id": "browser-smoke", "command": "npm run test:browser", "result": "106 parts / 18 CAD / crank 180 / FL remove / 0 pageerror", "status": "PASS"},
+    {"id": "browser-acceptance", "command": "npm run test:acceptance", "result": "checks=20 all PASS", "status": "PASS"},
+    {"id": "pages-base", "command": "npm run test:pages-base", "result": "/Mechanical-Worlds/ index+automotive 200, 106 parts, 18 CAD, 0 pageerror", "status": "PASS"}
+  ],
+  "changedFiles": [
+    "src/mesh-ccd.mjs",
+    "packages/mechanical-core/src/engine-i4.ts",
+    "tools/cad/audit_cad_mesh.mjs",
+    "tests/mesh-ccd.test.mjs",
+    "tests/engine-i4.test.mjs",
+    "tests-cad/collision.test.mjs",
+    "tests-browser/pages-base.mjs",
+    "tests-browser/acceptance.mjs",
+    "package.json",
+    "package-lock.json",
+    ".github/workflows/browser-smoke.yml",
+    "README.md",
+    ".gitignore",
+    "docs/handoff/CURRENT_STATUS.md",
+    "docs/handoff/WORKLOG.md",
+    "docs/handoff/TEST_MATRIX.md",
+    "docs/handoff/ISSUES.md",
+    "docs/handoff/NEXT_ACTIONS.md",
+    "docs/handoff/manifest.json"
+  ],
+  "completedIssues": [
+    "continuous collision audit interpolated endpoint poses; nonlinear slider-crank could be falsely certified surface-clear (fixed with true-pose checkTrajectory + rigorous analytic speed bounds)",
+    "outer broadphase expanded by endpoint motion only (fixed with per-5-degree true-pose swept AABB)",
+    "contacts were not classified (now design-fit-candidate / design-fit-unresolved / unreviewed-contact / numerical-unresolved)",
+    "no cross-Python CAD consistency evidence (now byte-identical 3.11 vs 3.12)",
+    "no Pages base-subpath test (now tests-browser/pages-base.mjs)",
+    "handoff resultCommit ambiguity (now records code+docs commit, HEAD noted in CURRENT_STATUS)"
+  ],
+  "openIssues": ["IS-01", "IS-02", "IS-03", "IS-04", "IS-05", "IS-06", "IS-07", "IS-08"],
+  "ccdTrajectory": {
+    "model": "true analytic slider-crank poseAt(theta), NOT endpoint interpolation",
+    "speedBound": "engineI4SpeedBounds x meshMotionRadius (m per radian)",
+    "broadphaseStepDeg": 5,
+    "solverBudget": {"maxEvaluations": 256, "maxDepth": 18, "runtimeSecondsLocal": 233},
+    "certifiedOnlyWithSpeedBound": true,
+    "budgetExhaustion": "unresolved",
+    "resultCounts": {"broadphase-clear": 400, "surface-clear": 148, "surface-contact": 32, "unresolved": 32},
+    "classificationCounts": {"design-fit-candidate": 32, "design-fit-unresolved": 32, "unreviewed-contact": 0, "numerical-unresolved": 0},
+    "fullEngineCollisionCertified": false
+  },
+  "artifacts": [
+    {"path": "dist-reports/acceptance-automotive.png", "note": "gitignored"},
+    {"path": "dist-reports/acceptance-index.png", "note": "gitignored"},
+    {"path": "dist-reports/browser-acceptance.json", "note": "gitignored; 20 checks"},
+    {"path": "dist-cad/engine-i4/engine-i4-concept-reference.step", "note": "deterministic; sha 25d6f292.."},
+    {"path": "dist-cad/engine-i4/engine-i4-cad-reference.glb", "note": "400452 B; sha256 dadfd9808f7cf184abe0b13d2a124a274047725fa8219aefc3a90b6b080ef6b5"},
+    {"path": "dist-cad/engine-i4/engine-i4-mesh-ccd-audit.json", "note": "NOT_VERIFIED; true-pose 720-degree sweep"}
+  ],
+  "deployment": {
+    "status": "PR_OPEN_NOT_DEPLOYED",
+    "url": "https://1998x-stack.github.io/Mechanical-Worlds/",
+    "evidence": "Live (previous) deployment reachable: automotive.html HTTP 200, STEP HTTP 200. This branch is NOT deployed: pages.yml only runs on a push to main. Re-verify after merge."
+  },
+  "ci": {
+    "trigger": "pull_request on PR #1",
+    "validate": {"workflow": "ci.yml", "result": "success", "seconds": 16, "runId": 44267081379},
+    "cad": {"workflow": "cad-reference.yml", "result": "success", "seconds": 426, "runId": 44267081336},
+    "browser": {"workflow": "browser-smoke.yml", "result": "success", "seconds": 397, "runId": 44267081578},
+    "pages": {"workflow": "pages.yml", "result": "skipped (main-only)"}
+  },
+  "pullRequest": {"status": "OPEN", "url": "https://github.com/1998x-stack/Mechanical-Worlds/pull/1", "number": 1, "mergeable": "MERGEABLE", "branch": "agent/pi/handoff-and-browser-acceptance"},
+  "geometryConfidence": {
+    "tier": "generated-conceptual",
+    "cadBRepTier": "parametric-brep-unreviewed",
+    "cadReviewed": false,
+    "manufacturingValidated": false,
+    "fullEngineCollisionCertified": false
+  },
+  "nextActions": ["NA-01", "NA-02", "NA-03", "NA-04", "NA-05", "NA-06"]
+}

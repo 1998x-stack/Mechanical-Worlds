@@ -105,6 +105,42 @@ export function engineI4Constraint(asset:MechanicalAsset):SliderCrankConstraint 
   if(!entry)throw new Error("Missing inline-four kinematics contract");
   return entry;
 }
+export interface EngineI4PartSpeed{translationPerRad:number;rotationPerRad:number;}
+/**
+ * Rigorous upper bounds on the surface-point speed of each MOVABLE Part with
+ * respect to crank angle in the analytic slider-crank closure. Combine the
+ * angular term with a Part's mesh motion radius to obtain a metres-per-radian
+ * surface-speed bound. Parts not present in the returned map are static in this
+ * mechanism (identity rotation and fixed manifest position).
+ *
+ * Slider-crank closure (per cylinder, phase-independent worst case):
+ *   rise  = sqrt(L^2 - r^2 sin^2 phi)
+ *   piston pin y = crankCenterY + r cos phi + rise
+ *   rod pitch = atan2(-r sin phi, rise)
+ * so |d(rise)/dphi| <= r^2/(2 sqrt(L^2-r^2)), |d(pistonY)/dphi| <= r + that,
+ * and |d(pitch)/dphi| <= r(L + |d(rise)|)/L^2 (denominator is exactly L^2).
+ */
+export function engineI4SpeedBounds(
+  constraint:SliderCrankConstraint):Record<string,EngineI4PartSpeed> {
+  const r=constraint.throwRadiusM,L=constraint.rodLengthM;
+  if(!(r>0&&L>r))throw new RangeError("Rod must be longer than crank radius");
+  const root=Math.sqrt(L*L-r*r);
+  const riseSpeed=r*r/(2*root);
+  const pistonSpeed=r+riseSpeed;
+  const pitchSpeed=r*(L+riseSpeed)/(L*L);
+  const rodTranslation=r+constraint.rodCenterFromCrankM*pitchSpeed;
+  const out:Record<string,EngineI4PartSpeed>={};
+  out[constraint.crankPartId]={translationPerRad:0,rotationPerRad:1};
+  out["engine.crankshaft.pulley"]={translationPerRad:0,rotationPerRad:1};
+  out["engine.cam.intake"]={translationPerRad:0,rotationPerRad:0.5};
+  out["engine.cam.exhaust"]={translationPerRad:0,rotationPerRad:0.5};
+  for(const id of constraint.pistonPartIds)out[id]={translationPerRad:pistonSpeed,rotationPerRad:0};
+  for(const id of constraint.ringPartIds)out[id]={translationPerRad:pistonSpeed,rotationPerRad:0};
+  for(const id of constraint.pinPartIds)out[id]={translationPerRad:pistonSpeed,rotationPerRad:0};
+  for(const id of constraint.rodPartIds)
+    out[id]={translationPerRad:rodTranslation,rotationPerRad:pitchSpeed};
+  return out;
+}
 
 const installed=(id:string):Predicate=>({kind:"part",id,equals:"installed"});
 const detached=(id:string):Predicate=>({kind:"part",id,equals:"detached"});

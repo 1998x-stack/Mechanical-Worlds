@@ -3,6 +3,16 @@ import fs from "node:fs";
 import {spawn} from "node:child_process";
 import {chromium} from "playwright";
 
+// Fail fast with an actionable message instead of an opaque 60s timeout when the
+// CAD B-Rep GLB has not been staged into the production build.
+if(!fs.existsSync("public/models/engine-i4-cad-reference.glb")){
+  console.error("\nFATAL: public/models/engine-i4-cad-reference.glb is missing.");
+  console.error("The CAD node-replacement step cannot run. Generate it first:\n");
+  console.error("  npm run assets:cad-stage   # python tools/cad/generate_engine_reference.py --skip-step --output public/models");
+  console.error("  npm run build\n");
+  process.exit(2);
+}
+
 const origin="http://127.0.0.1:4173";
 const server=spawn(process.execPath,["./node_modules/vite/bin/vite.js","preview",
   "--host","127.0.0.1","--port","4173","--strictPort"],{
