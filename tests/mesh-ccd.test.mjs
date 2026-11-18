@@ -20,7 +20,7 @@ test("BVH CCD catches contact hidden between path endpoints",()=>{
 });
 test("BVH CCD reports unresolved when adaptive budget insufficient rather than claiming clear",()=>{
   const ccd=createMeshCCD(new THREE.BoxGeometry(1,1,1),new THREE.BoxGeometry(1,1,1));
-  const result=ccd.check(pose(-2),pose(-1.001),pose(0),pose(0),{
+  const result=ccd.check(pose(-2),pose(-1),pose(0),pose(0),{
     maxDepth:0,maxEvaluations:3
   });
   assert.equal(result.status,"unresolved");
