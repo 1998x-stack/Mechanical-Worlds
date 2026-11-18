@@ -103,6 +103,40 @@ export class MechanicalEngine {
   }
   getState(): Readonly<RuntimeState> { return clone(this.state); }
   isBusy(): boolean { return this.busy; }
+  /**
+   * Commit a kinematic driver angle atomically, keeping one authoritative state.
+   * Live scrubbing can disable undo snapshots; final user gestures should record.
+   */
+  setRevoluteAngle(jointId: string, angleRad: number, recordUndo = true): void {
+    if (this.busy) throw new Error("Cannot move a driven joint during an operation");
+    const joint = this.asset.joints?.find(j => j.id === jointId);
+    if (!joint || joint.type !== "revolute") throw new Error("Unknown revolute joint "+jointId);
+    if (!Number.isFinite(angleRad)) throw new RangeError("Joint angle must be finite");
+    if (angleRad < joint.minRad - 1e-9 || angleRad > joint.maxRad + 1e-9)
+      throw new RangeError("Joint limit violated: "+jointId);
+    const blockers: string[] = [];
+    for (const mechanism of this.asset.kinematics ?? []) {
+      if (mechanism.crankJointId !== jointId) continue;
+      for (const id of [mechanism.crankPartId,...mechanism.pistonPartIds,
+        ...mechanism.rodPartIds,...mechanism.pinPartIds,...mechanism.ringPartIds]) {
+        if (this.state.partStatus[id] !== "installed") blockers.push("part "+id);
+      }
+      for (const id of mechanism.requiresMateIds ?? [])
+        if (this.state.mateStatus[id] !== "locked") blockers.push("mate "+id);
+    }
+    if (blockers.length) throw new BlockedOperationError("joint:"+jointId,blockers);
+    if (Math.abs((this.state.jointAngles[jointId] ?? joint.initialRad)-angleRad)<1e-10)return;
+    const next=clone(this.state);
+    next.jointAngles[jointId]=angleRad;
+    next.revision=this.state.revision+1;
+    if (recordUndo) {
+      this.undoStack.push(clone(this.state));
+      this.redoStack=[];
+    }
+    this.state=next;
+    this.emit({type:"state",revision:next.revision});
+  }
+
   subscribe(fn: (event: EngineEvent) => void): () => void {
     this.listeners.add(fn); return () => this.listeners.delete(fn);
   }
