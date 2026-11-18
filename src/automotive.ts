@@ -2,6 +2,7 @@ import "./automotive.css";
 import * as THREE from "three";
 import {GLTFLoader} from "three/addons/loaders/GLTFLoader.js";
 import {OrbitControls} from "three/addons/controls/OrbitControls.js";
+import {transferGlbParts} from "./glb-part-binding.mjs";
 import {MechanicalEngine, type AnimationDriver} from "../packages/mechanical-core/src/index.js";
 import {
   createGeneratedCarCornerAsset,
@@ -491,19 +492,14 @@ const imported=new THREE.Group();
 const waiters=manifests.map((manifest,batchIndex)=>new Promise<void>((resolve,reject)=>{
   const filename="automotive-fwd-i4-batch-"+String(batchIndex+1).padStart(2,"0")+".glb";
   loader.load(import.meta.env.BASE_URL+"models/"+filename,gltf=>{
-    if(gltf.scene.children.length!==manifest.parts.length){
-      reject(new Error(filename+": expected "+manifest.parts.length+" named Parts, found "+gltf.scene.children.length));return;
-    }
-    for(let i=0;i<manifest.parts.length;i++){
-      const node=gltf.scene.children[i],id=manifest.parts[i].id;
-      if(byId.has(id)){reject(new Error("Duplicate GLB Part ID: "+id));return;}
-      node.name=id;
-      node.userData.partId=id;
-      node.traverse(child=>child.userData.partId=id);
-      imported.add(node);
-      byId.set(id,node);
-      originalPos.set(id,node.position.clone());
-    }
+    try{
+      const transferred=transferGlbParts(gltf.scene,imported,manifest.parts,(id:string,node:THREE.Object3D)=>{
+        if(byId.has(id))throw new Error("Duplicate GLB Part ID: "+id);
+        byId.set(id,node);
+        originalPos.set(id,node.position.clone());
+      });
+      if(transferred!==manifest.parts.length)throw new Error("Incomplete GLB Part transfer");
+    }catch(error){reject(error);return;}
     $("loading").textContent="已加载 "+byId.size+" / "+generated.length+" 个实际 GLB 零件";
     resolve();
   },undefined,reject);
