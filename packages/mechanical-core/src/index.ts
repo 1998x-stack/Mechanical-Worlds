@@ -4,18 +4,23 @@ import {
   type MechanicalAsset, type Operation, type OperationPlan,
   type Predicate, type Effect, type Vec3, type PartStatus, type MateStatus
 } from "../../mechanical-schema/src/index.js";
+import { inspectMotion, mateAlignment, screwPreview, jointPreview } from "./p1.js";
 
 export interface RuntimeState {
   revision: number;
   partStatus: Record<string, PartStatus>;
   mateStatus: Record<string, MateStatus>;
   offsets: Record<string, Vec3>;
+  jointAngles: Record<string, number>;
   flags: Record<string, boolean>;
   committedOperationIds: string[];
 }
 export type EngineEvent =
   | { type: "commit"; operationId: string; revision: number }
-  | { type: "preview"; operationId: string; progress: number; offsets: Record<string, Vec3> }
+  | { type: "preview"; operationId: string; progress: number; offsets: Record<string, Vec3>;
+      jointAngles: Record<string, number>;
+      screwRotations: Record<string, { axis: Vec3; angleRad: number }> }
+  | { type: "diagnostic"; operationId: string; message: string; severity: "warning" | "error" }
   | { type: "state"; revision: number }
   | { type: "cancel"; operationId: string };
 export interface AnimationDriver {
@@ -36,10 +41,12 @@ const clone = (s: RuntimeState): RuntimeState => structuredClone(s);
 const matches = (state: RuntimeState, p: Predicate): boolean =>
   p.kind === "part" ? state.partStatus[p.id] === p.equals :
   p.kind === "mate" ? state.mateStatus[p.id] === p.equals :
+  p.kind === "joint" ? Math.abs((state.jointAngles[p.id] ?? 0) - p.equalsRad) < 1e-6 :
   state.flags[p.id] === p.equals;
 const effectSatisfied = (s: RuntimeState, e: Effect): boolean => {
   if (e.kind === "part") return s.partStatus[e.id] === e.state;
   if (e.kind === "mate") return s.mateStatus[e.id] === e.state;
+  if (e.kind === "joint") return Math.abs((s.jointAngles[e.id] ?? 0) - e.angleRad) < 1e-6;
   const v = s.offsets[e.id] ?? zero();
   return v.every((n, i) => Math.abs(n - e.value[i]) < 1e-8);
 };
@@ -48,6 +55,7 @@ const applyEffects = (s: RuntimeState, effects: Effect[]) => {
     if (e.kind === "part") s.partStatus[e.id] = e.state;
     if (e.kind === "mate") s.mateStatus[e.id] = e.state;
     if (e.kind === "offset") s.offsets[e.id] = [...e.value];
+    if (e.kind === "joint") s.jointAngles[e.id] = e.angleRad;
   }
 };
 function planOrder(plan: OperationPlan, operations: Map<string, Operation>): Operation[] {
@@ -87,6 +95,7 @@ export class MechanicalEngine {
       partStatus,
       mateStatus: Object.fromEntries(asset.mates.map(m => [m.id, m.initialState])),
       offsets,
+      jointAngles: Object.fromEntries((asset.joints ?? []).map(j => [j.id, j.initialRad])),
       flags: { ...(asset.flags ?? {}) },
       committedOperationIds: []
     };
@@ -133,11 +142,35 @@ export class MechanicalEngine {
     const start = clone(this.state);
     const target = clone(start);
     applyEffects(target, op.effects);
+    const collision = inspectMotion(this.asset, start, target, op);
+    if (collision && !collision.ok) {
+      this.busy = false;
+      throw new BlockedOperationError(op.id, [
+        "new collision in " + collision.pathId + " (first obstacle: " +
+        collision.contacts[0]?.obstaclePartId + ")"
+      ]);
+    }
+    for (const e of op.effects) if (e.kind === "mate" && e.state === "locked") {
+      const mate = this.asset.mates.find(m => m.id === e.id);
+      if (mate?.verified && !mateAlignment(this.asset, target, e.id).acceptable) {
+        this.busy = false;
+        throw new BlockedOperationError(op.id, ["mate anchors misaligned: " + e.id]);
+      }
+    }
+    if (collision && collision.contacts.length) this.emit({
+      type: "diagnostic", operationId: op.id, severity: "warning",
+      message: collision.contacts.length + " advisory proxy collision samples on " + collision.pathId
+    });
     const preview = (t: number) => {
+      const progress = Math.max(0, Math.min(1, t));
       const offsets: Record<string, Vec3> = {};
       for (const e of op.effects) if (e.kind === "offset")
-        offsets[e.id] = lerp(start.offsets[e.id] ?? zero(), e.value, Math.max(0, Math.min(1, t)));
-      this.emit({ type: "preview", operationId, progress: t, offsets });
+        offsets[e.id] = lerp(start.offsets[e.id] ?? zero(), e.value, progress);
+      this.emit({
+        type: "preview", operationId, progress, offsets,
+        jointAngles: jointPreview(op, start, progress),
+        screwRotations: screwPreview(this.asset, op, progress)
+      });
     };
     try {
       await this.driver.play(op.durationMs, preview, signal);
