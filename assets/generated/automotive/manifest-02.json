@@ -1,0 +1,355 @@
+{
+  "batchId": "mw.car.fwd-i4.batch-02",
+  "batchVersion": "0.3.0",
+  "catalogId": "mw.car.fwd-i4.catalog.001",
+  "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
+  "generator": "tools/asset-pipeline/generate-powertrain.mjs",
+  "designTier": "generated-conceptual",
+  "engineeringVerified": false,
+  "geometrySource": "authored parametric triangle mesh generator, no automotive OEM CAD",
+  "units": "m",
+  "coordinate": {
+    "handedness": "right",
+    "up": "+Y",
+    "forward": "-Z",
+    "vehicleRight": "+X"
+  },
+  "gltfAssetNodes": 30,
+  "uniqueMeshTemplates": 17,
+  "uniqueTriangles": 19236,
+  "bytes": 1643272,
+  "parts": [
+    {
+      "id": "engine.block.cast",
+      "nodeName": "engine.block.cast",
+      "meshType": "block",
+      "triangles": 2656,
+      "positionM": [
+        0,
+        0.78,
+        -1.44
+      ]
+    },
+    {
+      "id": "engine.crankshaft",
+      "nodeName": "engine.crankshaft",
+      "meshType": "crankshaft",
+      "triangles": 3872,
+      "positionM": [
+        0,
+        0.52,
+        -1.44
+      ]
+    },
+    {
+      "id": "engine.crankshaft.pulley",
+      "nodeName": "engine.crankshaft.pulley",
+      "meshType": "pulley",
+      "triangles": 1184,
+      "positionM": [
+        0.57,
+        0.52,
+        -1.44
+      ]
+    },
+    {
+      "id": "engine.piston.1",
+      "nodeName": "engine.piston.1",
+      "meshType": "piston",
+      "triangles": 1200,
+      "positionM": [
+        -0.3075,
+        0.99,
+        -1.44
+      ]
+    },
+    {
+      "id": "engine.piston.2",
+      "nodeName": "engine.piston.2",
+      "meshType": "piston",
+      "triangles": 1200,
+      "positionM": [
+        -0.1025,
+        0.99,
+        -1.44
+      ]
+    },
+    {
+      "id": "engine.piston.3",
+      "nodeName": "engine.piston.3",
+      "meshType": "piston",
+      "triangles": 1200,
+      "positionM": [
+        0.1025,
+        0.99,
+        -1.44
+      ]
+    },
+    {
+      "id": "engine.piston.4",
+      "nodeName": "engine.piston.4",
+      "meshType": "piston",
+      "triangles": 1200,
+      "positionM": [
+        0.3075,
+        0.99,
+        -1.44
+      ]
+    },
+    {
+      "id": "engine.rod.1",
+      "nodeName": "engine.rod.1",
+      "meshType": "rod",
+      "triangles": 548,
+      "positionM": [
+        -0.3075,
+        0.73,
+        -1.44
+      ]
+    },
+    {
+      "id": "engine.rod.2",
+      "nodeName": "engine.rod.2",
+      "meshType": "rod",
+      "triangles": 548,
+      "positionM": [
+        -0.1025,
+        0.73,
+        -1.44
+      ]
+    },
+    {
+      "id": "engine.rod.3",
+      "nodeName": "engine.rod.3",
+      "meshType": "rod",
+      "triangles": 548,
+      "positionM": [
+        0.1025,
+        0.73,
+        -1.44
+      ]
+    },
+    {
+      "id": "engine.rod.4",
+      "nodeName": "engine.rod.4",
+      "meshType": "rod",
+      "triangles": 548,
+      "positionM": [
+        0.3075,
+        0.73,
+        -1.44
+      ]
+    },
+    {
+      "id": "engine.cam.exhaust",
+      "nodeName": "engine.cam.exhaust",
+      "meshType": "cam",
+      "triangles": 2440,
+      "positionM": [
+        0,
+        1.3,
+        -1.29
+      ]
+    },
+    {
+      "id": "engine.cam.intake",
+      "nodeName": "engine.cam.intake",
+      "meshType": "cam",
+      "triangles": 2440,
+      "positionM": [
+        0,
+        1.3,
+        -1.59
+      ]
+    },
+    {
+      "id": "engine.cylinder.head",
+      "nodeName": "engine.cylinder.head",
+      "meshType": "head",
+      "triangles": 1456,
+      "positionM": [
+        0,
+        1.16,
+        -1.44
+      ]
+    },
+    {
+      "id": "engine.piston.pin.1",
+      "nodeName": "engine.piston.pin.1",
+      "meshType": "pin",
+      "triangles": 320,
+      "positionM": [
+        -0.3075,
+        0.955,
+        -1.44
+      ]
+    },
+    {
+      "id": "engine.piston.pin.2",
+      "nodeName": "engine.piston.pin.2",
+      "meshType": "pin",
+      "triangles": 320,
+      "positionM": [
+        -0.1025,
+        0.955,
+        -1.44
+      ]
+    },
+    {
+      "id": "engine.piston.pin.3",
+      "nodeName": "engine.piston.pin.3",
+      "meshType": "pin",
+      "triangles": 320,
+      "positionM": [
+        0.1025,
+        0.955,
+        -1.44
+      ]
+    },
+    {
+      "id": "engine.piston.pin.4",
+      "nodeName": "engine.piston.pin.4",
+      "meshType": "pin",
+      "triangles": 320,
+      "positionM": [
+        0.3075,
+        0.955,
+        -1.44
+      ]
+    },
+    {
+      "id": "engine.piston.rings.1",
+      "nodeName": "engine.piston.rings.1",
+      "meshType": "rings",
+      "triangles": 1056,
+      "positionM": [
+        -0.3075,
+        1.035,
+        -1.44
+      ]
+    },
+    {
+      "id": "engine.piston.rings.2",
+      "nodeName": "engine.piston.rings.2",
+      "meshType": "rings",
+      "triangles": 1056,
+      "positionM": [
+        -0.1025,
+        1.035,
+        -1.44
+      ]
+    },
+    {
+      "id": "engine.piston.rings.3",
+      "nodeName": "engine.piston.rings.3",
+      "meshType": "rings",
+      "triangles": 1056,
+      "positionM": [
+        0.1025,
+        1.035,
+        -1.44
+      ]
+    },
+    {
+      "id": "engine.piston.rings.4",
+      "nodeName": "engine.piston.rings.4",
+      "meshType": "rings",
+      "triangles": 1056,
+      "positionM": [
+        0.3075,
+        1.035,
+        -1.44
+      ]
+    },
+    {
+      "id": "engine.oil.pan",
+      "nodeName": "engine.oil.pan",
+      "meshType": "oilpan",
+      "triangles": 132,
+      "positionM": [
+        0,
+        0.34,
+        -1.44
+      ]
+    },
+    {
+      "id": "engine.timing.belt",
+      "nodeName": "engine.timing.belt",
+      "meshType": "belt",
+      "triangles": 800,
+      "positionM": [
+        0.57,
+        0.91,
+        -1.44
+      ]
+    },
+    {
+      "id": "engine.timing.cover",
+      "nodeName": "engine.timing.cover",
+      "meshType": "cover",
+      "triangles": 524,
+      "positionM": [
+        0.63,
+        0.9,
+        -1.44
+      ]
+    },
+    {
+      "id": "engine.timing.tensioner",
+      "nodeName": "engine.timing.tensioner",
+      "meshType": "tensioner",
+      "triangles": 512,
+      "positionM": [
+        0.65,
+        0.79,
+        -1.36
+      ]
+    },
+    {
+      "id": "engine.valve.cover",
+      "nodeName": "engine.valve.cover",
+      "meshType": "valvecover",
+      "triangles": 128,
+      "positionM": [
+        0,
+        1.45,
+        -1.44
+      ]
+    },
+    {
+      "id": "gearbox.differential.carrier",
+      "nodeName": "gearbox.differential.carrier",
+      "meshType": "diffcarrier",
+      "triangles": 976,
+      "positionM": [
+        0.87,
+        0.59,
+        -1.14
+      ]
+    },
+    {
+      "id": "gearbox.differential.pinion",
+      "nodeName": "gearbox.differential.pinion",
+      "meshType": "diffpinion",
+      "triangles": 728,
+      "positionM": [
+        0.87,
+        0.59,
+        -1.14
+      ]
+    },
+    {
+      "id": "gearbox.differential.side",
+      "nodeName": "gearbox.differential.side",
+      "meshType": "diffside",
+      "triangles": 704,
+      "positionM": [
+        0.87,
+        0.59,
+        -1.14
+      ]
+    }
+  ],
+  "releaseNotes": "These 30 powertrain parts are conceptual mechanical visuals, not dimension-verified CAD or physically operable engine geometry",
+  "gitBlobSha": "22d516471b9dce8ee1fed10563afb96a04622ec0"
+}

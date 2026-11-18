@@ -20,8 +20,8 @@
     "assemblies": 42,
     "parts": 317,
     "totalNodes": 359,
-    "generatedParts": 76,
-    "plannedParts": 241
+    "generatedParts": 106,
+    "plannedParts": 211
   },
   "records": [
     {
@@ -1445,16 +1445,24 @@
       "parentId": "engine.block",
       "nameZh": "缸体本体",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
+      "geometryNodeName": "engine.block.cast",
+      "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "engine.crankshaft",
       "parentId": "engine.block",
       "nameZh": "曲轴",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
+      "geometryNodeName": "engine.crankshaft",
+      "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "engine.main-bearing",
@@ -1469,144 +1477,216 @@
       "parentId": "engine.block",
       "nameZh": "曲轴皮带轮",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
+      "geometryNodeName": "engine.crankshaft.pulley",
+      "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "engine.oil.pan",
       "parentId": "engine.block",
       "nameZh": "油底壳",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
+      "geometryNodeName": "engine.oil.pan",
+      "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "engine.piston.1",
       "parentId": "engine.block",
       "nameZh": "第1缸活塞",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
+      "geometryNodeName": "engine.piston.1",
+      "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "engine.piston.2",
       "parentId": "engine.block",
       "nameZh": "第2缸活塞",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
+      "geometryNodeName": "engine.piston.2",
+      "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "engine.piston.3",
       "parentId": "engine.block",
       "nameZh": "第3缸活塞",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
+      "geometryNodeName": "engine.piston.3",
+      "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "engine.piston.4",
       "parentId": "engine.block",
       "nameZh": "第4缸活塞",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
+      "geometryNodeName": "engine.piston.4",
+      "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "engine.rod.1",
       "parentId": "engine.block",
       "nameZh": "第1缸连杆",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
+      "geometryNodeName": "engine.rod.1",
+      "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "engine.rod.2",
       "parentId": "engine.block",
       "nameZh": "第2缸连杆",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
+      "geometryNodeName": "engine.rod.2",
+      "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "engine.rod.3",
       "parentId": "engine.block",
       "nameZh": "第3缸连杆",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
+      "geometryNodeName": "engine.rod.3",
+      "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "engine.rod.4",
       "parentId": "engine.block",
       "nameZh": "第4缸连杆",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
+      "geometryNodeName": "engine.rod.4",
+      "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "engine.piston.pin.1",
       "parentId": "engine.block",
       "nameZh": "第1缸活塞销",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
+      "geometryNodeName": "engine.piston.pin.1",
+      "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "engine.piston.pin.2",
       "parentId": "engine.block",
       "nameZh": "第2缸活塞销",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
+      "geometryNodeName": "engine.piston.pin.2",
+      "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "engine.piston.pin.3",
       "parentId": "engine.block",
       "nameZh": "第3缸活塞销",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
+      "geometryNodeName": "engine.piston.pin.3",
+      "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "engine.piston.pin.4",
       "parentId": "engine.block",
       "nameZh": "第4缸活塞销",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
+      "geometryNodeName": "engine.piston.pin.4",
+      "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "engine.piston.rings.1",
       "parentId": "engine.block",
       "nameZh": "第1缸活塞环组",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
+      "geometryNodeName": "engine.piston.rings.1",
+      "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "engine.piston.rings.2",
       "parentId": "engine.block",
       "nameZh": "第2缸活塞环组",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
+      "geometryNodeName": "engine.piston.rings.2",
+      "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "engine.piston.rings.3",
       "parentId": "engine.block",
       "nameZh": "第3缸活塞环组",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
+      "geometryNodeName": "engine.piston.rings.3",
+      "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "engine.piston.rings.4",
       "parentId": "engine.block",
       "nameZh": "第4缸活塞环组",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
+      "geometryNodeName": "engine.piston.rings.4",
+      "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "engine.head",
@@ -1621,32 +1701,48 @@
       "parentId": "engine.head",
       "nameZh": "气缸盖",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
+      "geometryNodeName": "engine.cylinder.head",
+      "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "engine.valve.cover",
       "parentId": "engine.head",
       "nameZh": "气门室盖",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
+      "geometryNodeName": "engine.valve.cover",
+      "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "engine.cam.intake",
       "parentId": "engine.head",
       "nameZh": "进气凸轮轴",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
+      "geometryNodeName": "engine.cam.intake",
+      "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "engine.cam.exhaust",
       "parentId": "engine.head",
       "nameZh": "排气凸轮轴",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
+      "geometryNodeName": "engine.cam.exhaust",
+      "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "engine.valve.intake.1",
@@ -1781,24 +1877,36 @@
       "parentId": "engine.head",
       "nameZh": "正时传动",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
+      "geometryNodeName": "engine.timing.belt",
+      "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "engine.timing.tensioner",
       "parentId": "engine.head",
       "nameZh": "正时涨紧器",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
+      "geometryNodeName": "engine.timing.tensioner",
+      "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "engine.timing.cover",
       "parentId": "engine.head",
       "nameZh": "正时传动盖",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
+      "geometryNodeName": "engine.timing.cover",
+      "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "engine.aux",
@@ -2029,24 +2137,36 @@
       "parentId": "powertrain.gearbox",
       "nameZh": "差速器壳体",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
+      "geometryNodeName": "gearbox.differential.carrier",
+      "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "gearbox.differential.side",
       "parentId": "powertrain.gearbox",
       "nameZh": "半轴齿轮组",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
+      "geometryNodeName": "gearbox.differential.side",
+      "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "gearbox.differential.pinion",
       "parentId": "powertrain.gearbox",
       "nameZh": "行星齿轮组",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
+      "geometryNodeName": "gearbox.differential.pinion",
+      "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "powertrain.driveline",
@@ -3201,5 +3321,6 @@
       "engineeringVerified": false
     }
   ],
-  "firstGeneratedBatchId": "mw.car.fwd-i4.batch-01"
+  "firstGeneratedBatchId": "mw.car.fwd-i4.batch-01",
+  "latestGeneratedBatchId": "mw.car.fwd-i4.batch-02"
 }
