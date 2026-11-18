@@ -1,0 +1,54 @@
+{
+  "assetId": "mw.engine.i4.kinematic.p1",
+  "sourceBatchId": "mw.car.fwd-i4.batch-02",
+  "sourceType": "original procedural polygon mesh generator",
+  "sourceFile": "tools/asset-pipeline/generate-powertrain.mjs",
+  "geometryFile": "assets/generated/automotive/fwd-i4-batch-02.glb",
+  "sourceLicense": "project-authored conceptual geometry",
+  "units": "m",
+  "coordinate": {
+    "handedness": "right",
+    "up": "+Y",
+    "vehicleForward": "-Z",
+    "crankAxis": "+X",
+    "pistonTravel": "+Y"
+  },
+  "kinematics": {
+    "crankCenterWorldM": [
+      0,
+      0.52,
+      -1.44
+    ],
+    "throwRadiusM": 0.085,
+    "rodLengthM": 0.245,
+    "pistonPinToCenterM": 0.035,
+    "rodCenterFromCrankM": 0.115,
+    "pistonRingFromCenterM": 0.045,
+    "cylinderPhaseRad": [
+      0,
+      3.141592653589793,
+      3.141592653589793,
+      0
+    ],
+    "crankCycleDeg": 720,
+    "camToCrankRatio": 0.5
+  },
+  "manufacturingSource": null,
+  "cadStepSource": null,
+  "dimensionsVerified": false,
+  "engineeringVerified": false,
+  "knownVisualFidelityRisks": [
+    "Powertrain GLB crank geometry encodes alternating throw geometry rather than fully matching the required 1-and-4 / 2-and-3 crank phase grouping.",
+    "Generated cylinder block uses simplified solid cylinder features and does not provide manufacturing-accurate hollow bores or clearance against moving pistons.",
+    "Rod, piston, journal and pin visual meshes are based on conceptual radii; mathematically exact pivot positions are not licensed CAD/STEP datums.",
+    "Valve timing belt, pulley teeth, cam lobe profiles and differential gears are visual approximations and cannot be used to verify gear engagement."
+  ],
+  "collisionVerification": {
+    "broadphase": "unverified for engine",
+    "continuousCollision": false,
+    "meshBVH": false,
+    "convexDecomposition": false,
+    "result": "not-certified"
+  },
+  "scope": "Analytic slider-crank kinematics and state-machine teardown/assembly without manufacturing or real mechanical safety claims"
+}
