@@ -92,7 +92,9 @@ test("engine crank joint rejects invalid angles and blocks motion once a require
   await assert.rejects(engine.runOperation("op.engine.i4.remove.engine.valve.cover"),BlockedOperationError);
   engine.setRevoluteAngle(joint,0);
   await engine.runOperation("op.engine.i4.remove.engine.valve.cover");
-  await assert.rejects(()=>Promise.resolve(engine.setRevoluteAngle(joint,Math.PI/6)),BlockedOperationError);
+  // Valve cover is not part of the slider linkage: opening it does not sever the crank.
+  engine.setRevoluteAngle(joint,Math.PI/6);
+  close(engine.getState().jointAngles[joint],Math.PI/6);
 });
 test("I4 teardown and separately authored reassembly restore all Parts, Mates and offsets",async()=>{
   const a=create(),engine=new MechanicalEngine(a);
@@ -105,9 +107,9 @@ test("I4 teardown and separately authored reassembly restore all Parts, Mates an
   assert.equal(after.partStatus["engine.rod.4"],"detached");
   assert.equal(after.partStatus["gearbox.differential.carrier"],"installed");
   assert.ok(Object.values(after.partStatus).filter(p=>p==="detached").length>=20);
-  await assert.rejects(()=>Promise.resolve(
-    engine.setRevoluteAngle(engineI4Constraint(a).crankJointId,Math.PI/2)
-  ),BlockedOperationError);
+  assert.throws(()=>
+    engine.setRevoluteAngle(engineI4Constraint(a).crankJointId,Math.PI/2),
+    BlockedOperationError);
   await engine.runPlan("plan.engine.i4.assemble");
   const restored=engine.getState();
   assert.ok(Object.values(restored.partStatus).every(s=>s==="installed"));
