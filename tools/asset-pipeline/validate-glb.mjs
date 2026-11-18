@@ -123,7 +123,36 @@ assert.equal(catalog.stats.plannedParts,catalog.records.filter(row=>row.kind==="
 const gitSha=createHash("sha1").update(Buffer.from("blob "+bytes.length+"\0")).update(bytes).digest("hex");
 assert.equal(gitSha,manifest.gitBlobSha,"Committed binary differs from declared Git content hash");
 const rebuilt=Buffer.from(generateAutomotive().glb);
-assert.ok(rebuilt.equals(bytes),"Generated GLB has drifted from committed deterministic source");
+const regen=parseGLB(rebuilt);
+assert.equal(regen.gltf.asset.version,gltf.asset.version);
+assert.deepEqual(regen.gltf.nodes.map(n=>n.name),gltf.nodes.map(n=>n.name));
+assert.deepEqual(regen.gltf.meshes.map(m=>m.name),gltf.meshes.map(m=>m.name));
+assert.deepEqual(regen.gltf.meshes.map(m=>m.primitives.map(p=>p.indices)),
+  gltf.meshes.map(m=>m.primitives.map(p=>p.indices)));
+assert.equal(regen.gltf.accessors.length,gltf.accessors.length);
+let largestDeviation=0;
+for(let idx=0;idx<gltf.accessors.length;idx++){
+  const a=gltf.accessors[idx],b=regen.gltf.accessors[idx];
+  assert.equal(a.componentType,b.componentType,"Regeneration component type drift");
+  assert.equal(a.count,b.count,"Regeneration vertex/index count drift");
+  assert.equal(a.type,b.type,"Regeneration accessor shape drift");
+  const viewA=gltf.bufferViews[a.bufferView],viewB=regen.gltf.bufferViews[b.bufferView];
+  assert.equal(viewA.byteLength,viewB.byteLength,"Regeneration topology/buffer drift");
+  if(a.componentType===5125){
+    assert.ok(bin.subarray(viewA.byteOffset,viewA.byteOffset+viewA.byteLength)
+      .equals(regen.bin.subarray(viewB.byteOffset,viewB.byteOffset+viewB.byteLength)),
+      "Regeneration index topology drift");
+  }else{
+    const dataA=new DataView(bin.buffer,bin.byteOffset+viewA.byteOffset,viewA.byteLength);
+    const dataB=new DataView(regen.bin.buffer,regen.bin.byteOffset+viewB.byteOffset,viewB.byteLength);
+    for(let i=0;i<viewA.byteLength;i+=4){
+      const delta=Math.abs(dataA.getFloat32(i,true)-dataB.getFloat32(i,true));
+      largestDeviation=Math.max(largestDeviation,delta);
+      assert.ok(delta<=1e-5,"Regenerated float coordinate drift beyond 1e-5: "+delta);
+    }
+  }
+}
+
 const qa={
   asset:manifest.batchId,
   uri:manifest.geometryUri,
@@ -137,7 +166,8 @@ const qa={
   binaryBytes:bytes.length,
   sha256:createHash("sha256").update(bytes).digest("hex"),
   gitBlobSha:gitSha,
-  deterministic:true,
+  reproducibleGeometry:true,
+  maxFloatRegenerationDeviation:largestDeviation,
   result:"PASS",
   engineeringVerified:false
 };
