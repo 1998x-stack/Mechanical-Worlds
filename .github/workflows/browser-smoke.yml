@@ -32,6 +32,8 @@ jobs:
         run: node tests-browser/smoke.mjs
       - name: Real Chromium acceptance (4 corners, crank phases, teardown guard, undo/redo, catalog)
         run: node tests-browser/acceptance.mjs
+      - name: GitHub Pages base-subpath static hosting acceptance
+        run: node tests-browser/pages-base.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

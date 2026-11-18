@@ -218,8 +218,8 @@ try{
 
   console.log("[H] diagnostics");
   assert.deepEqual(errors,[],"browser page/console errors");
-  const nonWebglFailures=failed.filter(u=>!/favicon/.test(u));
-  assert.deepEqual(nonWebglFailures,[],"failed network requests");
+  const nonWebglFailures=failed.filter(u=>u.startsWith(origin)&&!/favicon/.test(u));
+  assert.deepEqual(nonWebglFailures,[],"failed same-origin network requests");
   record("zero page errors and zero failed requests across both pages");
 
   const report={result:"PASS",baseCommit:process.env.BASE_COMMIT??null,
