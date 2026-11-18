@@ -33,6 +33,14 @@ const combined=new THREE.Group(),nodes=new Map();
 transferGlbParts(raw.scene,combined,report.partIds.map(id=>({id})),
   (id,node)=>nodes.set(id,node));
 const asset=createEngineI4Asset(manifest),kinematics=engineI4Constraint(asset);
+const connectorOwner=new Map(asset.connectors.map(c=>[c.id,c.ownerPartId]));
+const pairKey=(a,b)=>[a,b].sort().join("|");
+const modeledInterfaces=new Map();
+for(const mate of asset.mates){
+  const a=connectorOwner.get(mate.connectorAId),
+    b=connectorOwner.get(mate.connectorBId);
+  if(a&&b)modeledInterfaces.set(pairKey(a,b),mate.id);
+}
 const degreeStep=Number(process.argv.find(s=>s.startsWith("--step-deg="))?.split("=")[1]??60);
 if(!Number.isInteger(degreeStep)||degreeStep<=0||720%degreeStep!==0)
   throw Error("--step-deg must be a positive integer divisor of 720");
@@ -82,7 +90,8 @@ for(let deg=0;deg<720;deg+=degreeStep){
     counts[state]++;
     if(state!=="broadphase-clear"&&state!=="surface-clear")
       pairs.push({partA:a,partB:b,startDeg:deg,endDeg:deg+degreeStep,
-        status:state,diagnostic});
+        status:state,modeledInterfaceId:modeledInterfaces.get(pairKey(a,b))??null,
+        reviewRequired:true,diagnostic});
   }
 }
 const output={
@@ -93,7 +102,10 @@ const output={
   degreesCovered:[0,720],stepDeg:degreeStep,
   candidatePairsPerInterval:ids.length*(ids.length-1)/2,
   totalPairsChecked:Object.values(counts).reduce((a,b)=>a+b,0),
-  resultCounts:counts,unresolvedOrContactPairs:pairs,
+  resultCounts:counts,
+  modeledContactCandidateCount:pairs.filter(p=>p.status==="surface-contact"&&p.modeledInterfaceId).length,
+  contactWithoutModeledMateCount:pairs.filter(p=>p.status==="surface-contact"&&!p.modeledInterfaceId).length,
+  unresolvedOrContactPairs:pairs,
   algorithm:"swept conservative world AABB, adaptive BVH triangle-to-triangle distance with motion bound",
   disabledCertificationReasons:[
     "Some CAD meshes touch at intended bearings or share moving joints",
