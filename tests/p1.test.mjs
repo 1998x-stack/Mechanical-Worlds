@@ -101,11 +101,26 @@ test("P1 operation preview publishes screw rotation and interpolated joint posit
   await e.runOperation("op.wheel.lug.1.remove");
   const preview=events.find(ev=>ev.type==="preview" && ev.progress===.5);
   assert.ok(preview);
-  closeTo(preview.screwRotations["wheel.fl.lug.01"].angleRad,Math.PI*2);
+  closeTo(preview.screwRotations["wheel.fl.lug.01"].angleRad,4*Math.PI*(.5/.54));
   assert.equal(e.getState().partStatus["wheel.fl.lug.01"],"detached");
   const ge=new MechanicalEngine(createP1GlassesAsset(),driver);
   const geEvents=[];ge.subscribe(event=>geEvents.push(event));
   await ge.runOperation("op.g.temple.left.open");
   const gPreview=geEvents.find(ev=>ev.type==="preview"&&ev.progress===.5);
   closeTo(gPreview.jointAngles["joint.g.temple.left"],-.39);
+});
+
+test("P1 screw path has axial extraction before moving to the parts tray",async()=>{
+  const a=createP1WheelAsset();
+  const events=[];
+  const driver={async play(_duration,update){update(.27);update(.54);update(1);}};
+  const engine=new MechanicalEngine(a,driver);
+  engine.subscribe(event=>events.push(event));
+  await engine.runOperation("op.wheel.lug.1.remove");
+  const atQuarter=events.find(ev=>ev.type==="preview"&&ev.progress===.27);
+  const atThreadsEnd=events.find(ev=>ev.type==="preview"&&ev.progress===.54);
+  closeTo(atQuarter.offsets["wheel.fl.lug.01"][0],-.065);
+  closeTo(atThreadsEnd.offsets["wheel.fl.lug.01"][0],-.13);
+  closeTo(atThreadsEnd.screwRotations["wheel.fl.lug.01"].angleRad,Math.PI*4);
+  assert.ok(engine.getState().offsets["wheel.fl.lug.01"][0]<-.6);
 });
