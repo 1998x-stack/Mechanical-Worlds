@@ -2,6 +2,12 @@ import "./automotive.css";
 import * as THREE from "three";
 import {GLTFLoader} from "three/addons/loaders/GLTFLoader.js";
 import {OrbitControls} from "three/addons/controls/OrbitControls.js";
+import {MechanicalEngine, type AnimationDriver} from "../packages/mechanical-core/src/index.js";
+import {
+  createGeneratedCarCornerAsset,
+  type Corner,type GeneratedManifest
+} from "../packages/mechanical-core/src/automotive-corners.js";
+import type {Vec3} from "../packages/mechanical-schema/src/index.js";
 import catalog from "../assets/catalog/automotive-fwd-i4-001.json";
 import manifest01 from "../assets/generated/automotive/manifest.json";
 import manifest02 from "../assets/generated/automotive/manifest-02.json";
@@ -65,7 +71,22 @@ $("car-app").innerHTML=`
       <button id="explosion">结构爆炸预览</button>
       <button id="camera">还原视角</button>
     </div>
-    <div class="disclaimer">此模型是程序生成的独立三角网格（真实 GLB 文件），可浏览与选中；并非 OEM CAD、制造认证零件或完整汽车拆卸操作模型。当前爆炸功能仅作视觉展示。</div>
+    <section class="servicebar">
+      <div class="service-title">四角机械拆装验证 <span>AUTHORED CONCEPT OPERATIONS</span></div>
+      <div class="service-actions">
+        <select id="service-corner" aria-label="选择车轮角总成">
+          <option value="fl">左前轮 FL</option><option value="fr">右前轮 FR</option>
+          <option value="rl">左后轮 RL</option><option value="rr">右后轮 RR</option>
+        </select>
+        <button id="service-wheel-out">拆卸车轮</button>
+        <button id="service-wheel-in">重新安装</button>
+        <button id="service-brake-out">拆卸制动组件</button>
+        <button id="service-brake-in">回装制动组件</button>
+        <button id="service-reset">机械重置</button>
+      </div>
+      <div id="service-status" role="status">模型加载后可执行。汽车制动与紧固件动作仅用于概念级软件演示。</div>
+    </section>
+    <div class="disclaimer">当前 106 个 GLB 零件具备可选中几何；四轮角总成具有演示级拆装 DAG。动力系统尚未具备实际拆装约束。爆炸预览与拆装状态相互独立。所有示例均非 OEM CAD 或真实维修规程。</div>
     <footer>MECHANICAL WORLDS · CONCEPT GEOMETRY ENGINE <span id="render-info">GLB LOADING</span></footer>
   </main>
   <aside class="right">
@@ -122,6 +143,48 @@ const originalPos=new Map<string,THREE.Vector3>();
 let selectedId:string|null=null;
 let selectedHelper:THREE.BoxHelper|null=null;
 let exploded=false,bodyHidden=false,isolated=false,filter="all",query="";
+let operating=false;
+let chosenCorner:Corner="fl";
+let mechanical:MechanicalEngine|null=null;
+let previewOffsets:Record<string,Vec3>={};
+class FrameDriver implements AnimationDriver {
+  async play(ms:number,update:(t:number)=>void,signal?:AbortSignal):Promise<void>{
+    await new Promise<void>((resolve,reject)=>{
+      let previous=-1,elapsed=0;
+      const tick=(now:number)=>{
+        if(signal?.aborted){reject(new Error("当前拆装动画已取消"));return;}
+        if(previous<0)previous=now;
+        elapsed+=Math.max(0,Math.min(60,now-previous));
+        previous=now;
+        const t=Math.min(1,elapsed/Math.max(1,ms));
+        update(t*t*(3-2*t));
+        if(t>=1)resolve();else requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    });
+  }
+}
+const cornerFromId=(id:string):Corner|null=>{
+  for(const side of ["fl","fr","rl","rr"]as Corner[]){
+    if(id.includes("."+side+".")||id.endsWith("."+side))return side;
+  }
+  return null;
+};
+const serviceMessage=(message:string)=>{$("service-status").textContent=message;};
+function applyPositions():void{
+  const state=mechanical?.getState();
+  for(const [id,obj] of byId){
+    const original=originalPos.get(id)!;
+    const offset=previewOffsets[id]??state?.offsets[id]??[0,0,0];
+    const system=systemFor(id);
+    const extra=exploded?system==="body"?new THREE.Vector3(0,.55,0):
+      system==="wheels"?new THREE.Vector3(Math.sign(original.x)*.45,0,0):
+      system==="chassis"?new THREE.Vector3(Math.sign(original.x)*.12,-.13,0):new THREE.Vector3():new THREE.Vector3();
+    obj.position.copy(original).add(new THREE.Vector3(...offset)).add(extra);
+  }
+  if(selectedHelper)selectedHelper.update();
+}
+
 const raycaster=new THREE.Raycaster();
 const coords=new THREE.Vector2();
 const nodeOf=(hit:THREE.Object3D):string|null=>{
@@ -157,6 +220,7 @@ function displayPart(id:string):void{
     '<div class="pair"><span>世界尺寸</span><b>'+dims+'</b></div>',
     '<div class="pair"><span>几何状态</span><b class="good">generated</b></div>',
     '<div class="pair"><span>制造认证</span><b class="warn">否</b></div>',
+    ...(mechanical?.getState().partStatus[id]?['<div class="pair"><span>机械演示状态</span><b>'+mechanical.getState().partStatus[id]+'</b></div>']:[]),
     '<p class="inspector-tip">这是从参数化生成脚本构造出的独立 GLB 节点，可用于渲染和结构探索。实际装配配合、强度和制造公差尚未验证。</p>'
   ].join("");
 }
@@ -169,6 +233,8 @@ function select(id:string):void{
     scene.add(selectedHelper);
     if(isolated)updateVisibility();
   }
+  const side=cornerFromId(id);
+  if(side){chosenCorner=side;($("service-corner") as HTMLSelectElement).value=side;}
   displayPart(id);renderList();
 }
 function updateVisibility():void{
@@ -209,20 +275,44 @@ $("body-toggle").addEventListener("click",()=>{
 });
 $("explosion").addEventListener("click",()=>{
   exploded=!exploded;
-  for(const [id,obj] of byId){
-    const original=originalPos.get(id)!;
-    if(!exploded){obj.position.copy(original);continue;}
-    const s=systemFor(id);
-    const delta=s==="body"?new THREE.Vector3(0,.55,0):
-      s==="wheels"?new THREE.Vector3(Math.sign(original.x)*.45,0,0):
-      s==="chassis"?new THREE.Vector3(Math.sign(original.x)*.12,-.13,0):
-      new THREE.Vector3();
-    obj.position.copy(original).add(delta);
-  }
-  if(selectedHelper)selectedHelper.update();
+  applyPositions();
   $("explosion").textContent=exploded?"恢复装配展示":"结构爆炸预览";
 });
 $("camera").addEventListener("click",()=>{camera.position.set(5.2,3.8,5.8);controls.target.set(0,.6,0);controls.update();});
+$("service-corner").addEventListener("change",()=>{
+  chosenCorner=($("service-corner") as HTMLSelectElement).value as Corner;
+});
+async function runService(component:"wheel"|"brakes",intent:"remove"|"install"):Promise<void>{
+  if(!mechanical){serviceMessage("模型尚未完成加载。");return;}
+  if(operating){serviceMessage("上一项拆装流程仍在执行。");return;}
+  operating=true;exploded=false;$("explosion").textContent="结构爆炸预览";applyPositions();
+  const plan="plan.generated."+chosenCorner+"."+component+"."+intent;
+  const steps=mechanical.operationsFor(plan).length;
+  serviceMessage("执行 "+chosenCorner.toUpperCase()+" "+component+" "+intent+"，共 "+steps+" 个步骤。");
+  try{
+    await mechanical.runPlan(plan);
+    serviceMessage("已完成："+chosenCorner.toUpperCase()+" "+component+" "+intent+"，机械状态已提交。");
+  }catch(error){
+    serviceMessage("操作被阻止："+(error instanceof Error?error.message:String(error)));
+  }finally{
+    operating=false;
+    if(selectedId)displayPart(selectedId);
+  }
+}
+for(const [id,part,intent] of [
+  ["service-wheel-out","wheel","remove"],
+  ["service-wheel-in","wheel","install"],
+  ["service-brake-out","brakes","remove"],
+  ["service-brake-in","brakes","install"]
+]as [string,"wheel"|"brakes","remove"|"install"][]){
+  $(id).addEventListener("click",()=>{void runService(part,intent);});
+}
+$("service-reset").addEventListener("click",()=>{
+  if(!mechanical||operating){serviceMessage("请先完成当前拆装操作。");return;}
+  mechanical.reset();previewOffsets={};applyPositions();
+  serviceMessage("已恢复所有四轮角总成的初始机械状态。");
+});
+
 renderFilters();renderList();
 const loader=new GLTFLoader();
 const imported=new THREE.Group();
@@ -252,7 +342,17 @@ Promise.all(waiters).then(()=>{
   if(missing.length)throw new Error("缺少 "+missing.length+" 个已标记生成的 GLB 零件");
   $("loading").style.display="none";
   $("render-info").textContent=byId.size+" GLB PARTS LOADED";
-  updateVisibility();
+  mechanical=new MechanicalEngine(createGeneratedCarCornerAsset(manifest01 as unknown as GeneratedManifest),new FrameDriver());
+  mechanical.subscribe(event=>{
+    if(event.type==="preview")previewOffsets=event.offsets;
+    else if(event.type==="commit"||event.type==="cancel"||event.type==="state")previewOffsets={};
+    if(event.type==="commit"){
+      serviceMessage("已提交："+event.operationId+"（机械 Revision "+event.revision+"）");
+    }else if(event.type==="diagnostic")serviceMessage("碰撞预检："+event.message);
+    applyPositions();
+  });
+  serviceMessage("四轮角总成已接入机械引擎。选择左前、右前、左后或右后车轮进行拆装。");
+  applyPositions();updateVisibility();
   select(geometryMap.has("engine.crankshaft")?"engine.crankshaft":generated[0].id);
 }).catch(error=>{
   $("loading").textContent="资产载入失败："+String(error);
