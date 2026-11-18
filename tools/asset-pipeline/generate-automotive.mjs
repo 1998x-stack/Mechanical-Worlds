@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import {fileURLToPath} from "node:url";
+import {createHash} from "node:crypto";
 
 export const generateAutomotive = function generateAutomotive(){
  const vertices=[]; // reserved to make the generator source self-contained
@@ -374,8 +375,7 @@ if (main) {
   fs.mkdirSync(path.dirname(filename),{recursive:true});
   fs.writeFileSync(filename,Buffer.from(glb));
   const manifestPath=path.join(path.dirname(filename),"manifest.json");
-  // Preserve previously assigned Git blob metadata when regenerating.
-  let prev={};try{prev=JSON.parse(fs.readFileSync(manifestPath,"utf8"));}catch{}
-  fs.writeFileSync(manifestPath,JSON.stringify({...manifest,...(prev.gitBlobSha?{gitBlobSha:prev.gitBlobSha}:{})},null,2)+"\n");
+  const gitBlobSha=createHash("sha1").update(Buffer.from("blob "+glb.length+"\\0")).update(Buffer.from(glb)).digest("hex");
+  fs.writeFileSync(manifestPath,JSON.stringify({...manifest,gitBlobSha},null,2)+"\n");
   console.log(`Generated ${manifest.parts.length} parts, ${manifest.uniqueTriangles} template triangles, ${glb.length} GLB bytes`);
 }

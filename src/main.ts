@@ -172,7 +172,9 @@ function update():void{
 function loadScenario():void{
   asset=assetFactories[scenario]();intent="disassemble";driver=new BrowserDriver();engine=new MechanicalEngine(asset,driver);
   selected=null;viewer?.dispose();
-  viewer=new MechanicalViewer($("viewport"),asset,engine,id=>{selected=id;update();});
+  viewer=new MechanicalViewer($("viewport"),asset,engine,
+    id=>{selected=id;update();},
+    count=>status("汽车 P1 演示已接入 "+count+" 个真实 GLB 部件几何；机械状态仍由 Core 控制。"));
   engine.subscribe(event=>{
     if(event.type==="commit"){
       const op=asset.operations.find(o=>o.id===event.operationId);

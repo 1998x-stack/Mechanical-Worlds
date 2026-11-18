@@ -1,5 +1,7 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import {GLTFLoader} from "three/addons/loaders/GLTFLoader.js";
+import batchManifest from "../../../assets/generated/automotive/manifest.json";
 import { add, type MechanicalAsset, type PartNode, type Vec3 } from "../../mechanical-schema/src/index.js";
 import type { MechanicalEngine } from "../../mechanical-core/src/index.js";
 import { getPartPose, axisAngle } from "../../mechanical-core/src/p1.js";
@@ -98,6 +100,7 @@ export class MechanicalViewer{
   private previewJoints:Record<string,number>={};
   private previewScrews:Record<string,{axis:Vec3;angleRad:number}>={};
   private explosion=0;
+  private disposed=false;
   private selected:string|null=null;
   private pointerStart:{x:number;y:number}|null=null;
   private down=(e:PointerEvent)=>{this.pointerStart={x:e.clientX,y:e.clientY};};
@@ -110,7 +113,8 @@ export class MechanicalViewer{
     if(hit)this.select(hit.object.userData.partId as string);
   };
   constructor(private container:HTMLElement,private asset:MechanicalAsset,private engine:MechanicalEngine,
-    private onSelect:(id:string)=>void){
+    private onSelect:(id:string)=>void,
+    private onGeneratedGeometry?: (count:number)=>void){
     const glasses=asset.id.includes("glasses");
     this.scene.background=new THREE.Color(0x0b1627);
     this.scene.fog=new THREE.Fog(0x0b1627,9,25);
@@ -155,7 +159,61 @@ export class MechanicalViewer{
     this.renderer.domElement.addEventListener("pointerdown",this.down);
     this.renderer.domElement.addEventListener("pointerup",this.up);
     this.resize();this.updatePositions();
+    if(asset.id.includes("wheel"))this.upgradeWheelGeometry();
     const tick=()=>{this.frame=requestAnimationFrame(tick);this.controls.update();this.renderer.render(this.scene,this.camera);};tick();
+  }
+  private upgradeWheelGeometry():void{
+    // Replace procedural fallback groups only after a real GLB has loaded successfully.
+    const uri=import.meta.env.BASE_URL+"models/automotive-fwd-i4-batch-01.glb";
+    new GLTFLoader().load(uri,gltf=>{
+      if(this.disposed)return;
+      let replaced=0;
+      for(let i=0;i<batchManifest.parts.length;i++){
+        const catalogId=batchManifest.parts[i].id;
+        const demoId=catalogId.replace(/^wheel\\.fl\\.lug\\.(\\d+)$/,(_m,n)=>"wheel.fl.lug."+String(n).padStart(2,"0"));
+        const group=this.groups.get(demoId);
+        const source=gltf.scene.children[i];
+        if(!group||!source)continue;
+        const incoming=source.clone(true);
+        // Source glTF nodes are positioned in the whole vehicle; P1 fixture owns
+        // the authoritative transform in this interactive wheel acceptance case.
+        incoming.position.set(0,0,0);
+        incoming.quaternion.identity();
+        incoming.scale.set(1,1,1);
+        incoming.traverse(node=>{
+          node.userData.partId=demoId;
+          if(node instanceof THREE.Mesh){
+            const mats=Array.isArray(node.material)?node.material:[node.material];
+            const own=mats.map(m=>m.clone());
+            node.material=Array.isArray(node.material)?own:own[0];
+            node.castShadow=true;node.receiveShadow=true;
+          }
+        });
+        group.traverse(node=>{
+          if(node instanceof THREE.Mesh){
+            node.geometry.dispose();
+            for(const material of Array.isArray(node.material)?node.material:[node.material])material.dispose();
+          }
+        });
+        group.clear();
+        group.add(incoming);
+        replaced++;
+      }
+      this.updatePositions();
+      if(this.selected){
+        const id=this.selected;
+        for(const [partId,g] of this.groups)g.traverse(obj=>{
+          if(obj instanceof THREE.Mesh){
+            const materials=Array.isArray(obj.material)?obj.material:[obj.material];
+            for(const mat of materials)if(mat instanceof THREE.MeshStandardMaterial){
+              mat.emissive.setHex(partId===id?0x235f95:0);
+              mat.emissiveIntensity=partId===id?.5:0;
+            }
+          }
+        });
+      }
+      if(replaced)this.onGeneratedGeometry?.(replaced);
+    },undefined,error=>console.warn("Automotive GLB unavailable; keeping procedural demo fallback",error));
   }
   private resize():void{const w=Math.max(this.container.clientWidth,1),h=Math.max(this.container.clientHeight,1);
     this.camera.aspect=w/h;this.camera.updateProjectionMatrix();this.renderer.setSize(w,h,false);}
@@ -197,6 +255,7 @@ export class MechanicalViewer{
     this.camera.position.set(g?.2:-2.9,2,g?5.4:4);this.controls.target.set(g?0:-.4,g?.55:.3,0);this.controls.update();
   }
   dispose():void{
+    this.disposed=true;
     cancelAnimationFrame(this.frame);this.observer.disconnect();this.unsubscribe();
     this.renderer.domElement.removeEventListener("pointerdown",this.down);
     this.renderer.domElement.removeEventListener("pointerup",this.up);

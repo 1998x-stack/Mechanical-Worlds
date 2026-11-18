@@ -14,7 +14,8 @@
     "skills:check": "node tools/skills/sync.mjs check",
     "assets:build": "node tools/asset-pipeline/generate-automotive.mjs",
     "assets:validate": "node tools/asset-pipeline/validate-glb.mjs --report",
-    "assets:stage": "node tools/asset-pipeline/stage-assets.mjs"
+    "assets:stage": "node tools/asset-pipeline/stage-assets.mjs",
+    "predev": "npm run assets:stage"
   },
   "dependencies": {
     "three": "^0.181.2"
