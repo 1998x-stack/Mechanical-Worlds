@@ -144,3 +144,9 @@ npm run engine:clearance
 npm run engine:audit
 npm run check
 ```
+
+## New source B-Rep CAD and swept mesh review
+
+An independent **18-Part parametric B-Rep** now reconstructs through-bored cylinder geometry, alternating crank offset phase, hollow piston skirts, pin-axis holes, connecting rod eyes and ring packs using CadQuery/OCP. It exports an actual STEP assembly and CAD-tessellated 18-node GLB, replacing corresponding display nodes in Pages while keeping Core Part IDs unchanged. It is original, non-OEM conceptual CAD and is **not dimension-reviewed or manufacturing-certified**.
+
+The `src/mesh-ccd.mjs` module and `tools/cad/audit_cad_mesh.mjs` run a conservative full-720° BVH contact assessment across all 18 CAD-derived meshes. Actual results contain surface contacts and unresolved time intervals; therefore the overall mechanism remains `NOT_VERIFIED` for collision. See `docs/CAD-BREP-AND-CCD.md` for methods, counts, exclusions and external STEP evidence requirements.

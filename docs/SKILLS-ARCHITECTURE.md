@@ -92,3 +92,7 @@ Current catalog: 106 generated conceptual meshes across 2 GLBs, 211 planned phys
 ## Working I4 reference (v0.3 prototype)
 
 `packages/mechanical-core/src/engine-i4.ts` now demonstrates a reusable schema-level `SliderCrankConstraint` with **one driving joint and four related cylinder groups**. Its independent operation graph contains 26 teardown and 26 reassembly actions bound to the 30-Part powertrain GLB. Scripts prove closure across 720° and conservatively exclude collision between 16 specific inter-cylinder GLB parts by verifying disjoint world-X mesh projections. The entire engine is **not** mesh collision verified or CAD-reviewed; see `docs/ENGINE-I4-KINEMATICS.md`.
+
+## Parametric native CAD reference and cautious mesh CCD
+
+The 18-Part I4 B-Rep exporter now outputs STEP and CAD-derived GLB under `tools/cad/`. The `cad-source-ingestion` workflow must still request authoritative source dimensions; original B-Rep construction is not external CAD review. `swept-collision-auditor` may inspect `tools/cad/audit_cad_mesh.mjs` results, but must refuse certification for contacts or unresolved intervals. Its BVH conservative surface clearance proves only an explicitly restricted kind of non-contact under rigid-body interpolation.

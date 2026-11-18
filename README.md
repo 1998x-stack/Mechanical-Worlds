@@ -2,7 +2,7 @@
 
 > 3D 机械结构、拆卸依赖、装配状态与交互式教学演示系统。
 
-**当前版本：P1 交互引擎 + 106 个汽车 GLB 零件 + 四轮制动拆装 + 720° 四缸发动机闭环运动与拆装流程。** 本仓库已包含 TypeScript 数据模型、确定性拆装引擎、Three.js 程序化几何演示，以及左前轮和机械眼镜两个自动化验收案例。示例几何和运动轨迹是**演示级**，并非工业 CAD 或真实维修规程。
+**当前版本：106 个汽车 GLB 零件 + 四轮制动/四缸运动学 + 18 件新增 CadQuery B-Rep STEP 实体 + 保守 BVH 连续网格审查。** 本仓库已包含 TypeScript 数据模型、确定性拆装引擎、Three.js 程序化几何演示，以及左前轮和机械眼镜两个自动化验收案例。示例几何和运动轨迹是**演示级**，并非工业 CAD 或真实维修规程。
 
 **P1 新增**：局部锚点与世界坐标对齐、Mate 配合校验、眼镜左右镜腿 Revolute 铰链和限位、螺钉分段轴向旋出/旋入、采样式 AABB 碰撞代理预检，以及可搜索的整车结构目录。新增同时加载 76 件车身/底盘与 30 件动力系统零件的 GLB 资产页面，并提供四个车轮角总成、发动机曲轴驱动和独立的发动机拆装流程（均为概念级软件验收）。
 
@@ -28,13 +28,15 @@ npm run assets:contracts # 导出四轮 GLB 绑定的锚点、Mate、路径和 D
 npm run assets:build  # 从参数化程序源重生成汽车 GLB
 npm run engine:audit  # 720° 连杆闭环 + 26步拆装/回装 QA
 npm run engine:clearance # 从实际GLB顶点证明16个跨缸零件的X轴分离下界
+npm run cad:build # 需要额外安装 Python CadQuery 2.8；导出18件 B-Rep STEP + GLB
+npm run cad:mesh-audit # 审查真实CAD网格的全720°接触/未判定区间
 npm run test         # 编译 schema/core；执行 Node.js 自动测试
 npm run build        # TypeScript Web 类型检查 + Vite 发布产物
 npm run check        # 测试和构建
 npm run preview      # 预览 production 构建
 ```
 
-[机械拆装演示](https://1998x-stack.github.io/Mechanical-Worlds/) · [汽车 GLB + 四缸运动学演示](https://1998x-stack.github.io/Mechanical-Worlds/automotive.html)。首页验证轮组与眼镜；汽车页可检查真实 GLB，并执行四轮角及 I4 发动机的概念机械操作。
+[机械拆装演示](https://1998x-stack.github.io/Mechanical-Worlds/) · [汽车 GLB + 四缸运动学演示](https://1998x-stack.github.io/Mechanical-Worlds/automotive.html)。 [发动机 B-Rep 参考 STEP](https://1998x-stack.github.io/Mechanical-Worlds/models/engine-i4-concept-reference.step) · [独立 CAD 与碰撞验收](https://github.com/1998x-stack/Mechanical-Worlds/actions/workflows/cad-reference.yml)。首页验证轮组与眼镜；汽车页可检查真实 GLB，并执行四轮角及 I4 发动机的概念机械操作。
 
 ## 两个可运行的验收案例
 
@@ -124,6 +126,7 @@ Mechanical Core 不依赖 Three.js。编辑器/渲染器只是适配器，装配
 - [AUTOMOTIVE-BATCH-02.md](docs/AUTOMOTIVE-BATCH-02.md)：新增 30 个四缸动力系统 GLB 零件。
 - [FOUR-CORNER-CONSTRAINTS.md](docs/FOUR-CORNER-CONSTRAINTS.md)：四轮及制动组件的 GLB 连接、依赖和拆装质量验收。
 - [ENGINE-I4-KINEMATICS.md](docs/ENGINE-I4-KINEMATICS.md)：四缸解析运动学、装配连接、拆装 DAG、源码偏差和可验证限界。
+- [CAD-BREP-AND-CCD.md](docs/CAD-BREP-AND-CCD.md)：浏览器加载修复、18 件真实 B-Rep 几何与 612 项连续网格碰撞审查的具体结果。
 
 **实现范围说明**：106 个已生成可浏览 GLB 零件，其中四轮角总成和四缸发动机已有可执行的概念级机械逻辑，其它部件大多仍是展示几何。这不是完整汽车装配 CAD 库。当前轮组使用离散 AABB 碰撞预检；发动机新增的跨气缸 X 轴间隔证明仅排除特定零件对的接触，不等于完整连续网格碰撞。源发动机曲轴相位形状与缸孔仍有已知偏差，不能据此推断制造公差、维修安全或 OEM 性能。
 
@@ -143,3 +146,11 @@ Mechanical Core 不依赖 Three.js。编辑器/渲染器只是适配器，装配
 本项目内部汽车前方定义为 `-Z`、车辆右侧为 `+X`，与 glTF 标准的资产前方 `+Z` 并不相同；从外部 CAD / glTF 导入时必须明确记录相应坐标基变换。运行单位为米，角度为弧度。参考 [Khronos glTF 2.0](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html)。
 
 真正实现 CAD 精度升级，需要带有合法再分发许可的 CAD 源数据、设计尺寸/PMI、装配关系和人工工程审核。现有 106 个 GLB 零件均属程序生成概念几何，没有可宣称的车型制造标准。未来的 STEP/AP242 接入需要保留零件名、装配层级、颜色与形位公差来源；新增的 `cad-source-ingestion` Skill 为此定义验收标准，但尚未实现生产级 STEP 导入器。
+
+## CAD 参考资产与接触审查的真实状态
+
+新 `tools/cad/generate_engine_reference.py` 使用 Open CASCADE/CadQuery **实体造型**输出 18 个四缸相关 CAD Part：真实贯通缸孔、曲轴对应四缸相位的偏心轴颈、连杆孔、空心活塞、贯穿活塞销及三道活塞环。它生成可独立下载的 `STEP` 和 CAD 曲面三角化的 `GLB`。Pages 会优先用这 18 件替换对应渲染节点，保留相同的 Mechanical Core ID；其它 12 件动力系统仍来自概念 GLB。
+
+这是项目**自创参数化 CAD**，不是经可信外部来源核实的 OEM STEP，故标签为 `parametric-brep-unreviewed` 而不是 `cad-reviewed`。最新全 720° 保守 BVH 审查的初始结果包含 32 个接触事件、100 个未判定区间，**整机碰撞不合格为“未验证”**。被动接触可能是预期的销/轴承配合，也可能是几何错误，不能在工程审核前免检。
+
+CAD 源码：[generate_engine_reference.py](tools/cad/generate_engine_reference.py)。完整边界与数据：[CAD-BREP-AND-CCD.md](docs/CAD-BREP-AND-CCD.md)。

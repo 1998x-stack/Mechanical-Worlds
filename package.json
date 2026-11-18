@@ -19,7 +19,9 @@
     "assets:plan": "node tools/asset-pipeline/plan-next-batch.mjs",
     "assets:contracts": "npm run build:core && node tools/asset-pipeline/export-contracts.mjs && node tools/asset-pipeline/audit-engine-i4.mjs && node tools/asset-pipeline/audit-engine-clearance.mjs",
     "engine:audit": "npm run build:core && node tools/asset-pipeline/audit-engine-i4.mjs",
-    "engine:clearance": "npm run build:core && node tools/asset-pipeline/audit-engine-clearance.mjs"
+    "engine:clearance": "npm run build:core && node tools/asset-pipeline/audit-engine-clearance.mjs",
+    "cad:build": "python tools/cad/generate_engine_reference.py --output dist-cad/engine-i4",
+    "cad:mesh-audit": "npm run build:core && node tools/cad/audit_cad_mesh.mjs --step-deg=180"
   },
   "dependencies": {
     "three": "^0.181.2",

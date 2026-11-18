@@ -50,5 +50,17 @@
     "convexDecomposition": false,
     "result": "not-certified"
   },
-  "scope": "Analytic slider-crank kinematics and state-machine teardown/assembly without manufacturing or real mechanical safety claims"
+  "scope": "Analytic slider-crank kinematics and state-machine teardown/assembly without manufacturing or real mechanical safety claims",
+  "additionalParametricBrepReference": {
+    "sourceFile": "tools/cad/generate_engine_reference.py",
+    "nativeCadOutput": "engine-i4-concept-reference.step",
+    "cadDerivedGlbOutput": "engine-i4-cad-reference.glb",
+    "partInstanceCount": 18,
+    "sourceType": "original-programmatic-occt-brep",
+    "tier": "parametric-brep-unreviewed",
+    "externalOemReference": null,
+    "trueManufacturingClearancesVerified": false,
+    "sweptMeshAudit": "NOT_VERIFIED",
+    "statement": "BRep STEP export is not evidence of licensed OEM geometry, tolerance validation or collision-free operation"
+  }
 }

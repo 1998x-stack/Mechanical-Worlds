@@ -86,3 +86,9 @@ CAD/AP242 source evidence and swept collision audit are separate advanced workfl
 ## Engine-coupling acceptance (new)
 
 For `engine-kinematics-authoring` the stable Part IDs and source geometry manifest are mandatory. A meaningful powered I4 machine must derive piston, rod, pin, ring and cam pose from one validated crank angle; must preserve a mathematically closed rod length; and must block rotation after the required Mates/Parts are detached. Keep the independent teardown and assembly DAGs, guards, rollback tests and source-evidence metadata. Full 720° mathematical closure and positive cross-cylinder X-gap are **software/geometry checks only**, not full surface collision or manufacturing CAD certification.
+
+## Required external CAD review boundary and mesh CCD proof status
+
+`tools/cad/generate_engine_reference.py` creates 18 editable mathematical B-Rep solids and a STEP file. It is **original project-authored conceptual CAD**, not independently measured OEM CAD, and must remain marked `parametric-brep-unreviewed` until lawful source geometry, nominal dimensions, GD&T, manufacturing fits and expert review are available.
+
+`src/mesh-ccd.mjs` is a conservative, adaptive moving-triangle BVH separation checker with outcomes `surface-clear`, `surface-contact`, `unresolved`. Treat unknown results as **unsafe / not verified**. A positive triangle-surface separation certificate cannot by itself detect one solid fully contained within another; require trustworthy closed-mesh topology and separate solid intersection qualification before claiming real collision-free motion. CAD workflow publishes audit evidence with all contact and unresolved pairs and does not suppress them merely because a Mate exists.

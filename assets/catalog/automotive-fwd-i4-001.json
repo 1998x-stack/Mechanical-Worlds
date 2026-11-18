@@ -1450,7 +1450,10 @@
       "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
       "geometryNodeName": "engine.block.cast",
       "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
-      "geometryQuality": "conceptual-procedural"
+      "geometryQuality": "conceptual-procedural",
+      "cadReferenceUri": "models/engine-i4-cad-reference.glb",
+      "cadReferenceSource": "tools/cad/generate_engine_reference.py",
+      "cadReferenceTier": "parametric-brep-unreviewed"
     },
     {
       "id": "engine.crankshaft",
@@ -1462,7 +1465,10 @@
       "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
       "geometryNodeName": "engine.crankshaft",
       "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
-      "geometryQuality": "conceptual-procedural"
+      "geometryQuality": "conceptual-procedural",
+      "cadReferenceUri": "models/engine-i4-cad-reference.glb",
+      "cadReferenceSource": "tools/cad/generate_engine_reference.py",
+      "cadReferenceTier": "parametric-brep-unreviewed"
     },
     {
       "id": "engine.main-bearing",
@@ -1506,7 +1512,10 @@
       "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
       "geometryNodeName": "engine.piston.1",
       "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
-      "geometryQuality": "conceptual-procedural"
+      "geometryQuality": "conceptual-procedural",
+      "cadReferenceUri": "models/engine-i4-cad-reference.glb",
+      "cadReferenceSource": "tools/cad/generate_engine_reference.py",
+      "cadReferenceTier": "parametric-brep-unreviewed"
     },
     {
       "id": "engine.piston.2",
@@ -1518,7 +1527,10 @@
       "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
       "geometryNodeName": "engine.piston.2",
       "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
-      "geometryQuality": "conceptual-procedural"
+      "geometryQuality": "conceptual-procedural",
+      "cadReferenceUri": "models/engine-i4-cad-reference.glb",
+      "cadReferenceSource": "tools/cad/generate_engine_reference.py",
+      "cadReferenceTier": "parametric-brep-unreviewed"
     },
     {
       "id": "engine.piston.3",
@@ -1530,7 +1542,10 @@
       "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
       "geometryNodeName": "engine.piston.3",
       "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
-      "geometryQuality": "conceptual-procedural"
+      "geometryQuality": "conceptual-procedural",
+      "cadReferenceUri": "models/engine-i4-cad-reference.glb",
+      "cadReferenceSource": "tools/cad/generate_engine_reference.py",
+      "cadReferenceTier": "parametric-brep-unreviewed"
     },
     {
       "id": "engine.piston.4",
@@ -1542,7 +1557,10 @@
       "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
       "geometryNodeName": "engine.piston.4",
       "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
-      "geometryQuality": "conceptual-procedural"
+      "geometryQuality": "conceptual-procedural",
+      "cadReferenceUri": "models/engine-i4-cad-reference.glb",
+      "cadReferenceSource": "tools/cad/generate_engine_reference.py",
+      "cadReferenceTier": "parametric-brep-unreviewed"
     },
     {
       "id": "engine.rod.1",
@@ -1554,7 +1572,10 @@
       "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
       "geometryNodeName": "engine.rod.1",
       "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
-      "geometryQuality": "conceptual-procedural"
+      "geometryQuality": "conceptual-procedural",
+      "cadReferenceUri": "models/engine-i4-cad-reference.glb",
+      "cadReferenceSource": "tools/cad/generate_engine_reference.py",
+      "cadReferenceTier": "parametric-brep-unreviewed"
     },
     {
       "id": "engine.rod.2",
@@ -1566,7 +1587,10 @@
       "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
       "geometryNodeName": "engine.rod.2",
       "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
-      "geometryQuality": "conceptual-procedural"
+      "geometryQuality": "conceptual-procedural",
+      "cadReferenceUri": "models/engine-i4-cad-reference.glb",
+      "cadReferenceSource": "tools/cad/generate_engine_reference.py",
+      "cadReferenceTier": "parametric-brep-unreviewed"
     },
     {
       "id": "engine.rod.3",
@@ -1578,7 +1602,10 @@
       "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
       "geometryNodeName": "engine.rod.3",
       "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
-      "geometryQuality": "conceptual-procedural"
+      "geometryQuality": "conceptual-procedural",
+      "cadReferenceUri": "models/engine-i4-cad-reference.glb",
+      "cadReferenceSource": "tools/cad/generate_engine_reference.py",
+      "cadReferenceTier": "parametric-brep-unreviewed"
     },
     {
       "id": "engine.rod.4",
@@ -1590,7 +1617,10 @@
       "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
       "geometryNodeName": "engine.rod.4",
       "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
-      "geometryQuality": "conceptual-procedural"
+      "geometryQuality": "conceptual-procedural",
+      "cadReferenceUri": "models/engine-i4-cad-reference.glb",
+      "cadReferenceSource": "tools/cad/generate_engine_reference.py",
+      "cadReferenceTier": "parametric-brep-unreviewed"
     },
     {
       "id": "engine.piston.pin.1",
@@ -1602,7 +1632,10 @@
       "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
       "geometryNodeName": "engine.piston.pin.1",
       "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
-      "geometryQuality": "conceptual-procedural"
+      "geometryQuality": "conceptual-procedural",
+      "cadReferenceUri": "models/engine-i4-cad-reference.glb",
+      "cadReferenceSource": "tools/cad/generate_engine_reference.py",
+      "cadReferenceTier": "parametric-brep-unreviewed"
     },
     {
       "id": "engine.piston.pin.2",
@@ -1614,7 +1647,10 @@
       "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
       "geometryNodeName": "engine.piston.pin.2",
       "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
-      "geometryQuality": "conceptual-procedural"
+      "geometryQuality": "conceptual-procedural",
+      "cadReferenceUri": "models/engine-i4-cad-reference.glb",
+      "cadReferenceSource": "tools/cad/generate_engine_reference.py",
+      "cadReferenceTier": "parametric-brep-unreviewed"
     },
     {
       "id": "engine.piston.pin.3",
@@ -1626,7 +1662,10 @@
       "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
       "geometryNodeName": "engine.piston.pin.3",
       "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
-      "geometryQuality": "conceptual-procedural"
+      "geometryQuality": "conceptual-procedural",
+      "cadReferenceUri": "models/engine-i4-cad-reference.glb",
+      "cadReferenceSource": "tools/cad/generate_engine_reference.py",
+      "cadReferenceTier": "parametric-brep-unreviewed"
     },
     {
       "id": "engine.piston.pin.4",
@@ -1638,7 +1677,10 @@
       "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
       "geometryNodeName": "engine.piston.pin.4",
       "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
-      "geometryQuality": "conceptual-procedural"
+      "geometryQuality": "conceptual-procedural",
+      "cadReferenceUri": "models/engine-i4-cad-reference.glb",
+      "cadReferenceSource": "tools/cad/generate_engine_reference.py",
+      "cadReferenceTier": "parametric-brep-unreviewed"
     },
     {
       "id": "engine.piston.rings.1",
@@ -1650,7 +1692,10 @@
       "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
       "geometryNodeName": "engine.piston.rings.1",
       "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
-      "geometryQuality": "conceptual-procedural"
+      "geometryQuality": "conceptual-procedural",
+      "cadReferenceUri": "models/engine-i4-cad-reference.glb",
+      "cadReferenceSource": "tools/cad/generate_engine_reference.py",
+      "cadReferenceTier": "parametric-brep-unreviewed"
     },
     {
       "id": "engine.piston.rings.2",
@@ -1662,7 +1707,10 @@
       "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
       "geometryNodeName": "engine.piston.rings.2",
       "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
-      "geometryQuality": "conceptual-procedural"
+      "geometryQuality": "conceptual-procedural",
+      "cadReferenceUri": "models/engine-i4-cad-reference.glb",
+      "cadReferenceSource": "tools/cad/generate_engine_reference.py",
+      "cadReferenceTier": "parametric-brep-unreviewed"
     },
     {
       "id": "engine.piston.rings.3",
@@ -1674,7 +1722,10 @@
       "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
       "geometryNodeName": "engine.piston.rings.3",
       "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
-      "geometryQuality": "conceptual-procedural"
+      "geometryQuality": "conceptual-procedural",
+      "cadReferenceUri": "models/engine-i4-cad-reference.glb",
+      "cadReferenceSource": "tools/cad/generate_engine_reference.py",
+      "cadReferenceTier": "parametric-brep-unreviewed"
     },
     {
       "id": "engine.piston.rings.4",
@@ -1686,7 +1737,10 @@
       "geometryUri": "assets/generated/automotive/fwd-i4-batch-02.glb",
       "geometryNodeName": "engine.piston.rings.4",
       "geometrySource": "tools/asset-pipeline/generate-powertrain.mjs",
-      "geometryQuality": "conceptual-procedural"
+      "geometryQuality": "conceptual-procedural",
+      "cadReferenceUri": "models/engine-i4-cad-reference.glb",
+      "cadReferenceSource": "tools/cad/generate_engine_reference.py",
+      "cadReferenceTier": "parametric-brep-unreviewed"
     },
     {
       "id": "engine.head",
