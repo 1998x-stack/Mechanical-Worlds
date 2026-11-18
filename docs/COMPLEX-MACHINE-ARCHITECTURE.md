@@ -161,3 +161,7 @@ Each quality release should specify:
 - known limitations and target application.
 
 This prevents large-scale Agent production from quietly turning a structured mechanical product into a collection of mislabeled or non-manufacturable models.
+
+## Status update — I4 mechanical prototype
+
+A 30-Part conceptual I4 GLB now drives 4 analytic slider-crank cylinder groups, an authored 720° crank/timing ratio, 26-step teardown and independent 26-step assembly. The source remains conceptual and contains known crank throw phase and cylinder bore mesh inaccuracies. Engine collision evidence now includes a conservative, exact GLB X-projection separation proof for 96 inter-cylinder mesh pairs during assembled operation. This excludes all engine block/bearing/rod-local contacts and all service path motion. See `docs/ENGINE-I4-KINEMATICS.md`. External CAD/STEP with verified rights is still a prerequisite to engineering-level promotion.

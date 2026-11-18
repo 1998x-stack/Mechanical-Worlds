@@ -128,3 +128,19 @@ Outputs:
 - Pages endpoint: `/Mechanical-Worlds/models/engine-i4-kinematics-contract.json`.
 
 **Next work should revise the actual GLB geometry itself** from trustworthy dimensional CAD, make the crank-pin/rod/piston artwork coincide with these mathematical pivots, add real interior bores and pin-bearing fits, and qualify narrowphase + swept collision. Only then can this package be promoted from generated-conceptual geometry toward evidence-backed CAD review.
+
+## 8. Verified restricted continuous GLB geometry separation
+
+The additional `engine-clearance` module uses **actual binary GLB POSITION accessor minimum/maximum X values** for the 16 moving piston, connecting rod, pin and ring Part nodes (four per cylinder). Each node's authored X translation is fixed and, during assembled engine operation, its only rotation is about world X; therefore its world-X interval is invariant for **all** crankshaft angles. Disjoint intervals prove those two meshes cannot touch in 3D, without angle sampling.
+
+The algorithm compares 96 cross-cylinder pairs (`6 cylinder pairs × 4 × 4 Parts`) and fails if any axial interval overlaps. It reports the minimum positive projection separation in meters and produces `engine-i4-axial-clearance.json` as a Pages/CI artifact. The proof is valid only for the specified actual GLB and normal assembled kinematic pose.
+
+**Excluded entirely:** same-cylinder rod and piston contacts, crankshaft and bearing clearances, cylinder block wall interference, timing drive, gear engagement, motion during teardown/reassembly, material deformation and CAD tolerances. This is an exact **axis-projection exclusion** for a narrow set of cases, not a general-purpose CCD solver. In particular, the known generated block geometry must be replaced before claiming piston-to-bore physical clearance.
+
+Run:
+
+```bash
+npm run engine:clearance
+npm run engine:audit
+npm run check
+```

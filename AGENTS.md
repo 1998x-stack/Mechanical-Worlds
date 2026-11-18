@@ -82,3 +82,7 @@ Contributions should be focused and traceable; prefer one mechanically coherent 
 Khronos glTF specifies right-handed **+Y up / +Z asset front** and meters. This repository uses a deliberate **vehicle-specific -Z front** convention for authored cars; both are right-handed, but their vehicle-front semantics differ. External CAD/glTF requires explicit basis conversion and provenance. See https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html .
 
 CAD/AP242 source evidence and swept collision audit are separate advanced workflows: `cad-source-ingestion` and `swept-collision-auditor`. No generated part should be labeled CAD-reviewed until trustworthy sources, dimensions and joints are inspected.
+
+## Engine-coupling acceptance (new)
+
+For `engine-kinematics-authoring` the stable Part IDs and source geometry manifest are mandatory. A meaningful powered I4 machine must derive piston, rod, pin, ring and cam pose from one validated crank angle; must preserve a mathematically closed rod length; and must block rotation after the required Mates/Parts are detached. Keep the independent teardown and assembly DAGs, guards, rollback tests and source-evidence metadata. Full 720° mathematical closure and positive cross-cylinder X-gap are **software/geometry checks only**, not full surface collision or manufacturing CAD certification.

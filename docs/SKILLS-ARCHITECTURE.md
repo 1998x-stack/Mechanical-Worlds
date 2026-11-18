@@ -15,7 +15,7 @@ As Mechanical Worlds expands from cars to engines, watches, robot arms and indus
 
 See official specifications: https://learn.chatgpt.com/docs/build-skills , https://code.claude.com/docs/en/skills and https://docs.pi.dev/latest/skills .
 
-## Eleven composable production skills
+## Twelve composable production skills
 
 | Skill | Input | Output |
 |---|---|---|
@@ -28,6 +28,9 @@ See official specifications: https://learn.chatgpt.com/docs/build-skills , https
 | `mechanical-asset-qa` | manifest + GLB + assembly model | hard gate reports and negative tests |
 | `complex-machine-onboarding` | new machine type and sources | schema-compatible phased rollout |
 | `mechanical-release-operator` | release candidates + CI | versioned published artifacts and audit trail |
+| `cad-source-ingestion` | licensed STEP/AP242, provenance and datums | source-evidenced CAD intake contract |
+| `swept-collision-auditor` | collision paths, proxies, continuous checking evidence | interference and limitation audit |
+| `engine-kinematics-authoring` | four-cylinder parts, crank/rod/piston geometry and source | constrained 720° kinematics and service DAG |
 
 ### Progressive disclosure
 
@@ -85,3 +88,7 @@ Individual catalog rows should contain `id`, `parentId`, `nameZh`, `kind`, `geom
 - `swept-collision-auditor`: contact exceptions, swept clearance audit and future continuous collision solver qualification. Current implementation remains discrete AABB; it is not described as having CAD-verified clearance.
 
 Current catalog: 106 generated conceptual meshes across 2 GLBs, 211 planned physical parts. Four wheel/brake corners have operation DAGs on named generated GLB nodes. The I4 powertrain geometry has not been mechanically constrained.
+
+## Working I4 reference (v0.3 prototype)
+
+`packages/mechanical-core/src/engine-i4.ts` now demonstrates a reusable schema-level `SliderCrankConstraint` with **one driving joint and four related cylinder groups**. Its independent operation graph contains 26 teardown and 26 reassembly actions bound to the 30-Part powertrain GLB. Scripts prove closure across 720° and conservatively exclude collision between 16 specific inter-cylinder GLB parts by verifying disjoint world-X mesh projections. The entire engine is **not** mesh collision verified or CAD-reviewed; see `docs/ENGINE-I4-KINEMATICS.md`.
