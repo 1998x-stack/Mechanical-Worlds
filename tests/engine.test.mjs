@@ -65,8 +65,10 @@ test("aborted animation never commits state or offset", async () => {
 });
 test("schema validator rejects operation dependency cycles", () => {
   const a = createWheelAsset();
-  a.operations[0].dependsOn.push(a.operations[1].id);
-  a.operations[1].dependsOn.push(a.operations[0].id);
+  const first = a.operations.find(op => op.id === "op.wheel.lug.1.remove");
+  const second = a.operations.find(op => op.id === "op.wheel.lug.2.remove");
+  first.dependsOn.push(second.id);
+  second.dependsOn.push(first.id);
   assert.ok(validateAsset(a).some(issue => issue.code === "OPERATION_CYCLE"));
 });
 test("re-running a completed plan is idempotent", async () => {
