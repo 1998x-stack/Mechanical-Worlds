@@ -1,0 +1,10 @@
+{
+  "kind": "part-brief",
+  "partId": "chassis.brake.disc.fl",
+  "sourceUnits": "mm",
+  "runtimeUnits": "m",
+  "nominalOuterDiameterMm": null,
+  "nominalThicknessMm": null,
+  "source": "conceptual",
+  "geometryStatus": "planned"
+}

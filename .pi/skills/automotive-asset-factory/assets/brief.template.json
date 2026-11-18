@@ -1,0 +1,11 @@
+{
+  "kind": "automotive-batch",
+  "batchId": "automotive-fwd-i4-001-batch-01",
+  "catalogId": "mw.car.fwd-i4.catalog.001",
+  "scope": [
+    "chassis.front",
+    "wheels"
+  ],
+  "geometryStatus": "planned",
+  "engineeringVerified": false
+}

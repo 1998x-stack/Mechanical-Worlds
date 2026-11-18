@@ -1,0 +1,9 @@
+{
+  "kind": "mate-brief",
+  "mateId": "mate.example",
+  "connectorAId": "",
+  "connectorBId": "",
+  "jointType": "fixed",
+  "source": "unknown",
+  "engineeringVerified": false
+}

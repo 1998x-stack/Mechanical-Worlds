@@ -1,0 +1,10 @@
+{
+  "kind": "system-plan",
+  "machineId": "mw.machine.example",
+  "source": "unknown",
+  "unit": "m",
+  "subsystems": [],
+  "firstAcceptanceSlice": "",
+  "geometryStatus": "planned",
+  "engineeringVerified": false
+}

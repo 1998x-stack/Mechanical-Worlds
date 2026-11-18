@@ -1,0 +1,9 @@
+{
+  "kind": "geometry-manifest",
+  "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+  "catalogPartIds": [],
+  "meshCount": 0,
+  "triangles": 0,
+  "unit": "m",
+  "engineeringVerified": false
+}

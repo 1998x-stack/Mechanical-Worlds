@@ -1,0 +1,9 @@
+{
+  "kind": "operation-brief",
+  "operationId": "op.part.detach",
+  "intent": "disassemble",
+  "dependsOn": [],
+  "requires": [],
+  "effects": [],
+  "collisionPolicy": "advisory"
+}

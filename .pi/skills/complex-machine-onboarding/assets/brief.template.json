@@ -1,0 +1,8 @@
+{
+  "kind": "machine-onboarding",
+  "family": "industrial-robot",
+  "assetId": "mw.robot.example",
+  "subsystems": [],
+  "acceptanceSlice": "joint-01",
+  "geometryStatus": "planned"
+}

@@ -1,0 +1,12 @@
+{
+  "kind": "qa-report",
+  "assetId": "",
+  "qualityGate": "G1",
+  "checks": [
+    "glb-parse",
+    "named-nodes",
+    "catalog-coverage",
+    "license"
+  ],
+  "status": "pending"
+}
