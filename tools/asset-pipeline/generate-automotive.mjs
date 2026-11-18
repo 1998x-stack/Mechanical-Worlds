@@ -375,7 +375,7 @@ if (main) {
   fs.mkdirSync(path.dirname(filename),{recursive:true});
   fs.writeFileSync(filename,Buffer.from(glb));
   const manifestPath=path.join(path.dirname(filename),"manifest.json");
-  const gitBlobSha=createHash("sha1").update(Buffer.from("blob "+glb.length+"\\0")).update(Buffer.from(glb)).digest("hex");
+  const gitBlobSha=createHash("sha1").update(Buffer.from("blob "+glb.length+"\0")).update(Buffer.from(glb)).digest("hex");
   fs.writeFileSync(manifestPath,JSON.stringify({...manifest,gitBlobSha},null,2)+"\n");
   console.log(`Generated ${manifest.parts.length} parts, ${manifest.uniqueTriangles} template triangles, ${glb.length} GLB bytes`);
 }

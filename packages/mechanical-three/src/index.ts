@@ -170,7 +170,7 @@ export class MechanicalViewer{
       let replaced=0;
       for(let i=0;i<batchManifest.parts.length;i++){
         const catalogId=batchManifest.parts[i].id;
-        const demoId=catalogId.replace(/^wheel\\.fl\\.lug\\.(\\d+)$/,(_m,n)=>"wheel.fl.lug."+String(n).padStart(2,"0"));
+        const demoId=catalogId.replace(/^wheel\.fl\.lug\.(\d+)$/,(_m,n)=>"wheel.fl.lug."+String(n).padStart(2,"0"));
         const group=this.groups.get(demoId);
         const source=gltf.scene.children[i];
         if(!group||!source)continue;
