@@ -100,12 +100,14 @@ $("car-app").innerHTML=`
         <button id="engine-stop">停止旋转</button>
         <button id="engine-focus">聚焦发动机</button>
         <button id="engine-cutaway">剖视发动机</button>
+        <button id="engine-cad-load">加载 18 件 B-Rep CAD</button>
         <button id="engine-teardown">发动机拆卸</button>
         <button id="engine-assemble">重新装配</button>
         <button id="engine-home">归零位置</button>
       </div>
       <div id="engine-status" role="status">运动学闭环和拆装状态由 Headless Mechanical Core 验证，载入后可操作。</div>
       <div id="engine-telemetry" class="engine-telemetry">活塞高度：未加载 · 理论连杆闭环误差：未加载</div>
+      <div id="engine-cad-status" class="engine-telemetry">基础 GLB：概念网格；CAD B-Rep 版本尚未载入。</div>
       <div class="engine-note">剖视模式中的彩色连杆线和关节点，是数学约束中心线（非制造几何）；4 个活塞和连杆均由同一曲轴角度求解，凸轮轴按 2:1 转动。源 GLB 的曲柄形状仍有需要通过 CAD 修正的偏差。<a href="${import.meta.env.BASE_URL}models/engine-i4-kinematics-contract.json" target="_blank" rel="noopener noreferrer">检查运动学合同</a> · <a href="${import.meta.env.BASE_URL}models/engine-i4-axial-clearance.json" target="_blank" rel="noopener noreferrer">查看跨缸几何间隔审查</a></div>
     </section>
     <div class="disclaimer">106 个零件均可独立选择；四轮及制动组件、概念四缸发动机已接入独立机械操作 DAG。完整变速箱、自动碰撞窄相与 OEM CAD 制造精度仍未实现。视觉爆炸预览不会修改机械状态。</div>
@@ -200,6 +202,15 @@ let engineMechanical:MechanicalEngine|null=null;
 let enginePreviewOffsets:Record<string,Vec3>={};
 let engineSpinning=false;
 let engineCutaway=false;
+let cadLoading=false;
+let cadLoaded=false;
+const cadPartIds=[
+  "engine.block.cast","engine.crankshaft",
+  ...Array.from({length:4},(_,i)=>[
+    "engine.piston."+(i+1),"engine.rod."+(i+1),
+    "engine.piston.pin."+(i+1),"engine.piston.rings."+(i+1)
+  ]).flat()
+];
 let enginePreviousFrame=0;
 const engineJointId="joint.engine.i4.crankshaft";
 const engineStatus=(message:string)=>{$("engine-status").textContent=message;};
@@ -426,6 +437,42 @@ $("engine-angle").addEventListener("input",()=>{
     applyPositions();
   }catch(error){engineStatus("曲轴受阻："+String(error));}
 });
+function loadCadReference():void{
+  if(cadLoaded||cadLoading)return;
+  if(!root||!engineMechanical)return;
+  cadLoading=true;
+  $("engine-cad-status").textContent="正在加载带曲面 CAD 来源的 18 件 B-Rep 网格...";
+  const file=import.meta.env.BASE_URL+"models/engine-i4-cad-reference.glb";
+  new GLTFLoader().load(file,gltf=>{
+    try{
+      const container=new THREE.Group(),newParts=new Map<string,THREE.Object3D>();
+      const moved=transferGlbParts(gltf.scene,container,cadPartIds.map(id=>({id})),
+        (id:string,node:THREE.Object3D)=>newParts.set(id,node));
+      if(moved!==18||newParts.size!==18)throw new Error("CAD Part 数量不一致");
+      for(const [id,node] of newParts){
+        const old=byId.get(id);
+        if(!old||!old.parent)throw new Error("Missing existing geometry to replace "+id);
+        old.parent.remove(old);
+        root!.add(node);
+        byId.set(id,node);
+        originalPos.set(id,node.position.clone());
+      }
+      cadLoaded=true;
+      cadLoading=false;
+      applyPositions();updateVisibility();
+      if(selectedId&&newParts.has(selectedId))select(selectedId);
+      $("engine-cad-status").textContent="已加载 18 件真实 B-Rep 曲面生成的 GLB；未获得 OEM CAD 或制造验证。";
+      $("engine-cad-load").textContent="B-Rep 已载入";
+    }catch(error){
+      cadLoading=false;
+      $("engine-cad-status").textContent="CAD GLB 替换未成功："+String(error);
+    }
+  },undefined,error=>{
+    cadLoading=false;
+    $("engine-cad-status").textContent="CAD B-Rep 附加文件暂不可用，继续使用原概念 GLB："+String(error);
+  });
+}
+$("engine-cad-load").addEventListener("click",loadCadReference);
 $("engine-rotate").addEventListener("click",()=>{
   if(!engineMechanical||operating){engineStatus("引擎未就绪或拆装任务未完成。");return;}
   try{
@@ -529,6 +576,9 @@ Promise.all(waiters).then(()=>{
   serviceMessage("四轮角总成已接入机械引擎。选择左前、右前、左后或右后车轮进行拆装。");
   applyPositions();updateVisibility();
   select(geometryMap.has("engine.crankshaft")?"engine.crankshaft":generated[0].id);
+  // Pages contains a separate CAD-generated BRep GLB; local dev may not.
+  // This non-blocking upgrade preserves all 106 Part IDs and uses the same Core.
+  loadCadReference();
 }).catch(error=>{
   $("loading").textContent="资产载入失败："+String(error);
   $("render-info").textContent="LOAD ERROR";
