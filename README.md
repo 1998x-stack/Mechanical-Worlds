@@ -2,9 +2,9 @@
 
 > 3D 机械结构、拆卸依赖、装配状态与交互式教学演示系统。
 
-**当前版本：P1 交互引擎 + 第一批 76 个真实 GLB 汽车零件（概念几何）。** 本仓库已包含 TypeScript 数据模型、确定性拆装引擎、Three.js 程序化几何演示，以及左前轮和机械眼镜两个自动化验收案例。示例几何和运动轨迹是**演示级**，并非工业 CAD 或真实维修规程。
+**当前版本：P1 交互引擎 + 106 个独立汽车 GLB 零件（两批概念几何）+ 四轮制动拆装流程。** 本仓库已包含 TypeScript 数据模型、确定性拆装引擎、Three.js 程序化几何演示，以及左前轮和机械眼镜两个自动化验收案例。示例几何和运动轨迹是**演示级**，并非工业 CAD 或真实维修规程。
 
-**P1 新增**：局部锚点与世界坐标对齐、Mate 配合校验、眼镜左右镜腿 Revolute 铰链和限位、螺钉分段轴向旋出/旋入、采样式 AABB 碰撞代理预检，以及可搜索的整车结构目录。新增可单独访问的 76-Part GLB 汽车三维资产预览页面（尚非整车真实拆卸）。
+**P1 新增**：局部锚点与世界坐标对齐、Mate 配合校验、眼镜左右镜腿 Revolute 铰链和限位、螺钉分段轴向旋出/旋入、采样式 AABB 碰撞代理预检，以及可搜索的整车结构目录。新增同时加载 76 件车身/底盘与 30 件动力系统零件的 GLB 资产页面，并提供四个车轮角总成的可执行拆装流程（并非整车真实维修）。
 
 ## 快速运行
 
@@ -23,7 +23,8 @@ npm run dev
 
 ```bash
 npm run skills:check # 检查 9 项 Agent Skills 在各目录中完全一致
-npm run assets:validate # 实际 GLB 二进制、节点与 catalog 一致性校验
+npm run assets:validate # 两批 GLB 二进制、节点与目录状态校验
+npm run assets:contracts # 导出四轮实际 GLB 绑定的锚点和操作 DAG
 npm run assets:build  # 从参数化程序源重生成汽车 GLB
 npm run test         # 编译 schema/core；执行 Node.js 自动测试
 npm run build        # TypeScript Web 类型检查 + Vite 发布产物
@@ -60,7 +61,7 @@ npm run preview      # 预览 production 构建
 - 全部拆解、全部合成、逐步执行、取消/暂停、Undo/Redo、重置。
 - **爆炸视图**只更改显示位置，不改变任何机械运行状态。
 - 右侧“**双案例自动拆装验收**”可以在页面里执行结构校验与往返测试。
-- 左侧“**整车零件目录**”提供六大系统的文本搜索和筛选，目录包含 317 个拟建模零件及 42 个装配节点。其中 **76 个已生成真实 GLB 几何**，其余 **241 个尚未建模**；所有 317 个条目均未经 OEM 制造精度验证。
+- 左侧“**整车零件目录**”提供六大系统的文本搜索和筛选，目录包含 317 个拟建模零件及 42 个装配节点。其中 **106 个已生成真实 GLB 几何**，其余 **211 个尚未建模**；所有 317 个条目均未经 OEM 制造精度验证。
 
 ## 技术架构
 
@@ -76,14 +77,17 @@ src/
 ├── main.ts                           # 浏览器交互与验收控制
 └── style.css                         # 响应式界面
 assets/catalog/automotive-fwd-i4-001.json  # 6 系统、317 Part；76 generated / 241 planned
-assets/generated/automotive/fwd-i4-batch-01.glb  # 真正的 76-Part binary glTF 2.0
+assets/generated/automotive/fwd-i4-batch-01.glb  # 76-Part binary glTF 2.0
+assets/generated/automotive/fwd-i4-batch-02.glb  # 30-Part 四缸发动机与差速器 GLB
 assets/generated/automotive/manifest.json  # 几何节点、Git 内容哈希、材料与版本
 src/automotive.ts                     # GLTFLoader + 分件点击 + 子系统过滤 + 三维预览
 tools/asset-pipeline/                 # 可重生成的 GLB source / 验证 / Pages staging
 .agents/skills/                       # 9 项 canonical Agent Skills；mirrored to .codex/.claude/.pi
 tests/engine.test.mjs                 # 无浏览器 headless regression
 tests/p1.test.mjs                     # P1 锚点、铰链、螺纹、碰撞
-tests/catalog.test.mjs                # 完整汽车目录结构审查
+tests/catalog.test.mjs                # 317 个物理零件及两批状态审查
+tests/generated-corners.test.mjs      # 4 角车轮/制动往返拆装测试
+tests/contracts.test.mjs              # 可审核的机械连接数据导出
 .github/workflows/
 ├── ci.yml                            # test + build
 └── pages.yml                         # test + build + GitHub Pages 部署
@@ -98,9 +102,11 @@ Mechanical Core 不依赖 Three.js。编辑器/渲染器只是适配器，装配
 - [AUTOMOTIVE-ASSET-SPEC.md](docs/AUTOMOTIVE-ASSET-SPEC.md)：首辆整车资产的扩展目标。
 - [P1-ASSEMBLY-IMPLEMENTATION.md](docs/P1-ASSEMBLY-IMPLEMENTATION.md)：**已落地的 P1 功能**和准确性边界。
 - [SKILLS-ARCHITECTURE.md](docs/SKILLS-ARCHITECTURE.md)：跨 Codex/Pi/Claude 的 9 项 Skill 和扩展策略。
-- [AUTOMOTIVE-BATCH-01.md](docs/AUTOMOTIVE-BATCH-01.md)：76 个实际 GLB 零件的来源、生产、验收与剩余工作。
+- [AUTOMOTIVE-BATCH-01.md](docs/AUTOMOTIVE-BATCH-01.md)：首批 76 个 GLB 零件。
+- [AUTOMOTIVE-BATCH-02.md](docs/AUTOMOTIVE-BATCH-02.md)：新增 30 个四缸动力系统 GLB 零件。
+- [FOUR-CORNER-CONSTRAINTS.md](docs/FOUR-CORNER-CONSTRAINTS.md)：四轮及制动组件的 GLB 连接、依赖和拆装质量验收。
 
-**实现范围说明**：新增 76 个可浏览 GLB 几何零件，但这些还不是可全部拆卸的真实汽车机械资产。此版不包含真实 CAD/STEP 导入、任意关节求解、连续碰撞检测、真实轮胎拆装工艺或 317 个整车制造精度零件。当前碰撞为 AABB 采样演示，不能用于机械安全认证。物理尺寸、螺纹和精密装配需要工程数据和审查，不能从程序化几何推断。
+**实现范围说明**：新增 106 个可浏览 GLB 几何零件，且只有四轮角总成具备演示级机械操作，但这些还不是可全部拆卸的真实汽车机械资产。此版不包含真实 CAD/STEP 导入、任意关节求解、连续碰撞检测、真实轮胎拆装工艺或 317 个整车制造精度零件。当前碰撞为 AABB 采样演示，不能用于机械安全认证。物理尺寸、螺纹和精密装配需要工程数据和审查，不能从程序化几何推断。
 
 ## 下一阶段
 

@@ -143,7 +143,7 @@ No automatic system should label such generated plans verified without engineeri
 ## 8. Concrete next releases
 
 - **Batch 01 — completed geometry**: 76 independent Part instances across body skeleton, wheels, chassis, suspension and braking. Their mechanical interconnections for the entire car are not yet authored.
-- **Batch 02 — planned**: engine block, crankshaft, four pistons/connecting rods, piston pins/rings, cylinder head, cams and geartrain representations. Begin with a single I4 crank slider acceptance slice.
+- **Batch 02 — completed generated geometry**: 30 engine/differential parts in a second GLB, not CAD-reviewed; four-wheel/brake corner DAGs now operate on the generated Batch 01 GLB nodes. Begin with a single I4 crank slider acceptance slice.
 - **Batch 03 — planned**: doors, hinges, regulators, driver's seat and steering column with real joint constraints.
 - **Batch 04 — planned**: engine sub-components, gearbox, steering, electrical modules and harness representations. Flexible cables and irreversible fasteners require domain-specific rules.
 
