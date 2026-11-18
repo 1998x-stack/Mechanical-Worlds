@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { add, type MechanicalAsset, type PartNode, type Vec3 } from "../../mechanical-schema/src/index.js";
 import type { MechanicalEngine } from "../../mechanical-core/src/index.js";
+import { getPartPose, axisAngle } from "../../mechanical-core/src/p1.js";
 
 const material=(color:number, metalness=0.5, roughness=0.35)=>
   new THREE.MeshStandardMaterial({color,metalness,roughness});
@@ -94,6 +95,8 @@ export class MechanicalViewer{
   private unsubscribe:()=>void;
   private frame=0;
   private previewOffsets:Record<string,Vec3>={};
+  private previewJoints:Record<string,number>={};
+  private previewScrews:Record<string,{axis:Vec3;angleRad:number}>={};
   private explosion=0;
   private selected:string|null=null;
   private pointerStart:{x:number;y:number}|null=null;
@@ -139,8 +142,13 @@ export class MechanicalViewer{
       this.groups.set(n.id,group);this.base.set(n.id,p);this.scene.add(group);
     }
     this.unsubscribe=engine.subscribe(event=>{
-      if(event.type==="preview")this.previewOffsets=event.offsets;
-      else if(event.type==="commit"||event.type==="cancel"||event.type==="state")this.previewOffsets={};
+      if(event.type==="preview"){
+        this.previewOffsets=event.offsets;
+        this.previewJoints=event.jointAngles;
+        this.previewScrews=event.screwRotations;
+      }else if(event.type==="commit"||event.type==="cancel"||event.type==="state"){
+        this.previewOffsets={};this.previewJoints={};this.previewScrews={};
+      }
       this.updatePositions();
     });
     this.observer=new ResizeObserver(()=>this.resize());this.observer.observe(container);
@@ -152,11 +160,24 @@ export class MechanicalViewer{
   private resize():void{const w=Math.max(this.container.clientWidth,1),h=Math.max(this.container.clientHeight,1);
     this.camera.aspect=w/h;this.camera.updateProjectionMatrix();this.renderer.setSize(w,h,false);}
   private updatePositions():void{
-    const s=this.engine.getState(),glasses=this.asset.id.includes("glasses");
+    const committed=this.engine.getState(),glasses=this.asset.id.includes("glasses");
+    const state={
+      ...committed,
+      offsets:{...committed.offsets,...this.previewOffsets},
+      jointAngles:{...committed.jointAngles,...this.previewJoints}
+    };
     for(const node of this.asset.nodes)if(node.kind==="part"){
-      const offset=this.previewOffsets[node.id]??s.offsets[node.id]??[0,0,0],extra=explodedOffset(node,glasses);
-      const delta=add(offset,[extra[0]*this.explosion,extra[1]*this.explosion,extra[2]*this.explosion]);
-      this.groups.get(node.id)!.position.copy(this.base.get(node.id)!).add(new THREE.Vector3(...delta));
+      const pose=getPartPose(this.asset,state,node.id);
+      const extra=explodedOffset(node,glasses);
+      const group=this.groups.get(node.id)!;
+      group.position.set(
+        pose.position[0]+extra[0]*this.explosion,
+        pose.position[1]+extra[1]*this.explosion,
+        pose.position[2]+extra[2]*this.explosion
+      );
+      group.quaternion.set(...pose.rotation);
+      const screw=this.previewScrews[node.id];
+      if(screw)group.quaternion.premultiply(new THREE.Quaternion(...axisAngle(screw.axis,screw.angleRad)));
     }
   }
   setExploded(progress:number):void{this.explosion=Math.max(0,Math.min(1,progress));this.updatePositions();}
