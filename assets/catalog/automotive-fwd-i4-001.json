@@ -19,7 +19,9 @@
   "stats": {
     "assemblies": 42,
     "parts": 317,
-    "totalNodes": 359
+    "totalNodes": 359,
+    "generatedParts": 76,
+    "plannedParts": 241
   },
   "records": [
     {
@@ -91,8 +93,12 @@
       "parentId": "body.shell",
       "nameZh": "白车身骨架",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "body.biw",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "body.glass.front",
@@ -131,8 +137,12 @@
       "parentId": "body.shell",
       "nameZh": "底板",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "body.floor.pan",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "body.pillar.a.l",
@@ -739,24 +749,36 @@
       "parentId": "chassis.front",
       "nameZh": "前副车架",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.subframe.front",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.stabilizer.front",
       "parentId": "chassis.front",
       "nameZh": "前防倾杆",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.stabilizer.front",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.steering.rack",
       "parentId": "chassis.front",
       "nameZh": "转向齿条",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.steering.rack",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.rear",
@@ -771,8 +793,12 @@
       "parentId": "chassis.rear",
       "nameZh": "后扭力梁",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.torsion.beam",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.stabilizer.rear",
@@ -795,48 +821,72 @@
       "parentId": "chassis.corner.fl",
       "nameZh": "左前轮毂",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.hub.fl",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.bearing.fl",
       "parentId": "chassis.corner.fl",
       "nameZh": "左前轴承",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.bearing.fl",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.brake.disc.fl",
       "parentId": "chassis.corner.fl",
       "nameZh": "左前制动盘",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.brake.disc.fl",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.brake.caliper.fl",
       "parentId": "chassis.corner.fl",
       "nameZh": "左前制动卡钳",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.brake.caliper.fl",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.brake.pad.in.fl",
       "parentId": "chassis.corner.fl",
       "nameZh": "左前内刹车片",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.brake.pad.in.fl",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.brake.pad.out.fl",
       "parentId": "chassis.corner.fl",
       "nameZh": "左前外刹车片",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.brake.pad.out.fl",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.brake.line.fl",
@@ -851,40 +901,60 @@
       "parentId": "chassis.corner.fl",
       "nameZh": "左前减震器",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.damper.fl",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.spring.fl",
       "parentId": "chassis.corner.fl",
       "nameZh": "左前弹簧",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.spring.fl",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.knuckle.fl",
       "parentId": "chassis.corner.fl",
       "nameZh": "左前转向节",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.knuckle.fl",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.arm.lower.fl",
       "parentId": "chassis.corner.fl",
       "nameZh": "左前下控制臂",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.arm.lower.fl",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.tie-rod.fl",
       "parentId": "chassis.corner.fl",
       "nameZh": "左前转向横拉杆",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.tie-rod.fl",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.corner.fr",
@@ -899,48 +969,72 @@
       "parentId": "chassis.corner.fr",
       "nameZh": "右前轮毂",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.hub.fr",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.bearing.fr",
       "parentId": "chassis.corner.fr",
       "nameZh": "右前轴承",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.bearing.fr",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.brake.disc.fr",
       "parentId": "chassis.corner.fr",
       "nameZh": "右前制动盘",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.brake.disc.fr",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.brake.caliper.fr",
       "parentId": "chassis.corner.fr",
       "nameZh": "右前制动卡钳",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.brake.caliper.fr",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.brake.pad.in.fr",
       "parentId": "chassis.corner.fr",
       "nameZh": "右前内刹车片",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.brake.pad.in.fr",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.brake.pad.out.fr",
       "parentId": "chassis.corner.fr",
       "nameZh": "右前外刹车片",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.brake.pad.out.fr",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.brake.line.fr",
@@ -955,40 +1049,60 @@
       "parentId": "chassis.corner.fr",
       "nameZh": "右前减震器",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.damper.fr",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.spring.fr",
       "parentId": "chassis.corner.fr",
       "nameZh": "右前弹簧",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.spring.fr",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.knuckle.fr",
       "parentId": "chassis.corner.fr",
       "nameZh": "右前转向节",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.knuckle.fr",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.arm.lower.fr",
       "parentId": "chassis.corner.fr",
       "nameZh": "右前下控制臂",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.arm.lower.fr",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.tie-rod.fr",
       "parentId": "chassis.corner.fr",
       "nameZh": "右前转向横拉杆",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.tie-rod.fr",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.corner.rl",
@@ -1003,48 +1117,72 @@
       "parentId": "chassis.corner.rl",
       "nameZh": "左后轮毂",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.hub.rl",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.bearing.rl",
       "parentId": "chassis.corner.rl",
       "nameZh": "左后轴承",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.bearing.rl",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.brake.disc.rl",
       "parentId": "chassis.corner.rl",
       "nameZh": "左后制动盘",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.brake.disc.rl",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.brake.caliper.rl",
       "parentId": "chassis.corner.rl",
       "nameZh": "左后制动卡钳",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.brake.caliper.rl",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.brake.pad.in.rl",
       "parentId": "chassis.corner.rl",
       "nameZh": "左后内刹车片",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.brake.pad.in.rl",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.brake.pad.out.rl",
       "parentId": "chassis.corner.rl",
       "nameZh": "左后外刹车片",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.brake.pad.out.rl",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.brake.line.rl",
@@ -1059,16 +1197,24 @@
       "parentId": "chassis.corner.rl",
       "nameZh": "左后减震器",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.damper.rl",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.spring.rl",
       "parentId": "chassis.corner.rl",
       "nameZh": "左后弹簧",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.spring.rl",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.corner.rr",
@@ -1083,48 +1229,72 @@
       "parentId": "chassis.corner.rr",
       "nameZh": "右后轮毂",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.hub.rr",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.bearing.rr",
       "parentId": "chassis.corner.rr",
       "nameZh": "右后轴承",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.bearing.rr",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.brake.disc.rr",
       "parentId": "chassis.corner.rr",
       "nameZh": "右后制动盘",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.brake.disc.rr",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.brake.caliper.rr",
       "parentId": "chassis.corner.rr",
       "nameZh": "右后制动卡钳",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.brake.caliper.rr",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.brake.pad.in.rr",
       "parentId": "chassis.corner.rr",
       "nameZh": "右后内刹车片",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.brake.pad.in.rr",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.brake.pad.out.rr",
       "parentId": "chassis.corner.rr",
       "nameZh": "右后外刹车片",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.brake.pad.out.rr",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.brake.line.rr",
@@ -1139,16 +1309,24 @@
       "parentId": "chassis.corner.rr",
       "nameZh": "右后减震器",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.damper.rr",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.spring.rr",
       "parentId": "chassis.corner.rr",
       "nameZh": "右后弹簧",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "chassis.spring.rr",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "chassis.steering",
@@ -1939,64 +2117,96 @@
       "parentId": "wheel.fl",
       "nameZh": "左前轮辋",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "wheel.fl.rim",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "wheel.fl.tire",
       "parentId": "wheel.fl",
       "nameZh": "左前轮胎",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "wheel.fl.tire",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "wheel.fl.valve",
       "parentId": "wheel.fl",
       "nameZh": "左前气门嘴",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "wheel.fl.valve",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "wheel.fl.lug.1",
       "parentId": "wheel.fl",
       "nameZh": "左前轮毂螺母1",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "wheel.fl.lug.1",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "wheel.fl.lug.2",
       "parentId": "wheel.fl",
       "nameZh": "左前轮毂螺母2",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "wheel.fl.lug.2",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "wheel.fl.lug.3",
       "parentId": "wheel.fl",
       "nameZh": "左前轮毂螺母3",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "wheel.fl.lug.3",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "wheel.fl.lug.4",
       "parentId": "wheel.fl",
       "nameZh": "左前轮毂螺母4",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "wheel.fl.lug.4",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "wheel.fl.lug.5",
       "parentId": "wheel.fl",
       "nameZh": "左前轮毂螺母5",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "wheel.fl.lug.5",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "wheel.fr",
@@ -2011,64 +2221,96 @@
       "parentId": "wheel.fr",
       "nameZh": "右前轮辋",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "wheel.fr.rim",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "wheel.fr.tire",
       "parentId": "wheel.fr",
       "nameZh": "右前轮胎",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "wheel.fr.tire",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "wheel.fr.valve",
       "parentId": "wheel.fr",
       "nameZh": "右前气门嘴",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "wheel.fr.valve",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "wheel.fr.lug.1",
       "parentId": "wheel.fr",
       "nameZh": "右前轮毂螺母1",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "wheel.fr.lug.1",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "wheel.fr.lug.2",
       "parentId": "wheel.fr",
       "nameZh": "右前轮毂螺母2",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "wheel.fr.lug.2",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "wheel.fr.lug.3",
       "parentId": "wheel.fr",
       "nameZh": "右前轮毂螺母3",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "wheel.fr.lug.3",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "wheel.fr.lug.4",
       "parentId": "wheel.fr",
       "nameZh": "右前轮毂螺母4",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "wheel.fr.lug.4",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "wheel.fr.lug.5",
       "parentId": "wheel.fr",
       "nameZh": "右前轮毂螺母5",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "wheel.fr.lug.5",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "wheel.rl",
@@ -2083,64 +2325,96 @@
       "parentId": "wheel.rl",
       "nameZh": "左后轮辋",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "wheel.rl.rim",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "wheel.rl.tire",
       "parentId": "wheel.rl",
       "nameZh": "左后轮胎",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "wheel.rl.tire",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "wheel.rl.valve",
       "parentId": "wheel.rl",
       "nameZh": "左后气门嘴",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "wheel.rl.valve",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "wheel.rl.lug.1",
       "parentId": "wheel.rl",
       "nameZh": "左后轮毂螺母1",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "wheel.rl.lug.1",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "wheel.rl.lug.2",
       "parentId": "wheel.rl",
       "nameZh": "左后轮毂螺母2",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "wheel.rl.lug.2",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "wheel.rl.lug.3",
       "parentId": "wheel.rl",
       "nameZh": "左后轮毂螺母3",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "wheel.rl.lug.3",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "wheel.rl.lug.4",
       "parentId": "wheel.rl",
       "nameZh": "左后轮毂螺母4",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "wheel.rl.lug.4",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "wheel.rl.lug.5",
       "parentId": "wheel.rl",
       "nameZh": "左后轮毂螺母5",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "wheel.rl.lug.5",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "wheel.rr",
@@ -2155,64 +2429,96 @@
       "parentId": "wheel.rr",
       "nameZh": "右后轮辋",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "wheel.rr.rim",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "wheel.rr.tire",
       "parentId": "wheel.rr",
       "nameZh": "右后轮胎",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "wheel.rr.tire",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "wheel.rr.valve",
       "parentId": "wheel.rr",
       "nameZh": "右后气门嘴",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "wheel.rr.valve",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "wheel.rr.lug.1",
       "parentId": "wheel.rr",
       "nameZh": "右后轮毂螺母1",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "wheel.rr.lug.1",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "wheel.rr.lug.2",
       "parentId": "wheel.rr",
       "nameZh": "右后轮毂螺母2",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "wheel.rr.lug.2",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "wheel.rr.lug.3",
       "parentId": "wheel.rr",
       "nameZh": "右后轮毂螺母3",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "wheel.rr.lug.3",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "wheel.rr.lug.4",
       "parentId": "wheel.rr",
       "nameZh": "右后轮毂螺母4",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "wheel.rr.lug.4",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "wheel.rr.lug.5",
       "parentId": "wheel.rr",
       "nameZh": "右后轮毂螺母5",
       "kind": "part",
-      "geometryStatus": "planned",
-      "engineeringVerified": false
+      "geometryStatus": "generated",
+      "engineeringVerified": false,
+      "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+      "geometryNodeName": "wheel.rr.lug.5",
+      "geometrySource": "tools/asset-pipeline/generate-automotive.mjs",
+      "geometryQuality": "conceptual-procedural"
     },
     {
       "id": "interior.seat.driver",
@@ -2894,5 +3200,6 @@
       "geometryStatus": "planned",
       "engineeringVerified": false
     }
-  ]
+  ],
+  "firstGeneratedBatchId": "mw.car.fwd-i4.batch-01"
 }

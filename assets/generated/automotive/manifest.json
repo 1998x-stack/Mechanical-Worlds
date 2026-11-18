@@ -1,0 +1,861 @@
+{
+  "batchId": "mw.car.fwd-i4.batch-01",
+  "batchVersion": "0.2.0",
+  "catalogId": "mw.car.fwd-i4.catalog.001",
+  "geometryUri": "assets/generated/automotive/fwd-i4-batch-01.glb",
+  "generator": "tools/asset-pipeline/generate-automotive.mjs",
+  "designTier": "generated-conceptual",
+  "engineeringVerified": false,
+  "geometrySource": "deterministic procedural triangle meshes (not OEM CAD)",
+  "units": "m",
+  "coordinate": {
+    "handedness": "right",
+    "up": "+Y",
+    "forward": "-Z",
+    "vehicleRight": "+X"
+  },
+  "gltfAssetNodes": 76,
+  "uniqueMeshTemplates": 21,
+  "uniqueTriangles": 33120,
+  "bytes": 2821688,
+  "parts": [
+    {
+      "id": "wheel.fl.rim",
+      "nodeName": "wheel.fl.rim",
+      "meshType": "rim",
+      "triangles": 4304,
+      "positionM": [
+        -1,
+        0.435,
+        -1.35
+      ]
+    },
+    {
+      "id": "wheel.fl.tire",
+      "nodeName": "wheel.fl.tire",
+      "meshType": "tire",
+      "triangles": 6528,
+      "positionM": [
+        -1,
+        0.435,
+        -1.35
+      ]
+    },
+    {
+      "id": "wheel.fl.valve",
+      "nodeName": "wheel.fl.valve",
+      "meshType": "valve",
+      "triangles": 96,
+      "positionM": [
+        -1,
+        0.685,
+        -1.1500000000000001
+      ]
+    },
+    {
+      "id": "wheel.fl.lug.1",
+      "nodeName": "wheel.fl.lug.1",
+      "meshType": "lug",
+      "triangles": 240,
+      "positionM": [
+        -1.1099999999999999,
+        0.546,
+        -1.35
+      ]
+    },
+    {
+      "id": "wheel.fl.lug.2",
+      "nodeName": "wheel.fl.lug.2",
+      "meshType": "lug",
+      "triangles": 240,
+      "positionM": [
+        -1.1099999999999999,
+        0.4693008863756192,
+        -1.244432726691238
+      ]
+    },
+    {
+      "id": "wheel.fl.lug.3",
+      "nodeName": "wheel.fl.lug.3",
+      "meshType": "lug",
+      "triangles": 240,
+      "positionM": [
+        -1.1099999999999999,
+        0.3451991136243808,
+        -1.2847558369955356
+      ]
+    },
+    {
+      "id": "wheel.fl.lug.4",
+      "nodeName": "wheel.fl.lug.4",
+      "meshType": "lug",
+      "triangles": 240,
+      "positionM": [
+        -1.1099999999999999,
+        0.3451991136243808,
+        -1.4152441630044645
+      ]
+    },
+    {
+      "id": "wheel.fl.lug.5",
+      "nodeName": "wheel.fl.lug.5",
+      "meshType": "lug",
+      "triangles": 240,
+      "positionM": [
+        -1.1099999999999999,
+        0.4693008863756191,
+        -1.4555672733087621
+      ]
+    },
+    {
+      "id": "chassis.hub.fl",
+      "nodeName": "chassis.hub.fl",
+      "meshType": "hub",
+      "triangles": 1424,
+      "positionM": [
+        -0.85,
+        0.435,
+        -1.35
+      ]
+    },
+    {
+      "id": "chassis.bearing.fl",
+      "nodeName": "chassis.bearing.fl",
+      "meshType": "bearing",
+      "triangles": 3456,
+      "positionM": [
+        -0.7979999999999999,
+        0.435,
+        -1.35
+      ]
+    },
+    {
+      "id": "chassis.brake.disc.fl",
+      "nodeName": "chassis.brake.disc.fl",
+      "meshType": "brake-disc",
+      "triangles": 4160,
+      "positionM": [
+        -0.86,
+        0.435,
+        -1.35
+      ]
+    },
+    {
+      "id": "chassis.brake.caliper.fl",
+      "nodeName": "chassis.brake.caliper.fl",
+      "meshType": "caliper",
+      "triangles": 228,
+      "positionM": [
+        -0.844,
+        0.653,
+        -1.248
+      ]
+    },
+    {
+      "id": "chassis.brake.pad.in.fl",
+      "nodeName": "chassis.brake.pad.in.fl",
+      "meshType": "pad",
+      "triangles": 24,
+      "positionM": [
+        -0.7949999999999999,
+        0.653,
+        -1.25
+      ]
+    },
+    {
+      "id": "chassis.brake.pad.out.fl",
+      "nodeName": "chassis.brake.pad.out.fl",
+      "meshType": "pad",
+      "triangles": 24,
+      "positionM": [
+        -0.908,
+        0.653,
+        -1.25
+      ]
+    },
+    {
+      "id": "chassis.damper.fl",
+      "nodeName": "chassis.damper.fl",
+      "meshType": "damper",
+      "triangles": 504,
+      "positionM": [
+        -0.746,
+        0.865,
+        -1.33
+      ]
+    },
+    {
+      "id": "chassis.spring.fl",
+      "nodeName": "chassis.spring.fl",
+      "meshType": "spring",
+      "triangles": 2752,
+      "positionM": [
+        -0.75,
+        0.9450000000000001,
+        -1.33
+      ]
+    },
+    {
+      "id": "chassis.knuckle.fl",
+      "nodeName": "chassis.knuckle.fl",
+      "meshType": "knuckle",
+      "triangles": 392,
+      "positionM": [
+        -0.78,
+        0.423,
+        -1.31
+      ]
+    },
+    {
+      "id": "chassis.arm.lower.fl",
+      "nodeName": "chassis.arm.lower.fl",
+      "meshType": "lower-arm",
+      "triangles": 1120,
+      "positionM": [
+        -0.63,
+        0.199,
+        -1.33
+      ]
+    },
+    {
+      "id": "chassis.tie-rod.fl",
+      "nodeName": "chassis.tie-rod.fl",
+      "meshType": "tie-rod",
+      "triangles": 832,
+      "positionM": [
+        -0.73,
+        0.375,
+        -1.08
+      ]
+    },
+    {
+      "id": "wheel.fr.rim",
+      "nodeName": "wheel.fr.rim",
+      "meshType": "rim",
+      "triangles": 4304,
+      "positionM": [
+        1,
+        0.435,
+        -1.35
+      ]
+    },
+    {
+      "id": "wheel.fr.tire",
+      "nodeName": "wheel.fr.tire",
+      "meshType": "tire",
+      "triangles": 6528,
+      "positionM": [
+        1,
+        0.435,
+        -1.35
+      ]
+    },
+    {
+      "id": "wheel.fr.valve",
+      "nodeName": "wheel.fr.valve",
+      "meshType": "valve",
+      "triangles": 96,
+      "positionM": [
+        1,
+        0.685,
+        -1.1500000000000001
+      ]
+    },
+    {
+      "id": "wheel.fr.lug.1",
+      "nodeName": "wheel.fr.lug.1",
+      "meshType": "lug",
+      "triangles": 240,
+      "positionM": [
+        1.1099999999999999,
+        0.546,
+        -1.35
+      ]
+    },
+    {
+      "id": "wheel.fr.lug.2",
+      "nodeName": "wheel.fr.lug.2",
+      "meshType": "lug",
+      "triangles": 240,
+      "positionM": [
+        1.1099999999999999,
+        0.4693008863756192,
+        -1.244432726691238
+      ]
+    },
+    {
+      "id": "wheel.fr.lug.3",
+      "nodeName": "wheel.fr.lug.3",
+      "meshType": "lug",
+      "triangles": 240,
+      "positionM": [
+        1.1099999999999999,
+        0.3451991136243808,
+        -1.2847558369955356
+      ]
+    },
+    {
+      "id": "wheel.fr.lug.4",
+      "nodeName": "wheel.fr.lug.4",
+      "meshType": "lug",
+      "triangles": 240,
+      "positionM": [
+        1.1099999999999999,
+        0.3451991136243808,
+        -1.4152441630044645
+      ]
+    },
+    {
+      "id": "wheel.fr.lug.5",
+      "nodeName": "wheel.fr.lug.5",
+      "meshType": "lug",
+      "triangles": 240,
+      "positionM": [
+        1.1099999999999999,
+        0.4693008863756191,
+        -1.4555672733087621
+      ]
+    },
+    {
+      "id": "chassis.hub.fr",
+      "nodeName": "chassis.hub.fr",
+      "meshType": "hub",
+      "triangles": 1424,
+      "positionM": [
+        0.85,
+        0.435,
+        -1.35
+      ]
+    },
+    {
+      "id": "chassis.bearing.fr",
+      "nodeName": "chassis.bearing.fr",
+      "meshType": "bearing",
+      "triangles": 3456,
+      "positionM": [
+        0.7979999999999999,
+        0.435,
+        -1.35
+      ]
+    },
+    {
+      "id": "chassis.brake.disc.fr",
+      "nodeName": "chassis.brake.disc.fr",
+      "meshType": "brake-disc",
+      "triangles": 4160,
+      "positionM": [
+        0.86,
+        0.435,
+        -1.35
+      ]
+    },
+    {
+      "id": "chassis.brake.caliper.fr",
+      "nodeName": "chassis.brake.caliper.fr",
+      "meshType": "caliper",
+      "triangles": 228,
+      "positionM": [
+        0.844,
+        0.653,
+        -1.248
+      ]
+    },
+    {
+      "id": "chassis.brake.pad.in.fr",
+      "nodeName": "chassis.brake.pad.in.fr",
+      "meshType": "pad",
+      "triangles": 24,
+      "positionM": [
+        0.7949999999999999,
+        0.653,
+        -1.25
+      ]
+    },
+    {
+      "id": "chassis.brake.pad.out.fr",
+      "nodeName": "chassis.brake.pad.out.fr",
+      "meshType": "pad",
+      "triangles": 24,
+      "positionM": [
+        0.908,
+        0.653,
+        -1.25
+      ]
+    },
+    {
+      "id": "chassis.damper.fr",
+      "nodeName": "chassis.damper.fr",
+      "meshType": "damper",
+      "triangles": 504,
+      "positionM": [
+        0.746,
+        0.865,
+        -1.33
+      ]
+    },
+    {
+      "id": "chassis.spring.fr",
+      "nodeName": "chassis.spring.fr",
+      "meshType": "spring",
+      "triangles": 2752,
+      "positionM": [
+        0.75,
+        0.9450000000000001,
+        -1.33
+      ]
+    },
+    {
+      "id": "chassis.knuckle.fr",
+      "nodeName": "chassis.knuckle.fr",
+      "meshType": "knuckle",
+      "triangles": 392,
+      "positionM": [
+        0.78,
+        0.423,
+        -1.31
+      ]
+    },
+    {
+      "id": "chassis.arm.lower.fr",
+      "nodeName": "chassis.arm.lower.fr",
+      "meshType": "lower-arm",
+      "triangles": 1120,
+      "positionM": [
+        0.63,
+        0.199,
+        -1.33
+      ]
+    },
+    {
+      "id": "chassis.tie-rod.fr",
+      "nodeName": "chassis.tie-rod.fr",
+      "meshType": "tie-rod",
+      "triangles": 832,
+      "positionM": [
+        0.73,
+        0.375,
+        -1.08
+      ]
+    },
+    {
+      "id": "wheel.rl.rim",
+      "nodeName": "wheel.rl.rim",
+      "meshType": "rim",
+      "triangles": 4304,
+      "positionM": [
+        -1,
+        0.435,
+        1.3
+      ]
+    },
+    {
+      "id": "wheel.rl.tire",
+      "nodeName": "wheel.rl.tire",
+      "meshType": "tire",
+      "triangles": 6528,
+      "positionM": [
+        -1,
+        0.435,
+        1.3
+      ]
+    },
+    {
+      "id": "wheel.rl.valve",
+      "nodeName": "wheel.rl.valve",
+      "meshType": "valve",
+      "triangles": 96,
+      "positionM": [
+        -1,
+        0.685,
+        1.5
+      ]
+    },
+    {
+      "id": "wheel.rl.lug.1",
+      "nodeName": "wheel.rl.lug.1",
+      "meshType": "lug",
+      "triangles": 240,
+      "positionM": [
+        -1.1099999999999999,
+        0.546,
+        1.3
+      ]
+    },
+    {
+      "id": "wheel.rl.lug.2",
+      "nodeName": "wheel.rl.lug.2",
+      "meshType": "lug",
+      "triangles": 240,
+      "positionM": [
+        -1.1099999999999999,
+        0.4693008863756192,
+        1.405567273308762
+      ]
+    },
+    {
+      "id": "wheel.rl.lug.3",
+      "nodeName": "wheel.rl.lug.3",
+      "meshType": "lug",
+      "triangles": 240,
+      "positionM": [
+        -1.1099999999999999,
+        0.3451991136243808,
+        1.3652441630044645
+      ]
+    },
+    {
+      "id": "wheel.rl.lug.4",
+      "nodeName": "wheel.rl.lug.4",
+      "meshType": "lug",
+      "triangles": 240,
+      "positionM": [
+        -1.1099999999999999,
+        0.3451991136243808,
+        1.2347558369955356
+      ]
+    },
+    {
+      "id": "wheel.rl.lug.5",
+      "nodeName": "wheel.rl.lug.5",
+      "meshType": "lug",
+      "triangles": 240,
+      "positionM": [
+        -1.1099999999999999,
+        0.4693008863756191,
+        1.194432726691238
+      ]
+    },
+    {
+      "id": "chassis.hub.rl",
+      "nodeName": "chassis.hub.rl",
+      "meshType": "hub",
+      "triangles": 1424,
+      "positionM": [
+        -0.85,
+        0.435,
+        1.3
+      ]
+    },
+    {
+      "id": "chassis.bearing.rl",
+      "nodeName": "chassis.bearing.rl",
+      "meshType": "bearing",
+      "triangles": 3456,
+      "positionM": [
+        -0.7979999999999999,
+        0.435,
+        1.3
+      ]
+    },
+    {
+      "id": "chassis.brake.disc.rl",
+      "nodeName": "chassis.brake.disc.rl",
+      "meshType": "brake-disc",
+      "triangles": 4160,
+      "positionM": [
+        -0.86,
+        0.435,
+        1.3
+      ]
+    },
+    {
+      "id": "chassis.brake.caliper.rl",
+      "nodeName": "chassis.brake.caliper.rl",
+      "meshType": "caliper",
+      "triangles": 228,
+      "positionM": [
+        -0.844,
+        0.653,
+        1.4020000000000001
+      ]
+    },
+    {
+      "id": "chassis.brake.pad.in.rl",
+      "nodeName": "chassis.brake.pad.in.rl",
+      "meshType": "pad",
+      "triangles": 24,
+      "positionM": [
+        -0.7949999999999999,
+        0.653,
+        1.4000000000000001
+      ]
+    },
+    {
+      "id": "chassis.brake.pad.out.rl",
+      "nodeName": "chassis.brake.pad.out.rl",
+      "meshType": "pad",
+      "triangles": 24,
+      "positionM": [
+        -0.908,
+        0.653,
+        1.4000000000000001
+      ]
+    },
+    {
+      "id": "chassis.damper.rl",
+      "nodeName": "chassis.damper.rl",
+      "meshType": "damper",
+      "triangles": 504,
+      "positionM": [
+        -0.746,
+        0.865,
+        1.32
+      ]
+    },
+    {
+      "id": "chassis.spring.rl",
+      "nodeName": "chassis.spring.rl",
+      "meshType": "spring",
+      "triangles": 2752,
+      "positionM": [
+        -0.75,
+        0.9450000000000001,
+        1.32
+      ]
+    },
+    {
+      "id": "wheel.rr.rim",
+      "nodeName": "wheel.rr.rim",
+      "meshType": "rim",
+      "triangles": 4304,
+      "positionM": [
+        1,
+        0.435,
+        1.3
+      ]
+    },
+    {
+      "id": "wheel.rr.tire",
+      "nodeName": "wheel.rr.tire",
+      "meshType": "tire",
+      "triangles": 6528,
+      "positionM": [
+        1,
+        0.435,
+        1.3
+      ]
+    },
+    {
+      "id": "wheel.rr.valve",
+      "nodeName": "wheel.rr.valve",
+      "meshType": "valve",
+      "triangles": 96,
+      "positionM": [
+        1,
+        0.685,
+        1.5
+      ]
+    },
+    {
+      "id": "wheel.rr.lug.1",
+      "nodeName": "wheel.rr.lug.1",
+      "meshType": "lug",
+      "triangles": 240,
+      "positionM": [
+        1.1099999999999999,
+        0.546,
+        1.3
+      ]
+    },
+    {
+      "id": "wheel.rr.lug.2",
+      "nodeName": "wheel.rr.lug.2",
+      "meshType": "lug",
+      "triangles": 240,
+      "positionM": [
+        1.1099999999999999,
+        0.4693008863756192,
+        1.405567273308762
+      ]
+    },
+    {
+      "id": "wheel.rr.lug.3",
+      "nodeName": "wheel.rr.lug.3",
+      "meshType": "lug",
+      "triangles": 240,
+      "positionM": [
+        1.1099999999999999,
+        0.3451991136243808,
+        1.3652441630044645
+      ]
+    },
+    {
+      "id": "wheel.rr.lug.4",
+      "nodeName": "wheel.rr.lug.4",
+      "meshType": "lug",
+      "triangles": 240,
+      "positionM": [
+        1.1099999999999999,
+        0.3451991136243808,
+        1.2347558369955356
+      ]
+    },
+    {
+      "id": "wheel.rr.lug.5",
+      "nodeName": "wheel.rr.lug.5",
+      "meshType": "lug",
+      "triangles": 240,
+      "positionM": [
+        1.1099999999999999,
+        0.4693008863756191,
+        1.194432726691238
+      ]
+    },
+    {
+      "id": "chassis.hub.rr",
+      "nodeName": "chassis.hub.rr",
+      "meshType": "hub",
+      "triangles": 1424,
+      "positionM": [
+        0.85,
+        0.435,
+        1.3
+      ]
+    },
+    {
+      "id": "chassis.bearing.rr",
+      "nodeName": "chassis.bearing.rr",
+      "meshType": "bearing",
+      "triangles": 3456,
+      "positionM": [
+        0.7979999999999999,
+        0.435,
+        1.3
+      ]
+    },
+    {
+      "id": "chassis.brake.disc.rr",
+      "nodeName": "chassis.brake.disc.rr",
+      "meshType": "brake-disc",
+      "triangles": 4160,
+      "positionM": [
+        0.86,
+        0.435,
+        1.3
+      ]
+    },
+    {
+      "id": "chassis.brake.caliper.rr",
+      "nodeName": "chassis.brake.caliper.rr",
+      "meshType": "caliper",
+      "triangles": 228,
+      "positionM": [
+        0.844,
+        0.653,
+        1.4020000000000001
+      ]
+    },
+    {
+      "id": "chassis.brake.pad.in.rr",
+      "nodeName": "chassis.brake.pad.in.rr",
+      "meshType": "pad",
+      "triangles": 24,
+      "positionM": [
+        0.7949999999999999,
+        0.653,
+        1.4000000000000001
+      ]
+    },
+    {
+      "id": "chassis.brake.pad.out.rr",
+      "nodeName": "chassis.brake.pad.out.rr",
+      "meshType": "pad",
+      "triangles": 24,
+      "positionM": [
+        0.908,
+        0.653,
+        1.4000000000000001
+      ]
+    },
+    {
+      "id": "chassis.damper.rr",
+      "nodeName": "chassis.damper.rr",
+      "meshType": "damper",
+      "triangles": 504,
+      "positionM": [
+        0.746,
+        0.865,
+        1.32
+      ]
+    },
+    {
+      "id": "chassis.spring.rr",
+      "nodeName": "chassis.spring.rr",
+      "meshType": "spring",
+      "triangles": 2752,
+      "positionM": [
+        0.75,
+        0.9450000000000001,
+        1.32
+      ]
+    },
+    {
+      "id": "chassis.subframe.front",
+      "nodeName": "chassis.subframe.front",
+      "meshType": "subframe",
+      "triangles": 1536,
+      "positionM": [
+        0,
+        0.22,
+        -1.36
+      ]
+    },
+    {
+      "id": "chassis.stabilizer.front",
+      "nodeName": "chassis.stabilizer.front",
+      "meshType": "stabilizer-front",
+      "triangles": 792,
+      "positionM": [
+        0,
+        0.31,
+        -1.12
+      ]
+    },
+    {
+      "id": "chassis.torsion.beam",
+      "nodeName": "chassis.torsion.beam",
+      "meshType": "torsion-beam",
+      "triangles": 1056,
+      "positionM": [
+        0,
+        0.31,
+        1.3
+      ]
+    },
+    {
+      "id": "chassis.steering.rack",
+      "nodeName": "chassis.steering.rack",
+      "meshType": "steering-rack",
+      "triangles": 1696,
+      "positionM": [
+        0,
+        0.43,
+        -1.52
+      ]
+    },
+    {
+      "id": "body.biw",
+      "nodeName": "body.biw",
+      "meshType": "body-biw",
+      "triangles": 1200,
+      "positionM": [
+        0,
+        0.2,
+        0
+      ]
+    },
+    {
+      "id": "body.floor.pan",
+      "nodeName": "body.floor.pan",
+      "meshType": "floor-pan",
+      "triangles": 156,
+      "positionM": [
+        0,
+        0.245,
+        0
+      ]
+    }
+  ],
+  "releaseNotes": "Actual binary GLB meshes, separately selectable by catalog ID; measurements and fits not manufacturer validated",
+  "gitBlobSha": "92491cd60ed0554d61fb51b20d5523be73d8b32f"
+}
