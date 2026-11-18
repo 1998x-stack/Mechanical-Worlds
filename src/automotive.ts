@@ -9,7 +9,8 @@ import {
 } from "../packages/mechanical-core/src/automotive-corners.js";
 import type {Vec3} from "../packages/mechanical-schema/src/index.js";
 import {
-  createEngineI4Asset,engineI4Constraint,solveEngineI4
+  createEngineI4Asset,engineI4Constraint,solveEngineI4,
+  type EngineI4Manifest
 } from "../packages/mechanical-core/src/engine-i4.js";
 import catalog from "../assets/catalog/automotive-fwd-i4-001.json";
 import manifest01 from "../assets/generated/automotive/manifest.json";
@@ -206,7 +207,7 @@ function applyPositions():void{
   const engineState=engineMechanical?.getState();
   const theta=engineState?.jointAngles[engineJointId]??0;
   const engineFrame=engineMechanical
-    ?solveEngineI4(engineI4Constraint(engineMechanical.asset),theta,manifest02)
+    ?solveEngineI4(engineI4Constraint(engineMechanical.asset),theta,manifest02 as unknown as EngineI4Manifest)
     :null;
   for(const [id,obj] of byId){
     const original=originalPos.get(id)!;
@@ -444,7 +445,7 @@ Promise.all(waiters).then(()=>{
   if(missing.length)throw new Error("缺少 "+missing.length+" 个已标记生成的 GLB 零件");
   $("loading").style.display="none";
   $("render-info").textContent=byId.size+" GLB PARTS LOADED";
-  engineMechanical=new MechanicalEngine(createEngineI4Asset(manifest02),new FrameDriver());
+  engineMechanical=new MechanicalEngine(createEngineI4Asset(manifest02 as unknown as EngineI4Manifest),new FrameDriver());
   engineMechanical.subscribe(event=>{
     if(event.type==="preview")enginePreviewOffsets=event.offsets;
     else if(event.type==="commit"||event.type==="cancel"||event.type==="state")enginePreviewOffsets={};
