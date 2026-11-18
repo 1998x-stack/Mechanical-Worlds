@@ -22,9 +22,9 @@ npm run dev
 构建与测试：
 
 ```bash
-npm run skills:check # 检查 9 项 Agent Skills 在各目录中完全一致
+npm run skills:check # 检查 11 项 Agent Skills 在各目录中完全一致
 npm run assets:validate # 两批 GLB 二进制、节点与目录状态校验
-npm run assets:contracts # 导出四轮实际 GLB 绑定的锚点和操作 DAG
+npm run assets:contracts # 导出四轮 GLB 绑定的锚点、Mate、路径和 DAG JSON（概念级）
 npm run assets:build  # 从参数化程序源重生成汽车 GLB
 npm run test         # 编译 schema/core；执行 Node.js 自动测试
 npm run build        # TypeScript Web 类型检查 + Vite 发布产物
@@ -82,7 +82,7 @@ assets/generated/automotive/fwd-i4-batch-02.glb  # 30-Part 四缸发动机与差
 assets/generated/automotive/manifest.json  # 几何节点、Git 内容哈希、材料与版本
 src/automotive.ts                     # GLTFLoader + 分件点击 + 子系统过滤 + 三维预览
 tools/asset-pipeline/                 # 可重生成的 GLB source / 验证 / Pages staging
-.agents/skills/                       # 9 项 canonical Agent Skills；mirrored to .codex/.claude/.pi
+.agents/skills/                       # 11 项 canonical Agent Skills；mirrored to .codex/.claude/.pi
 tests/engine.test.mjs                 # 无浏览器 headless regression
 tests/p1.test.mjs                     # P1 锚点、铰链、螺纹、碰撞
 tests/catalog.test.mjs                # 317 个物理零件及两批状态审查
@@ -101,7 +101,7 @@ Mechanical Core 不依赖 Three.js。编辑器/渲染器只是适配器，装配
 - [DISASSEMBLY-ENGINE.md](docs/DISASSEMBLY-ENGINE.md)：真实机械级规划与状态事务设计。
 - [AUTOMOTIVE-ASSET-SPEC.md](docs/AUTOMOTIVE-ASSET-SPEC.md)：首辆整车资产的扩展目标。
 - [P1-ASSEMBLY-IMPLEMENTATION.md](docs/P1-ASSEMBLY-IMPLEMENTATION.md)：**已落地的 P1 功能**和准确性边界。
-- [SKILLS-ARCHITECTURE.md](docs/SKILLS-ARCHITECTURE.md)：跨 Codex/Pi/Claude 的 9 项 Skill 和扩展策略。
+- [SKILLS-ARCHITECTURE.md](docs/SKILLS-ARCHITECTURE.md)：跨 Codex/Pi/Claude 的 11 项 Skill 和扩展策略。
 - [AUTOMOTIVE-BATCH-01.md](docs/AUTOMOTIVE-BATCH-01.md)：首批 76 个 GLB 零件。
 - [AUTOMOTIVE-BATCH-02.md](docs/AUTOMOTIVE-BATCH-02.md)：新增 30 个四缸动力系统 GLB 零件。
 - [FOUR-CORNER-CONSTRAINTS.md](docs/FOUR-CORNER-CONSTRAINTS.md)：四轮及制动组件的 GLB 连接、依赖和拆装质量验收。
@@ -118,3 +118,9 @@ Mechanical Core 不依赖 Three.js。编辑器/渲染器只是适配器，装配
 ## License
 
 尚未选定许可证。源码及模型资产的授权需要分别明确。
+
+## 工程数据接入声明
+
+本项目内部汽车前方定义为 `-Z`、车辆右侧为 `+X`，与 glTF 标准的资产前方 `+Z` 并不相同；从外部 CAD / glTF 导入时必须明确记录相应坐标基变换。运行单位为米，角度为弧度。参考 [Khronos glTF 2.0](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html)。
+
+真正实现 CAD 精度升级，需要带有合法再分发许可的 CAD 源数据、设计尺寸/PMI、装配关系和人工工程审核。现有 106 个 GLB 零件均属程序生成概念几何，没有可宣称的车型制造标准。未来的 STEP/AP242 接入需要保留零件名、装配层级、颜色与形位公差来源；新增的 `cad-source-ingestion` Skill 为此定义验收标准，但尚未实现生产级 STEP 导入器。

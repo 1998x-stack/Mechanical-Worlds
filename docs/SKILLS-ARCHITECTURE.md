@@ -15,7 +15,7 @@ As Mechanical Worlds expands from cars to engines, watches, robot arms and indus
 
 See official specifications: https://learn.chatgpt.com/docs/build-skills , https://code.claude.com/docs/en/skills and https://docs.pi.dev/latest/skills .
 
-## Nine composable production skills
+## Eleven composable production skills
 
 | Skill | Input | Output |
 |---|---|---|

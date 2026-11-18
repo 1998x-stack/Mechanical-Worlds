@@ -103,6 +103,7 @@ $("car-app").innerHTML=`
       <div class="pair"><span>工程复核</span><b class="warn">NOT VERIFIED</b></div>
     </div>
     <a class="manifest-link" href="${import.meta.env.BASE_URL}models/automotive-fwd-i4-batch-02-manifest.json" target="_blank" rel="noopener noreferrer">查看新增动力系统 Manifest ↗</a>
+    <a class="manifest-link" href="${import.meta.env.BASE_URL}models/automotive-corners-contract.json" target="_blank" rel="noopener noreferrer">查看四轮连接 / 拆装 DAG 合同 ↗</a>
     <div class="panel-label next">NEXT BATCH</div>
     <p class="pending">发动机已经生成首批 30 件概念 GLB；完整齿轮箱、座椅、车门和电气系统仍有大量规划零件尚未建模。</p>
   </aside>

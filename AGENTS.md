@@ -76,3 +76,9 @@ Do not jump levels. Neither a successful Three.js render nor an AABB collision p
     npm run dev
 
 Contributions should be focused and traceable; prefer one mechanically coherent verified batch rather than a huge unvalidated catalog promotion.
+
+## Import coordinate caution
+
+Khronos glTF specifies right-handed **+Y up / +Z asset front** and meters. This repository uses a deliberate **vehicle-specific -Z front** convention for authored cars; both are right-handed, but their vehicle-front semantics differ. External CAD/glTF requires explicit basis conversion and provenance. See https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html .
+
+CAD/AP242 source evidence and swept collision audit are separate advanced workflows: `cad-source-ingestion` and `swept-collision-auditor`. No generated part should be labeled CAD-reviewed until trustworthy sources, dimensions and joints are inspected.
