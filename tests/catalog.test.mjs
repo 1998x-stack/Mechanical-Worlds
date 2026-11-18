@@ -18,11 +18,11 @@ test("automotive catalog has six systems and a non-duplicated hierarchy",()=>{
   assert.deepEqual(catalog.systems,["body","chassis","powertrain","wheels","interior","electrical"]);
   assert.ok(records.length>=300);
   assert.equal(byId.size,records.length);
-  assert.deepEqual(catalog.stats,{
-    assemblies:records.filter(r=>r.kind==="assembly").length,
-    parts:records.filter(r=>r.kind==="part").length,
-    totalNodes:records.length
-  });
+  assert.equal(catalog.stats.assemblies,records.filter(r=>r.kind==="assembly").length);
+  assert.equal(catalog.stats.parts,records.filter(r=>r.kind==="part").length);
+  assert.equal(catalog.stats.totalNodes,records.length);
+  assert.equal(catalog.stats.generatedParts,records.filter(r=>r.kind==="part"&&r.geometryStatus==="generated").length);
+  assert.equal(catalog.stats.plannedParts,records.filter(r=>r.kind==="part"&&r.geometryStatus==="planned").length);
   const root=byId.get(catalog.rootId);
   assert.ok(root && root.kind==="assembly" && root.parentId===null);
   for(const entry of records){
@@ -32,11 +32,20 @@ test("automotive catalog has six systems and a non-duplicated hierarchy",()=>{
     assert.ok(catalog.systems.includes(systemOf(entry)),"Invalid system for "+entry.id);
   }
 });
-test("catalog never claims completed mesh or engineering verification",()=>{
+test("catalog differentiates real generated GLB nodes from unmodeled plans",()=>{
+  const generated=records.filter(r=>r.kind==="part"&&r.geometryStatus==="generated");
+  assert.equal(generated.length,76);
   for(const part of records.filter(r=>r.kind==="part")){
-    assert.equal(part.geometryStatus,"planned");
-    assert.equal(part.engineeringVerified,false);
+    assert.ok(["planned","generated"].includes(part.geometryStatus),part.id);
+    assert.equal(part.engineeringVerified,false,part.id);
     assert.ok(part.nameZh);
+    if(part.geometryStatus==="generated"){
+      assert.equal(part.geometryNodeName,part.id);
+      assert.ok(part.geometryUri?.endsWith(".glb"));
+      assert.ok(part.geometrySource?.includes("generate-automotive"));
+    }else{
+      assert.equal(part.geometryUri,undefined,part.id+" falsely contains a generated asset URL");
+    }
   }
 });
 test("front-wheel hub/brake parts stay in chassis, removable wheel in wheels",()=>{
