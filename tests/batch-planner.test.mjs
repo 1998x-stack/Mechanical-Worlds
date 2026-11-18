@@ -20,17 +20,18 @@ test("next-batch planner selects only still unmodeled Part IDs",()=>{
   assert.equal(result.geometryStatus,"planned");
 });
 
-test("checked-in batch 02 candidates remain planned and belong to powertrain",()=>{
+test("completed batch 02 candidates are all backed by the generated powertrain GLB",()=>{
   const plan=JSON.parse(readFileSync("assets/plans/automotive-batch-02.json","utf8"));
   const catalog=JSON.parse(readFileSync("assets/catalog/automotive-fwd-i4-001.json","utf8"));
   const index=new Map(catalog.records.map(row=>[row.id,row]));
-  assert.equal(plan.geometryStatus,"planned");
+  assert.equal(plan.geometryStatus,"generated");
   assert.equal(plan.candidatePartIds.length,30);
   assert.equal(new Set(plan.candidatePartIds).size,30);
   for(const id of plan.candidatePartIds){
     const row=index.get(id);
     assert.equal(row.kind,"part");
-    assert.equal(row.geometryStatus,"planned");
+    assert.equal(row.geometryStatus,"generated");
+    assert.equal(row.geometryUri,plan.generatedGeometryUri);
     let n=row;
     while(n&&n.parentId&&n.parentId!=="vehicle")n=index.get(n.parentId);
     assert.equal(n?.id,"powertrain",id);

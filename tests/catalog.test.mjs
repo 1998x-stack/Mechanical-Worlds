@@ -34,7 +34,7 @@ test("automotive catalog has six systems and a non-duplicated hierarchy",()=>{
 });
 test("catalog differentiates real generated GLB nodes from unmodeled plans",()=>{
   const generated=records.filter(r=>r.kind==="part"&&r.geometryStatus==="generated");
-  assert.equal(generated.length,76);
+  assert.equal(generated.length,106);
   for(const part of records.filter(r=>r.kind==="part")){
     assert.ok(["planned","generated"].includes(part.geometryStatus),part.id);
     assert.equal(part.engineeringVerified,false,part.id);
@@ -42,7 +42,8 @@ test("catalog differentiates real generated GLB nodes from unmodeled plans",()=>
     if(part.geometryStatus==="generated"){
       assert.equal(part.geometryNodeName,part.id);
       assert.ok(part.geometryUri?.endsWith(".glb"));
-      assert.ok(part.geometrySource?.includes("generate-automotive"));
+      assert.ok(part.geometrySource?.includes("generate-automotive")||
+        part.geometrySource?.includes("generate-powertrain"));
     }else{
       assert.equal(part.geometryUri,undefined,part.id+" falsely contains a generated asset URL");
     }

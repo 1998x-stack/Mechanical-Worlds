@@ -15,7 +15,7 @@ test("actual GLB binary passes independent catalog/hash/reproducibility check",(
   assert.equal(result.result,"PASS");
   assert.equal(result.generatedParts,76);
   assert.equal(result.catalogParts,317);
-  assert.equal(result.plannedParts,241);
+  assert.equal(result.plannedParts,211);
   assert.equal(result.gltfNodes,76);
   assert.equal(result.engineeringVerified,false);
 });
@@ -30,4 +30,27 @@ test("Three.js GLTFLoader parses 76 independently named glTF part nodes",async()
     // Three.js may sanitize scene object names, but must retain one scene child per physical part.
     assert.ok(names[i] || loaded.scene.children[i]);
   }
+});
+
+test("second powertrain batch contains 30 parseable named GLB parts",async()=>{
+  const glb=readFileSync(new URL("../assets/generated/automotive/fwd-i4-batch-02.glb",import.meta.url));
+  const batch=JSON.parse(readFileSync(new URL("../assets/generated/automotive/manifest-02.json",import.meta.url),"utf8"));
+  const buffer=glb.buffer.slice(glb.byteOffset,glb.byteOffset+glb.byteLength);
+  const model=await new Promise((resolve,reject)=>new GLTFLoader().parse(buffer,"",resolve,reject));
+  assert.equal(batch.parts.length,30);
+  assert.equal(model.scene.children.length,30);
+  assert.equal(new Set(batch.parts.map(part=>part.id)).size,30);
+  for(let i=0;i<30;i++){
+    assert.ok(model.scene.children[i].name);
+    assert.ok(model.scene.children[i].children.length||model.scene.children[i].type==="Mesh");
+  }
+});
+test("powertrain GLB independent validation checks exact catalog/source coverage",()=>{
+  const result=JSON.parse(execFileSync(process.execPath,["tools/asset-pipeline/validate-powertrain.mjs"],{
+    cwd:new URL(root).pathname,encoding:"utf8",maxBuffer:1024*1024
+  }));
+  assert.equal(result.result,"PASS");
+  assert.equal(result.generatedParts,30);
+  assert.equal(result.gltfNodes,30);
+  assert.equal(result.engineeringVerified,false);
 });
