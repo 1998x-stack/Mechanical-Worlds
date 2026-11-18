@@ -49,7 +49,7 @@ export function createP1WheelAsset():MechanicalAsset{
   for(let i=1;i<=5;i++){
     const id="wheel.fl.lug."+String(i).padStart(2,"0");
     const common={axisWorld:[-1,0,0] as Vec3,turns:2,
-      ignorePartIds:["wheel.fl.rim","wheel.fl.tire","wheel.fl.valve"],samples:22,
+      ignorePartIds:["wheel.fl.rim","wheel.fl.tire","wheel.fl.valve",...lugs],samples:22,
       collisionPolicy:"required" as const};
     assign(a,"op.wheel.lug."+i+".remove",
       path("path.wheel.lug."+i+".out","screw",[id],common));
