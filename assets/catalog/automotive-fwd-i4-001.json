@@ -1,0 +1,2898 @@
+{
+  "catalogVersion": "0.1.0",
+  "id": "mw.car.fwd-i4.catalog.001",
+  "label": "FWD I4 passenger-car mechanical part catalog",
+  "catalogKind": "planned-asset-inventory",
+  "source": "Illustrative non-brand taxonomy; engineering geometry and actual measurements not provided",
+  "disclaimer": "All components are planning entries, not completed 3D models or verified real-world disassembly procedures.",
+  "unitConvention": "m",
+  "coordinateConvention": "RH +Y up -Z forward +X vehicle right",
+  "rootId": "vehicle",
+  "systems": [
+    "body",
+    "chassis",
+    "powertrain",
+    "wheels",
+    "interior",
+    "electrical"
+  ],
+  "stats": {
+    "assemblies": 42,
+    "parts": 317,
+    "totalNodes": 359
+  },
+  "records": [
+    {
+      "id": "vehicle",
+      "parentId": null,
+      "nameZh": "非品牌前置四缸前驱乘用车",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body",
+      "parentId": "vehicle",
+      "nameZh": "车身系统",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis",
+      "parentId": "vehicle",
+      "nameZh": "底盘系统",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "powertrain",
+      "parentId": "vehicle",
+      "nameZh": "动力系统",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "wheels",
+      "parentId": "vehicle",
+      "nameZh": "车轮系统",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "interior",
+      "parentId": "vehicle",
+      "nameZh": "内饰系统",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "electrical",
+      "parentId": "vehicle",
+      "nameZh": "电气系统",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.shell",
+      "parentId": "body",
+      "nameZh": "白车身结构",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.biw",
+      "parentId": "body.shell",
+      "nameZh": "白车身骨架",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.glass.front",
+      "parentId": "body.shell",
+      "nameZh": "前挡风玻璃",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.glass.rear",
+      "parentId": "body.shell",
+      "nameZh": "后挡风玻璃",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.roof.panel",
+      "parentId": "body.shell",
+      "nameZh": "车顶面板",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.roof.crossmember",
+      "parentId": "body.shell",
+      "nameZh": "车顶横梁",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.floor.pan",
+      "parentId": "body.shell",
+      "nameZh": "底板",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.pillar.a.l",
+      "parentId": "body.shell",
+      "nameZh": "左A柱",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.pillar.a.r",
+      "parentId": "body.shell",
+      "nameZh": "右A柱",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.pillar.b.l",
+      "parentId": "body.shell",
+      "nameZh": "左B柱",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.pillar.b.r",
+      "parentId": "body.shell",
+      "nameZh": "右B柱",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.front",
+      "parentId": "body",
+      "nameZh": "车身前部",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.hood.panel",
+      "parentId": "body.front",
+      "nameZh": "发动机盖",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.hood.hinge.l",
+      "parentId": "body.front",
+      "nameZh": "机盖左铰链",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.hood.hinge.r",
+      "parentId": "body.front",
+      "nameZh": "机盖右铰链",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.hood.latch",
+      "parentId": "body.front",
+      "nameZh": "机盖锁扣",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.bumper.front",
+      "parentId": "body.front",
+      "nameZh": "前保险杠",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.grille",
+      "parentId": "body.front",
+      "nameZh": "前格栅",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.fender.fl",
+      "parentId": "body.front",
+      "nameZh": "左前翼子板",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.fender.fr",
+      "parentId": "body.front",
+      "nameZh": "右前翼子板",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.headlamp.fl",
+      "parentId": "body.front",
+      "nameZh": "左前大灯",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.headlamp.fr",
+      "parentId": "body.front",
+      "nameZh": "右前大灯",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.radiator.grille",
+      "parentId": "body.front",
+      "nameZh": "散热器风道",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.rear",
+      "parentId": "body",
+      "nameZh": "车身后部",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.trunk",
+      "parentId": "body.rear",
+      "nameZh": "后备箱盖",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.trunk.hinge.l",
+      "parentId": "body.rear",
+      "nameZh": "后备箱左铰链",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.trunk.hinge.r",
+      "parentId": "body.rear",
+      "nameZh": "后备箱右铰链",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.bumper.rear",
+      "parentId": "body.rear",
+      "nameZh": "后保险杠",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.taillamp.rl",
+      "parentId": "body.rear",
+      "nameZh": "左尾灯",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.taillamp.rr",
+      "parentId": "body.rear",
+      "nameZh": "右尾灯",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.rear.panel",
+      "parentId": "body.rear",
+      "nameZh": "后围板",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.fl",
+      "parentId": "body",
+      "nameZh": "左前车门总成",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.fl.shell",
+      "parentId": "body.door.fl",
+      "nameZh": "左前车门门体",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.fl.glass",
+      "parentId": "body.door.fl",
+      "nameZh": "左前门玻璃",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.fl.regulator",
+      "parentId": "body.door.fl",
+      "nameZh": "左前玻璃升降器",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.fl.motor",
+      "parentId": "body.door.fl",
+      "nameZh": "左前升降电机",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.fl.hinge.upper",
+      "parentId": "body.door.fl",
+      "nameZh": "左前上铰链",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.fl.hinge.lower",
+      "parentId": "body.door.fl",
+      "nameZh": "左前下铰链",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.fl.latch",
+      "parentId": "body.door.fl",
+      "nameZh": "左前门锁",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.fl.handle",
+      "parentId": "body.door.fl",
+      "nameZh": "左前门把手",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.fl.trim",
+      "parentId": "body.door.fl",
+      "nameZh": "左前门饰板",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.fl.speaker",
+      "parentId": "body.door.fl",
+      "nameZh": "左前扬声器",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.fr",
+      "parentId": "body",
+      "nameZh": "右前车门总成",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.fr.shell",
+      "parentId": "body.door.fr",
+      "nameZh": "右前车门门体",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.fr.glass",
+      "parentId": "body.door.fr",
+      "nameZh": "右前门玻璃",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.fr.regulator",
+      "parentId": "body.door.fr",
+      "nameZh": "右前玻璃升降器",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.fr.motor",
+      "parentId": "body.door.fr",
+      "nameZh": "右前升降电机",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.fr.hinge.upper",
+      "parentId": "body.door.fr",
+      "nameZh": "右前上铰链",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.fr.hinge.lower",
+      "parentId": "body.door.fr",
+      "nameZh": "右前下铰链",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.fr.latch",
+      "parentId": "body.door.fr",
+      "nameZh": "右前门锁",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.fr.handle",
+      "parentId": "body.door.fr",
+      "nameZh": "右前门把手",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.fr.trim",
+      "parentId": "body.door.fr",
+      "nameZh": "右前门饰板",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.fr.speaker",
+      "parentId": "body.door.fr",
+      "nameZh": "右前扬声器",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.rl",
+      "parentId": "body",
+      "nameZh": "左后车门总成",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.rl.shell",
+      "parentId": "body.door.rl",
+      "nameZh": "左后车门门体",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.rl.glass",
+      "parentId": "body.door.rl",
+      "nameZh": "左后门玻璃",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.rl.regulator",
+      "parentId": "body.door.rl",
+      "nameZh": "左后玻璃升降器",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.rl.motor",
+      "parentId": "body.door.rl",
+      "nameZh": "左后升降电机",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.rl.hinge.upper",
+      "parentId": "body.door.rl",
+      "nameZh": "左后上铰链",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.rl.hinge.lower",
+      "parentId": "body.door.rl",
+      "nameZh": "左后下铰链",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.rl.latch",
+      "parentId": "body.door.rl",
+      "nameZh": "左后门锁",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.rl.handle",
+      "parentId": "body.door.rl",
+      "nameZh": "左后门把手",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.rl.trim",
+      "parentId": "body.door.rl",
+      "nameZh": "左后门饰板",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.rl.speaker",
+      "parentId": "body.door.rl",
+      "nameZh": "左后扬声器",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.rr",
+      "parentId": "body",
+      "nameZh": "右后车门总成",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.rr.shell",
+      "parentId": "body.door.rr",
+      "nameZh": "右后车门门体",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.rr.glass",
+      "parentId": "body.door.rr",
+      "nameZh": "右后门玻璃",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.rr.regulator",
+      "parentId": "body.door.rr",
+      "nameZh": "右后玻璃升降器",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.rr.motor",
+      "parentId": "body.door.rr",
+      "nameZh": "右后升降电机",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.rr.hinge.upper",
+      "parentId": "body.door.rr",
+      "nameZh": "右后上铰链",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.rr.hinge.lower",
+      "parentId": "body.door.rr",
+      "nameZh": "右后下铰链",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.rr.latch",
+      "parentId": "body.door.rr",
+      "nameZh": "右后门锁",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.rr.handle",
+      "parentId": "body.door.rr",
+      "nameZh": "右后门把手",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.rr.trim",
+      "parentId": "body.door.rr",
+      "nameZh": "右后门饰板",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.door.rr.speaker",
+      "parentId": "body.door.rr",
+      "nameZh": "右后扬声器",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.trim",
+      "parentId": "body",
+      "nameZh": "车身外饰",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.mirror.l",
+      "parentId": "body.trim",
+      "nameZh": "左后视镜",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.mirror.r",
+      "parentId": "body.trim",
+      "nameZh": "右后视镜",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.wiper.l",
+      "parentId": "body.trim",
+      "nameZh": "左雨刮臂",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.wiper.r",
+      "parentId": "body.trim",
+      "nameZh": "右雨刮臂",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "body.rear.wiper",
+      "parentId": "body.trim",
+      "nameZh": "尾部雨刮装置（选装）",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.front",
+      "parentId": "chassis",
+      "nameZh": "前悬架及轮毂系统",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.subframe.front",
+      "parentId": "chassis.front",
+      "nameZh": "前副车架",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.stabilizer.front",
+      "parentId": "chassis.front",
+      "nameZh": "前防倾杆",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.steering.rack",
+      "parentId": "chassis.front",
+      "nameZh": "转向齿条",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.rear",
+      "parentId": "chassis",
+      "nameZh": "后悬架及轮毂系统",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.torsion.beam",
+      "parentId": "chassis.rear",
+      "nameZh": "后扭力梁",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.stabilizer.rear",
+      "parentId": "chassis.rear",
+      "nameZh": "后防倾结构（如适配）",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.corner.fl",
+      "parentId": "chassis.front",
+      "nameZh": "左前角总成",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.hub.fl",
+      "parentId": "chassis.corner.fl",
+      "nameZh": "左前轮毂",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.bearing.fl",
+      "parentId": "chassis.corner.fl",
+      "nameZh": "左前轴承",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.brake.disc.fl",
+      "parentId": "chassis.corner.fl",
+      "nameZh": "左前制动盘",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.brake.caliper.fl",
+      "parentId": "chassis.corner.fl",
+      "nameZh": "左前制动卡钳",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.brake.pad.in.fl",
+      "parentId": "chassis.corner.fl",
+      "nameZh": "左前内刹车片",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.brake.pad.out.fl",
+      "parentId": "chassis.corner.fl",
+      "nameZh": "左前外刹车片",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.brake.line.fl",
+      "parentId": "chassis.corner.fl",
+      "nameZh": "左前制动软管",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.damper.fl",
+      "parentId": "chassis.corner.fl",
+      "nameZh": "左前减震器",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.spring.fl",
+      "parentId": "chassis.corner.fl",
+      "nameZh": "左前弹簧",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.knuckle.fl",
+      "parentId": "chassis.corner.fl",
+      "nameZh": "左前转向节",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.arm.lower.fl",
+      "parentId": "chassis.corner.fl",
+      "nameZh": "左前下控制臂",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.tie-rod.fl",
+      "parentId": "chassis.corner.fl",
+      "nameZh": "左前转向横拉杆",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.corner.fr",
+      "parentId": "chassis.front",
+      "nameZh": "右前角总成",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.hub.fr",
+      "parentId": "chassis.corner.fr",
+      "nameZh": "右前轮毂",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.bearing.fr",
+      "parentId": "chassis.corner.fr",
+      "nameZh": "右前轴承",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.brake.disc.fr",
+      "parentId": "chassis.corner.fr",
+      "nameZh": "右前制动盘",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.brake.caliper.fr",
+      "parentId": "chassis.corner.fr",
+      "nameZh": "右前制动卡钳",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.brake.pad.in.fr",
+      "parentId": "chassis.corner.fr",
+      "nameZh": "右前内刹车片",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.brake.pad.out.fr",
+      "parentId": "chassis.corner.fr",
+      "nameZh": "右前外刹车片",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.brake.line.fr",
+      "parentId": "chassis.corner.fr",
+      "nameZh": "右前制动软管",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.damper.fr",
+      "parentId": "chassis.corner.fr",
+      "nameZh": "右前减震器",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.spring.fr",
+      "parentId": "chassis.corner.fr",
+      "nameZh": "右前弹簧",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.knuckle.fr",
+      "parentId": "chassis.corner.fr",
+      "nameZh": "右前转向节",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.arm.lower.fr",
+      "parentId": "chassis.corner.fr",
+      "nameZh": "右前下控制臂",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.tie-rod.fr",
+      "parentId": "chassis.corner.fr",
+      "nameZh": "右前转向横拉杆",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.corner.rl",
+      "parentId": "chassis.rear",
+      "nameZh": "左后角总成",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.hub.rl",
+      "parentId": "chassis.corner.rl",
+      "nameZh": "左后轮毂",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.bearing.rl",
+      "parentId": "chassis.corner.rl",
+      "nameZh": "左后轴承",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.brake.disc.rl",
+      "parentId": "chassis.corner.rl",
+      "nameZh": "左后制动盘",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.brake.caliper.rl",
+      "parentId": "chassis.corner.rl",
+      "nameZh": "左后制动卡钳",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.brake.pad.in.rl",
+      "parentId": "chassis.corner.rl",
+      "nameZh": "左后内刹车片",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.brake.pad.out.rl",
+      "parentId": "chassis.corner.rl",
+      "nameZh": "左后外刹车片",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.brake.line.rl",
+      "parentId": "chassis.corner.rl",
+      "nameZh": "左后制动软管",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.damper.rl",
+      "parentId": "chassis.corner.rl",
+      "nameZh": "左后减震器",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.spring.rl",
+      "parentId": "chassis.corner.rl",
+      "nameZh": "左后弹簧",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.corner.rr",
+      "parentId": "chassis.rear",
+      "nameZh": "右后角总成",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.hub.rr",
+      "parentId": "chassis.corner.rr",
+      "nameZh": "右后轮毂",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.bearing.rr",
+      "parentId": "chassis.corner.rr",
+      "nameZh": "右后轴承",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.brake.disc.rr",
+      "parentId": "chassis.corner.rr",
+      "nameZh": "右后制动盘",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.brake.caliper.rr",
+      "parentId": "chassis.corner.rr",
+      "nameZh": "右后制动卡钳",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.brake.pad.in.rr",
+      "parentId": "chassis.corner.rr",
+      "nameZh": "右后内刹车片",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.brake.pad.out.rr",
+      "parentId": "chassis.corner.rr",
+      "nameZh": "右后外刹车片",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.brake.line.rr",
+      "parentId": "chassis.corner.rr",
+      "nameZh": "右后制动软管",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.damper.rr",
+      "parentId": "chassis.corner.rr",
+      "nameZh": "右后减震器",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.spring.rr",
+      "parentId": "chassis.corner.rr",
+      "nameZh": "右后弹簧",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.steering",
+      "parentId": "chassis",
+      "nameZh": "转向系统",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.steering.column",
+      "parentId": "chassis.steering",
+      "nameZh": "转向柱",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.steering.shaft",
+      "parentId": "chassis.steering",
+      "nameZh": "转向传动轴",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.steering.rack.housing",
+      "parentId": "chassis.steering",
+      "nameZh": "转向机壳",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.steering.pinion",
+      "parentId": "chassis.steering",
+      "nameZh": "转向小齿轮",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.exhaust",
+      "parentId": "chassis",
+      "nameZh": "排气系统",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.exhaust.front",
+      "parentId": "chassis.exhaust",
+      "nameZh": "排气前管",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.exhaust.catalyst",
+      "parentId": "chassis.exhaust",
+      "nameZh": "三元催化器",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.exhaust.center",
+      "parentId": "chassis.exhaust",
+      "nameZh": "中段排气管",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.exhaust.muffler",
+      "parentId": "chassis.exhaust",
+      "nameZh": "后消声器",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.exhaust.hanger.1",
+      "parentId": "chassis.exhaust",
+      "nameZh": "排气吊架1",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "chassis.exhaust.hanger.2",
+      "parentId": "chassis.exhaust",
+      "nameZh": "排气吊架2",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "powertrain.engine",
+      "parentId": "powertrain",
+      "nameZh": "前置横置I4发动机",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.block",
+      "parentId": "powertrain.engine",
+      "nameZh": "缸体及曲柄连杆机构",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.block.cast",
+      "parentId": "engine.block",
+      "nameZh": "缸体本体",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.crankshaft",
+      "parentId": "engine.block",
+      "nameZh": "曲轴",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.main-bearing",
+      "parentId": "engine.block",
+      "nameZh": "主轴瓦组",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.crankshaft.pulley",
+      "parentId": "engine.block",
+      "nameZh": "曲轴皮带轮",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.oil.pan",
+      "parentId": "engine.block",
+      "nameZh": "油底壳",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.piston.1",
+      "parentId": "engine.block",
+      "nameZh": "第1缸活塞",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.piston.2",
+      "parentId": "engine.block",
+      "nameZh": "第2缸活塞",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.piston.3",
+      "parentId": "engine.block",
+      "nameZh": "第3缸活塞",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.piston.4",
+      "parentId": "engine.block",
+      "nameZh": "第4缸活塞",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.rod.1",
+      "parentId": "engine.block",
+      "nameZh": "第1缸连杆",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.rod.2",
+      "parentId": "engine.block",
+      "nameZh": "第2缸连杆",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.rod.3",
+      "parentId": "engine.block",
+      "nameZh": "第3缸连杆",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.rod.4",
+      "parentId": "engine.block",
+      "nameZh": "第4缸连杆",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.piston.pin.1",
+      "parentId": "engine.block",
+      "nameZh": "第1缸活塞销",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.piston.pin.2",
+      "parentId": "engine.block",
+      "nameZh": "第2缸活塞销",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.piston.pin.3",
+      "parentId": "engine.block",
+      "nameZh": "第3缸活塞销",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.piston.pin.4",
+      "parentId": "engine.block",
+      "nameZh": "第4缸活塞销",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.piston.rings.1",
+      "parentId": "engine.block",
+      "nameZh": "第1缸活塞环组",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.piston.rings.2",
+      "parentId": "engine.block",
+      "nameZh": "第2缸活塞环组",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.piston.rings.3",
+      "parentId": "engine.block",
+      "nameZh": "第3缸活塞环组",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.piston.rings.4",
+      "parentId": "engine.block",
+      "nameZh": "第4缸活塞环组",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.head",
+      "parentId": "powertrain.engine",
+      "nameZh": "气缸盖机构",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.cylinder.head",
+      "parentId": "engine.head",
+      "nameZh": "气缸盖",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.valve.cover",
+      "parentId": "engine.head",
+      "nameZh": "气门室盖",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.cam.intake",
+      "parentId": "engine.head",
+      "nameZh": "进气凸轮轴",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.cam.exhaust",
+      "parentId": "engine.head",
+      "nameZh": "排气凸轮轴",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.valve.intake.1",
+      "parentId": "engine.head",
+      "nameZh": "进气门1",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.valve.intake.2",
+      "parentId": "engine.head",
+      "nameZh": "进气门2",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.valve.intake.3",
+      "parentId": "engine.head",
+      "nameZh": "进气门3",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.valve.intake.4",
+      "parentId": "engine.head",
+      "nameZh": "进气门4",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.valve.intake.5",
+      "parentId": "engine.head",
+      "nameZh": "进气门5",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.valve.intake.6",
+      "parentId": "engine.head",
+      "nameZh": "进气门6",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.valve.intake.7",
+      "parentId": "engine.head",
+      "nameZh": "进气门7",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.valve.intake.8",
+      "parentId": "engine.head",
+      "nameZh": "进气门8",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.valve.exhaust.1",
+      "parentId": "engine.head",
+      "nameZh": "排气门1",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.valve.exhaust.2",
+      "parentId": "engine.head",
+      "nameZh": "排气门2",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.valve.exhaust.3",
+      "parentId": "engine.head",
+      "nameZh": "排气门3",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.valve.exhaust.4",
+      "parentId": "engine.head",
+      "nameZh": "排气门4",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.valve.exhaust.5",
+      "parentId": "engine.head",
+      "nameZh": "排气门5",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.valve.exhaust.6",
+      "parentId": "engine.head",
+      "nameZh": "排气门6",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.valve.exhaust.7",
+      "parentId": "engine.head",
+      "nameZh": "排气门7",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.valve.exhaust.8",
+      "parentId": "engine.head",
+      "nameZh": "排气门8",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.timing.belt",
+      "parentId": "engine.head",
+      "nameZh": "正时传动",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.timing.tensioner",
+      "parentId": "engine.head",
+      "nameZh": "正时涨紧器",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.timing.cover",
+      "parentId": "engine.head",
+      "nameZh": "正时传动盖",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.aux",
+      "parentId": "powertrain.engine",
+      "nameZh": "发动机附属系统",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.intake.manifold",
+      "parentId": "engine.aux",
+      "nameZh": "进气歧管",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.exhaust.manifold",
+      "parentId": "engine.aux",
+      "nameZh": "排气歧管",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.pump.oil",
+      "parentId": "engine.aux",
+      "nameZh": "机油泵",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.pump.coolant",
+      "parentId": "engine.aux",
+      "nameZh": "冷却液泵",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.fuel.rail",
+      "parentId": "engine.aux",
+      "nameZh": "燃油导轨",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.injector.1",
+      "parentId": "engine.aux",
+      "nameZh": "喷油嘴1",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.injector.2",
+      "parentId": "engine.aux",
+      "nameZh": "喷油嘴2",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.injector.3",
+      "parentId": "engine.aux",
+      "nameZh": "喷油嘴3",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.injector.4",
+      "parentId": "engine.aux",
+      "nameZh": "喷油嘴4",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.alternator",
+      "parentId": "engine.aux",
+      "nameZh": "发电机",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.starter",
+      "parentId": "engine.aux",
+      "nameZh": "起动机",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.thermostat",
+      "parentId": "engine.aux",
+      "nameZh": "节温器",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "engine.filter.oil",
+      "parentId": "engine.aux",
+      "nameZh": "机油滤清器",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "powertrain.clutch",
+      "parentId": "powertrain",
+      "nameZh": "离合器",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "clutch.flywheel",
+      "parentId": "powertrain.clutch",
+      "nameZh": "飞轮",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "clutch.disc",
+      "parentId": "powertrain.clutch",
+      "nameZh": "摩擦片",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "clutch.pressure",
+      "parentId": "powertrain.clutch",
+      "nameZh": "离合器压盘",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "clutch.release-bearing",
+      "parentId": "powertrain.clutch",
+      "nameZh": "分离轴承",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "clutch.fork",
+      "parentId": "powertrain.clutch",
+      "nameZh": "分离拨叉",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "powertrain.gearbox",
+      "parentId": "powertrain",
+      "nameZh": "手动变速箱与差速器",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "gearbox.housing",
+      "parentId": "powertrain.gearbox",
+      "nameZh": "变速箱壳体",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "gearbox.input",
+      "parentId": "powertrain.gearbox",
+      "nameZh": "输入轴",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "gearbox.output",
+      "parentId": "powertrain.gearbox",
+      "nameZh": "输出轴",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "gearbox.reverse",
+      "parentId": "powertrain.gearbox",
+      "nameZh": "倒挡轴",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "gearbox.gearset",
+      "parentId": "powertrain.gearbox",
+      "nameZh": "变速齿轮组",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "gearbox.selector",
+      "parentId": "powertrain.gearbox",
+      "nameZh": "换挡机构",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "gearbox.synchronizer",
+      "parentId": "powertrain.gearbox",
+      "nameZh": "同步器组",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "gearbox.differential.carrier",
+      "parentId": "powertrain.gearbox",
+      "nameZh": "差速器壳体",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "gearbox.differential.side",
+      "parentId": "powertrain.gearbox",
+      "nameZh": "半轴齿轮组",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "gearbox.differential.pinion",
+      "parentId": "powertrain.gearbox",
+      "nameZh": "行星齿轮组",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "powertrain.driveline",
+      "parentId": "powertrain",
+      "nameZh": "半轴与传动",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "drive.axle.fl",
+      "parentId": "powertrain.driveline",
+      "nameZh": "左前半轴",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "drive.axle.fr",
+      "parentId": "powertrain.driveline",
+      "nameZh": "右前半轴",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "drive.cv.fl.inner",
+      "parentId": "powertrain.driveline",
+      "nameZh": "左前内球笼",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "drive.cv.fl.outer",
+      "parentId": "powertrain.driveline",
+      "nameZh": "左前外球笼",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "drive.cv.fr.inner",
+      "parentId": "powertrain.driveline",
+      "nameZh": "右前内球笼",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "drive.cv.fr.outer",
+      "parentId": "powertrain.driveline",
+      "nameZh": "右前外球笼",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "wheel.fl",
+      "parentId": "wheels",
+      "nameZh": "左前车轮总成",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "wheel.fl.rim",
+      "parentId": "wheel.fl",
+      "nameZh": "左前轮辋",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "wheel.fl.tire",
+      "parentId": "wheel.fl",
+      "nameZh": "左前轮胎",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "wheel.fl.valve",
+      "parentId": "wheel.fl",
+      "nameZh": "左前气门嘴",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "wheel.fl.lug.1",
+      "parentId": "wheel.fl",
+      "nameZh": "左前轮毂螺母1",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "wheel.fl.lug.2",
+      "parentId": "wheel.fl",
+      "nameZh": "左前轮毂螺母2",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "wheel.fl.lug.3",
+      "parentId": "wheel.fl",
+      "nameZh": "左前轮毂螺母3",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "wheel.fl.lug.4",
+      "parentId": "wheel.fl",
+      "nameZh": "左前轮毂螺母4",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "wheel.fl.lug.5",
+      "parentId": "wheel.fl",
+      "nameZh": "左前轮毂螺母5",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "wheel.fr",
+      "parentId": "wheels",
+      "nameZh": "右前车轮总成",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "wheel.fr.rim",
+      "parentId": "wheel.fr",
+      "nameZh": "右前轮辋",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "wheel.fr.tire",
+      "parentId": "wheel.fr",
+      "nameZh": "右前轮胎",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "wheel.fr.valve",
+      "parentId": "wheel.fr",
+      "nameZh": "右前气门嘴",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "wheel.fr.lug.1",
+      "parentId": "wheel.fr",
+      "nameZh": "右前轮毂螺母1",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "wheel.fr.lug.2",
+      "parentId": "wheel.fr",
+      "nameZh": "右前轮毂螺母2",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "wheel.fr.lug.3",
+      "parentId": "wheel.fr",
+      "nameZh": "右前轮毂螺母3",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "wheel.fr.lug.4",
+      "parentId": "wheel.fr",
+      "nameZh": "右前轮毂螺母4",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "wheel.fr.lug.5",
+      "parentId": "wheel.fr",
+      "nameZh": "右前轮毂螺母5",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "wheel.rl",
+      "parentId": "wheels",
+      "nameZh": "左后车轮总成",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "wheel.rl.rim",
+      "parentId": "wheel.rl",
+      "nameZh": "左后轮辋",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "wheel.rl.tire",
+      "parentId": "wheel.rl",
+      "nameZh": "左后轮胎",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "wheel.rl.valve",
+      "parentId": "wheel.rl",
+      "nameZh": "左后气门嘴",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "wheel.rl.lug.1",
+      "parentId": "wheel.rl",
+      "nameZh": "左后轮毂螺母1",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "wheel.rl.lug.2",
+      "parentId": "wheel.rl",
+      "nameZh": "左后轮毂螺母2",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "wheel.rl.lug.3",
+      "parentId": "wheel.rl",
+      "nameZh": "左后轮毂螺母3",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "wheel.rl.lug.4",
+      "parentId": "wheel.rl",
+      "nameZh": "左后轮毂螺母4",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "wheel.rl.lug.5",
+      "parentId": "wheel.rl",
+      "nameZh": "左后轮毂螺母5",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "wheel.rr",
+      "parentId": "wheels",
+      "nameZh": "右后车轮总成",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "wheel.rr.rim",
+      "parentId": "wheel.rr",
+      "nameZh": "右后轮辋",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "wheel.rr.tire",
+      "parentId": "wheel.rr",
+      "nameZh": "右后轮胎",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "wheel.rr.valve",
+      "parentId": "wheel.rr",
+      "nameZh": "右后气门嘴",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "wheel.rr.lug.1",
+      "parentId": "wheel.rr",
+      "nameZh": "右后轮毂螺母1",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "wheel.rr.lug.2",
+      "parentId": "wheel.rr",
+      "nameZh": "右后轮毂螺母2",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "wheel.rr.lug.3",
+      "parentId": "wheel.rr",
+      "nameZh": "右后轮毂螺母3",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "wheel.rr.lug.4",
+      "parentId": "wheel.rr",
+      "nameZh": "右后轮毂螺母4",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "wheel.rr.lug.5",
+      "parentId": "wheel.rr",
+      "nameZh": "右后轮毂螺母5",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "interior.seat.driver",
+      "parentId": "interior",
+      "nameZh": "主驾驶座椅总成",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "seat.driver.frame",
+      "parentId": "interior.seat.driver",
+      "nameZh": "主驾驶座椅骨架",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "seat.driver.foam.bottom",
+      "parentId": "interior.seat.driver",
+      "nameZh": "主驾驶坐垫泡沫",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "seat.driver.trim.bottom",
+      "parentId": "interior.seat.driver",
+      "nameZh": "主驾驶坐垫面套",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "seat.driver.backrest",
+      "parentId": "interior.seat.driver",
+      "nameZh": "主驾驶靠背骨架",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "seat.driver.foam.back",
+      "parentId": "interior.seat.driver",
+      "nameZh": "主驾驶靠背泡沫",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "seat.driver.trim.back",
+      "parentId": "interior.seat.driver",
+      "nameZh": "主驾驶靠背面套",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "seat.driver.headrest",
+      "parentId": "interior.seat.driver",
+      "nameZh": "主驾驶头枕",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "seat.driver.rail.l",
+      "parentId": "interior.seat.driver",
+      "nameZh": "主驾驶左滑轨",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "seat.driver.rail.r",
+      "parentId": "interior.seat.driver",
+      "nameZh": "主驾驶右滑轨",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "seat.driver.recliner",
+      "parentId": "interior.seat.driver",
+      "nameZh": "主驾驶靠背调节机构",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "interior.seat.passenger",
+      "parentId": "interior",
+      "nameZh": "副驾驶座椅总成",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "seat.passenger.frame",
+      "parentId": "interior.seat.passenger",
+      "nameZh": "副驾驶座椅骨架",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "seat.passenger.foam.bottom",
+      "parentId": "interior.seat.passenger",
+      "nameZh": "副驾驶坐垫泡沫",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "seat.passenger.trim.bottom",
+      "parentId": "interior.seat.passenger",
+      "nameZh": "副驾驶坐垫面套",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "seat.passenger.backrest",
+      "parentId": "interior.seat.passenger",
+      "nameZh": "副驾驶靠背骨架",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "seat.passenger.foam.back",
+      "parentId": "interior.seat.passenger",
+      "nameZh": "副驾驶靠背泡沫",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "seat.passenger.trim.back",
+      "parentId": "interior.seat.passenger",
+      "nameZh": "副驾驶靠背面套",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "seat.passenger.headrest",
+      "parentId": "interior.seat.passenger",
+      "nameZh": "副驾驶头枕",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "seat.passenger.rail.l",
+      "parentId": "interior.seat.passenger",
+      "nameZh": "副驾驶左滑轨",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "seat.passenger.rail.r",
+      "parentId": "interior.seat.passenger",
+      "nameZh": "副驾驶右滑轨",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "seat.passenger.recliner",
+      "parentId": "interior.seat.passenger",
+      "nameZh": "副驾驶靠背调节机构",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "interior.seat.rear",
+      "parentId": "interior",
+      "nameZh": "后排座椅",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "seat.rear.cushion",
+      "parentId": "interior.seat.rear",
+      "nameZh": "后排坐垫",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "seat.rear.backrest",
+      "parentId": "interior.seat.rear",
+      "nameZh": "后排靠背",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "seat.rear.headrest.l",
+      "parentId": "interior.seat.rear",
+      "nameZh": "后排左头枕",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "seat.rear.headrest.c",
+      "parentId": "interior.seat.rear",
+      "nameZh": "后排中头枕",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "seat.rear.headrest.r",
+      "parentId": "interior.seat.rear",
+      "nameZh": "后排右头枕",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "seat.rear.frame",
+      "parentId": "interior.seat.rear",
+      "nameZh": "后排骨架",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "interior.cockpit",
+      "parentId": "interior",
+      "nameZh": "驾驶舱",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "interior.dashboard",
+      "parentId": "interior.cockpit",
+      "nameZh": "仪表台",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "interior.cluster",
+      "parentId": "interior.cockpit",
+      "nameZh": "仪表总成",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "interior.steering.wheel",
+      "parentId": "interior.cockpit",
+      "nameZh": "方向盘",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "interior.console",
+      "parentId": "interior.cockpit",
+      "nameZh": "中控台",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "interior.vent.l",
+      "parentId": "interior.cockpit",
+      "nameZh": "左出风口",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "interior.vent.r",
+      "parentId": "interior.cockpit",
+      "nameZh": "右出风口",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "interior.vent.center",
+      "parentId": "interior.cockpit",
+      "nameZh": "中央出风口",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "interior.radio",
+      "parentId": "interior.cockpit",
+      "nameZh": "多媒体系统",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "interior.hvac",
+      "parentId": "interior.cockpit",
+      "nameZh": "空调箱总成",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "interior.shift.lever",
+      "parentId": "interior.cockpit",
+      "nameZh": "换挡杆",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "interior.pedal.accel",
+      "parentId": "interior.cockpit",
+      "nameZh": "油门踏板",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "interior.pedal.brake",
+      "parentId": "interior.cockpit",
+      "nameZh": "制动踏板",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "interior.pedal.clutch",
+      "parentId": "interior.cockpit",
+      "nameZh": "离合踏板",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "interior.handbrake",
+      "parentId": "interior.cockpit",
+      "nameZh": "驻车制动拉杆",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "interior.floor.carpet",
+      "parentId": "interior.cockpit",
+      "nameZh": "车内地毯",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "interior.safety",
+      "parentId": "interior",
+      "nameZh": "座舱安全与附件",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "interior.belt.driver",
+      "parentId": "interior.safety",
+      "nameZh": "主驾安全带",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "interior.belt.passenger",
+      "parentId": "interior.safety",
+      "nameZh": "副驾安全带",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "interior.airbag.driver",
+      "parentId": "interior.safety",
+      "nameZh": "主驾气囊总成",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "interior.airbag.passenger",
+      "parentId": "interior.safety",
+      "nameZh": "副驾气囊总成",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "interior.sunvisor.l",
+      "parentId": "interior.safety",
+      "nameZh": "左遮阳板",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "interior.sunvisor.r",
+      "parentId": "interior.safety",
+      "nameZh": "右遮阳板",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "interior.mirror.rearview",
+      "parentId": "interior.safety",
+      "nameZh": "内后视镜",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "interior.cabin.lamp",
+      "parentId": "interior.safety",
+      "nameZh": "顶灯",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "electrical.power",
+      "parentId": "electrical",
+      "nameZh": "供电和控制",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "electrical.battery",
+      "parentId": "electrical.power",
+      "nameZh": "12V蓄电池",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "electrical.terminal.pos",
+      "parentId": "electrical.power",
+      "nameZh": "蓄电池正极端子",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "electrical.terminal.neg",
+      "parentId": "electrical.power",
+      "nameZh": "蓄电池负极端子",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "electrical.fusebox",
+      "parentId": "electrical.power",
+      "nameZh": "保险丝盒",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "electrical.engine.ecu",
+      "parentId": "electrical.power",
+      "nameZh": "发动机ECU",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "electrical.body.bcm",
+      "parentId": "electrical.power",
+      "nameZh": "车身控制器",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "electrical.abs.controller",
+      "parentId": "electrical.power",
+      "nameZh": "ABS控制模块",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "electrical.relay.box",
+      "parentId": "electrical.power",
+      "nameZh": "继电器盒",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "electrical.obd.port",
+      "parentId": "electrical.power",
+      "nameZh": "OBD接口",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "electrical.harness",
+      "parentId": "electrical",
+      "nameZh": "线束与连接",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "electrical.harness.main",
+      "parentId": "electrical.harness",
+      "nameZh": "车身主线束",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "electrical.harness.engine",
+      "parentId": "electrical.harness",
+      "nameZh": "发动机线束",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "electrical.harness.dashboard",
+      "parentId": "electrical.harness",
+      "nameZh": "仪表台线束",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "electrical.harness.door.fl",
+      "parentId": "electrical.harness",
+      "nameZh": "左前门线束",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "electrical.harness.door.fr",
+      "parentId": "electrical.harness",
+      "nameZh": "右前门线束",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "electrical.harness.door.rl",
+      "parentId": "electrical.harness",
+      "nameZh": "左后门线束",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "electrical.harness.door.rr",
+      "parentId": "electrical.harness",
+      "nameZh": "右后门线束",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "electrical.harness.rear",
+      "parentId": "electrical.harness",
+      "nameZh": "尾部线束",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "electrical.connector.battery",
+      "parentId": "electrical.harness",
+      "nameZh": "蓄电池接插件",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "electrical.sensors",
+      "parentId": "electrical",
+      "nameZh": "传感器与附件",
+      "kind": "assembly",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "electrical.sensor.wheel.fl",
+      "parentId": "electrical.sensors",
+      "nameZh": "左前轮速传感器",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "electrical.sensor.wheel.fr",
+      "parentId": "electrical.sensors",
+      "nameZh": "右前轮速传感器",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "electrical.sensor.wheel.rl",
+      "parentId": "electrical.sensors",
+      "nameZh": "左后轮速传感器",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "electrical.sensor.wheel.rr",
+      "parentId": "electrical.sensors",
+      "nameZh": "右后轮速传感器",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "electrical.sensor.crank",
+      "parentId": "electrical.sensors",
+      "nameZh": "曲轴位置传感器",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "electrical.sensor.cam",
+      "parentId": "electrical.sensors",
+      "nameZh": "凸轮轴位置传感器",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "electrical.sensor.coolant",
+      "parentId": "electrical.sensors",
+      "nameZh": "冷却液温度传感器",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "electrical.sensor.throttle",
+      "parentId": "electrical.sensors",
+      "nameZh": "节气门位置传感器",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "electrical.horn",
+      "parentId": "electrical.sensors",
+      "nameZh": "喇叭",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    },
+    {
+      "id": "electrical.wiper.motor",
+      "parentId": "electrical.sensors",
+      "nameZh": "雨刮电机",
+      "kind": "part",
+      "geometryStatus": "planned",
+      "engineeringVerified": false
+    }
+  ]
+}
