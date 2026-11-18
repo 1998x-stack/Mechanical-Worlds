@@ -31,3 +31,27 @@ footer{background:#0a1726;border-top:1px solid #22374e;display:flex;justify-cont
 @media(max-width:1180px){.sidebar{width:215px}.center{padding:20px 16px}.body{grid-template-columns:minmax(400px,1fr) 275px}.stage{height:48vh}.intro h1{font-size:21px}}
 @media(max-width:900px){.shell{display:block}.sidebar{width:100%;min-height:0;padding:11px;flex-direction:row;align-items:center;flex-wrap:wrap;gap:7px}.brand{padding:0 10px 0 0}.caption,.sidebar-foot,.tree{display:none}.scenario{width:auto;margin:0;flex:1;min-width:150px}.body{display:block}.right{display:grid;grid-template-columns:1fr 1fr;border-left:0;border-top:1px solid #26374c}.right .pane:last-child{grid-column:1/-1}.stage{height:48vh}.operations{max-height:260px}}
 @media(max-width:560px){.brand{width:100%}.top{height:54px;padding:0 14px}.intro h1{font-size:20px}.center{padding:19px 12px}.live{display:none}.stage{height:43vh;min-height:270px}.actions .btn{flex:1}.right{display:block}footer{flex-wrap:wrap;padding:12px}.stage-axis{display:none}}
+
+/* Planned catalog — a source-aware inventory, not a rendered 3D asset claim. */
+.catalog-launch{border:1px solid #315170;background:#142a42;color:#d4e8fb;border-radius:10px;padding:13px 11px;text-align:left;margin-top:15px;display:flex;align-items:center;flex-wrap:wrap;gap:6px}
+.catalog-launch:hover{background:#1b3956}.catalog-launch>span{font-size:12px;font-weight:700;width:100%}
+.catalog-launch strong{color:#8ad4ff;font-size:11px}.catalog-launch small{color:#7598b4;font-size:10px;line-height:1.4}
+.catalog-modal[hidden]{display:none}.catalog-modal{position:fixed;z-index:99;inset:0;background:#040b14df;display:flex;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(5px)}
+.catalog-card{background:#0f2033;border:1px solid #365773;box-shadow:0 25px 70px #000a;border-radius:17px;max-width:890px;width:100%;max-height:92vh;display:flex;flex-direction:column;overflow:hidden}
+.catalog-header{display:flex;justify-content:space-between;align-items:flex-start;gap:15px;padding:23px 24px 12px}
+.catalog-header h2{font-size:22px;margin:9px 0 7px;color:#eef7ff}
+.catalog-header p{color:#92adc4;font-size:12px;line-height:1.6;margin:0}
+.catalog-header button{border:1px solid #3b5870;background:#1c344a;border-radius:8px;color:#c3d9eb;padding:10px 13px;font-size:13px}
+.catalog-filters{display:flex;gap:9px;padding:16px 24px 9px}
+.catalog-filters input,.catalog-filters select{background:#142c43;color:#d5eafa;border:1px solid #395b77;border-radius:9px;padding:12px;font-family:inherit}
+.catalog-filters input{flex:1;min-width:0}.catalog-filters select{width:165px}
+.catalog-count{font-size:10px;letter-spacing:.6px;color:#78a1bf;padding:8px 24px 10px}
+.catalog-records{overflow:auto;min-height:120px;padding:0 24px 14px}
+.catalog-record{padding:11px 8px;border-top:1px solid #263d53;display:flex;gap:13px;align-items:center}
+.catalog-kind{width:75px;color:#91b9d5;background:#203b55;border-radius:6px;padding:6px;text-align:center;font-size:8px;letter-spacing:.7px}
+.catalog-record>div{flex:1;min-width:0}.catalog-record strong{display:block;font-size:12px;color:#dcebf7}
+.catalog-record small{display:block;font-size:10px;color:#7d9ab3;margin-top:3px;overflow-wrap:anywhere}
+.catalog-planned{font-size:9px;color:#e0b679;border:1px solid #826642;border-radius:12px;padding:5px 8px}
+.catalog-bottom{border-top:1px solid #273e55;background:#12263b;padding:14px 24px;color:#8cabc3;font-size:10px;line-height:1.5}
+@media(max-width:900px){.catalog-launch{margin:0 0 0 auto;max-width:200px;padding:9px}.catalog-launch small{display:none}}
+@media(max-width:560px){.catalog-modal{padding:8px}.catalog-card{max-height:96vh}.catalog-header{padding:17px 14px 8px}.catalog-header h2{font-size:18px}.catalog-filters{padding:12px 14px 8px;flex-direction:column}.catalog-filters select{width:100%}.catalog-records{padding:0 14px 12px}.catalog-count{padding:6px 14px}.catalog-launch{margin-left:0;max-width:none}}
