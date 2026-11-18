@@ -4,7 +4,8 @@ import {spawn} from "node:child_process";
 import {chromium} from "playwright";
 
 const origin="http://127.0.0.1:4173";
-const server=spawn("npm",["run","preview","--","--host","127.0.0.1","--port","4173","--strictPort"],{
+const server=spawn(process.execPath,["./node_modules/vite/bin/vite.js","preview",
+  "--host","127.0.0.1","--port","4173","--strictPort"],{
   stdio:["ignore","pipe","pipe"],env:process.env
 });
 const std=[];for(const stream of [server.stdout,server.stderr])
