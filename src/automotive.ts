@@ -105,7 +105,7 @@ $("car-app").innerHTML=`
       </div>
       <div id="engine-status" role="status">运动学闭环和拆装状态由 Headless Mechanical Core 验证，载入后可操作。</div>
       <div id="engine-telemetry" class="engine-telemetry">活塞高度：未加载 · 理论连杆闭环误差：未加载</div>
-      <div class="engine-note">4 个活塞和连杆根据同一曲轴角度解析求解；进排气凸轮轴按 2:1 比例转动。发动机零件仍为程序生成概念几何，不代表实车工程配合、真实正时或扫掠碰撞已验证。</div>
+      <div class="engine-note">剖视模式中的彩色连杆线和关节点，是数学约束中心线（非制造几何）；4 个活塞和连杆均由同一曲轴角度求解，凸轮轴按 2:1 转动。源 GLB 的曲柄形状仍有需要通过 CAD 修正的偏差。<a href="${import.meta.env.BASE_URL}models/engine-i4-kinematics-contract.json" target="_blank" rel="noopener noreferrer">检查运动学合同</a> · <a href="${import.meta.env.BASE_URL}models/engine-i4-axial-clearance.json" target="_blank" rel="noopener noreferrer">查看跨缸几何间隔审查</a></div>
     </section>
     <div class="disclaimer">106 个零件均可独立选择；四轮及制动组件、概念四缸发动机已接入独立机械操作 DAG。完整变速箱、自动碰撞窄相与 OEM CAD 制造精度仍未实现。视觉爆炸预览不会修改机械状态。</div>
     <footer>MECHANICAL WORLDS · CONCEPT GEOMETRY ENGINE <span id="render-info">GLB LOADING</span></footer>
@@ -155,6 +155,31 @@ const floor=new THREE.Mesh(new THREE.PlaneGeometry(30,30),
 floor.rotation.x=-Math.PI/2;floor.position.y=-.12;scene.add(floor);
 const grid=new THREE.GridHelper(24,40,0x3f6279,0x274157);
 grid.position.y=-.115;scene.add(grid);
+/** Exact kinematic centerlines are guides, not extra physical GLB parts. */
+const engineGuideLayer=new THREE.Group();
+engineGuideLayer.name="i4-mathematical-constraint-guides";
+engineGuideLayer.visible=false;
+scene.add(engineGuideLayer);
+const linePositions:THREE.BufferAttribute[]=[];
+const guides:{crank:THREE.Mesh;pin:THREE.Mesh}[]=[];
+const jointMarkerGeometry=new THREE.SphereGeometry(.015,12,10);
+for(let i=0;i<4;i++){
+  const geometry=new THREE.BufferGeometry();
+  const positions=new THREE.BufferAttribute(new Float32Array(6),3);
+  geometry.setAttribute("position",positions);
+  const color=[0x65d9f5,0x9acaee,0xdabef5,0xffc384][i];
+  const material=new THREE.LineBasicMaterial({color,depthTest:false});
+  const line=new THREE.Line(geometry,material);
+  line.renderOrder=20;
+  engineGuideLayer.add(line);
+  linePositions.push(positions);
+  const ballMaterial=new THREE.MeshBasicMaterial({color,depthTest:false});
+  const crank=new THREE.Mesh(jointMarkerGeometry,ballMaterial);
+  const pin=new THREE.Mesh(jointMarkerGeometry,ballMaterial);
+  crank.renderOrder=21;pin.renderOrder=21;
+  engineGuideLayer.add(crank,pin);
+  guides.push({crank,pin});
+}
 const resize=()=>{const w=Math.max(1,$("viewport").clientWidth),h=Math.max(1,$("viewport").clientHeight);
   camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h,false);};
 const observer=new ResizeObserver(resize);observer.observe($("viewport"));
@@ -227,6 +252,20 @@ function applyPositions():void{
     if(authored){
       const rotation=authored.rotation;
       obj.quaternion.set(rotation[0],rotation[1],rotation[2],rotation[3]);
+    }
+  }
+  engineGuideLayer.visible=engineCutaway&&!!engineFrame&&
+    !!engineState&&
+    engineFrame.cylinders.every(c=>engineState.partStatus["engine.rod."+c.index]==="installed");
+  if(engineGuideLayer.visible&&engineFrame){
+    for(const cylinder of engineFrame.cylinders){
+      const i=cylinder.index-1,arr=linePositions[i];
+      const a=cylinder.crankPinWorld,b=cylinder.pistonPinWorld;
+      arr.setXYZ(0,a[0],a[1],a[2]);
+      arr.setXYZ(1,b[0],b[1],b[2]);
+      arr.needsUpdate=true;
+      guides[i].crank.position.set(...a);
+      guides[i].pin.position.set(...b);
     }
   }
   if(engineFrame){
