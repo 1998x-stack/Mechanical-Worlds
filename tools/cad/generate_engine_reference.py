@@ -11,6 +11,7 @@ import hashlib
 import json
 import math
 import pathlib
+import re
 import struct
 
 import cadquery as cq
@@ -153,7 +154,22 @@ def main():
             assembly.add(shape,name=name,loc=cq.Location(cq.Vector(*[
                 value*1000 for value in positions[name]
             ])))
-        assembly.export(str(output/"engine-i4-concept-reference.step"),unit="MM")
+        step_path=output/"engine-i4-concept-reference.step"
+        assembly.export(str(step_path),unit="MM")
+        # Open CASCADE stamps FILE_NAME with the current time, so identical
+        # geometry produces different STEP bytes on every run. Normalize that
+        # single field to a fixed epoch so the published artifact is
+        # hash-reproducible. Nothing else in the export is time-dependent.
+        step_text=step_path.read_text()
+        normalized,n=re.subn(
+            r"(FILE_NAME\('[^']*',')[^']*(')",
+            r"\g<1>1970-01-01T00:00:00\g<2>",step_text,count=1)
+        if n!=1:
+            raise ValueError("Could not locate STEP FILE_NAME timestamp to normalize")
+        step_path.write_text(normalized)
+        step_sha256=hashlib.sha256(step_path.read_bytes()).hexdigest()
+    else:
+        step_sha256=None
     binary=to_glb(shapes,positions)
     (output/"engine-i4-cad-reference.glb").write_bytes(binary)
     report={
@@ -162,6 +178,9 @@ def main():
         "partCount":len(shapes),"partIds":list(shapes),"positionsM":positions,
         "units":{"STEP":"mm","glTF":"m"},"glbBytes":len(binary),
         "glbSha256":hashlib.sha256(binary).hexdigest(),
+        "stepSha256":step_sha256,
+        "stepTimestampNormalizedTo":None if args.skip_step else "1970-01-01T00:00:00",
+        "stepByteReproducible":not args.skip_step,
         "boreDiameterMm":2*BORE_R,"pistonDiameterMm":2*PISTON_R,
         "conceptualRadialClearanceMm":BORE_R-PISTON_R,
         "crankRadiusMm":THROW,"rodCenterDistanceMm":ROD,
