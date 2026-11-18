@@ -93,7 +93,7 @@ $("app").innerHTML=`
 
 let scenario:Scenario="wheel";
 let intent:Intent="disassemble";
-let asset:MechanicalAsset=createWheelAsset();
+let asset:MechanicalAsset=createP1WheelAsset();
 let driver=new BrowserDriver();
 let engine=new MechanicalEngine(asset,driver);
 let viewer:MechanicalViewer;
