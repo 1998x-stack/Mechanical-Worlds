@@ -4,6 +4,7 @@ export type Quat = [number, number, number, number];
 export type Transform = { position: Vec3; rotation: Quat };
 export type PartStatus = "installed" | "detached" | "placed";
 export type MateStatus = "locked" | "released";
+export type OperationIntent = "disassemble" | "assemble" | "operate";
 
 export interface PartDefinition {
   id: string;
@@ -30,27 +31,56 @@ export interface Connector {
 export interface Mate {
   id: string; connectorAId: string; connectorBId: string;
   initialState: MateStatus; fastenerPartIds?: string[];
+  /** When true, atomic locking requires geometry-aligned anchors. */
+  verified?: boolean;
+}
+export interface RevoluteJoint {
+  id: string; type: "revolute"; mateId: string; drivenPartId: string;
+  pivotWorld: Vec3; axisWorld: Vec3; minRad: number; maxRad: number; initialRad: number;
+}
+export type MechanicalJoint = RevoluteJoint;
+export interface CollisionProxy {
+  partId: string;
+  /** Conservative AABB in the part-local frame; independent of visible mesh. */
+  center: Vec3; halfExtents: Vec3;
+}
+export interface MotionPath {
+  id: string;
+  kind: "linear" | "screw" | "hinge";
+  /** All parts whose offsets are driven by the operation, or one driven joint. */
+  targetPartIds: string[];
+  jointId?: string;
+  /** Normalized world-axis for screw rotation. */
+  axisWorld?: Vec3;
+  turns?: number;
+  /** required blocks new AABB contacts; advisory reports but permits demo. */
+  collisionPolicy: "required" | "advisory" | "none";
+  ignorePartIds?: string[];
+  samples?: number;
 }
 export type Predicate =
   | { kind: "part"; id: string; equals: PartStatus }
   | { kind: "mate"; id: string; equals: MateStatus }
-  | { kind: "flag"; id: string; equals: boolean };
+  | { kind: "flag"; id: string; equals: boolean }
+  | { kind: "joint"; id: string; equalsRad: number };
 export type Effect =
   | { kind: "part"; id: string; state: PartStatus }
   | { kind: "mate"; id: string; state: MateStatus }
-  | { kind: "offset"; id: string; value: Vec3 };
+  | { kind: "offset"; id: string; value: Vec3 }
+  | { kind: "joint"; id: string; angleRad: number };
 export interface Operation {
   id: string; label: string;
-  intent: "disassemble" | "assemble";
+  intent: OperationIntent;
   targetId: string;
   dependsOn: string[];
   requires: Predicate[];
   effects: Effect[];
   durationMs: number;
+  pathId?: string;
 }
 export interface OperationPlan {
   id: string; label: string;
-  intent: "disassemble" | "assemble";
+  intent: OperationIntent;
   operationIds: string[];
 }
 export interface MechanicalAsset {
@@ -62,6 +92,9 @@ export interface MechanicalAsset {
   mates: Mate[];
   operations: Operation[];
   plans: OperationPlan[];
+  joints?: MechanicalJoint[];
+  motionPaths?: MotionPath[];
+  collisionProxies?: CollisionProxy[];
   flags?: Record<string, boolean>;
 }
 export type ValidationIssue = {
@@ -81,7 +114,7 @@ export function validateAsset(asset: MechanicalAsset): ValidationIssue[] {
     issues.push({ severity: "error", code, path, message });
   if (asset.schemaVersion !== "0.1.0") fail("SCHEMA_VERSION", "schemaVersion", "Unsupported schema");
   const entries = [...asset.definitions, ...asset.nodes, ...asset.connectors, ...asset.mates,
-    ...asset.operations, ...asset.plans];
+    ...asset.operations, ...asset.plans, ...(asset.joints ?? []), ...(asset.motionPaths ?? [])];
   const ids = new Set<string>();
   for (const entry of entries) {
     if (!entry.id || ids.has(entry.id)) fail("DUPLICATE_ID", entry.id, "ID missing or duplicated");
@@ -93,6 +126,8 @@ export function validateAsset(asset: MechanicalAsset): ValidationIssue[] {
   const connectors = new Map(asset.connectors.map(c => [c.id, c]));
   const mates = new Set(asset.mates.map(m => m.id));
   const ops = new Map(asset.operations.map(op => [op.id, op]));
+  const joints = new Map((asset.joints ?? []).map(j => [j.id, j]));
+  const paths = new Map((asset.motionPaths ?? []).map(p => [p.id, p]));
   const root = nodes.get(asset.rootId);
   if (!root || root.kind !== "assembly" || root.parentId !== null)
     fail("ROOT", asset.rootId, "Root must be an assembly with no parent");
@@ -126,13 +161,49 @@ export function validateAsset(asset: MechanicalAsset): ValidationIssue[] {
     for (const p of m.fastenerPartIds ?? [])
       if (!parts.has(p)) fail("FASTENER", m.id, "Fastener part missing: " + p);
   }
+  const nearlyUnit = (v: Vec3) => v.every(Number.isFinite) &&
+    Math.abs(Math.hypot(...v) - 1) <= 1e-5;
+  for (const joint of asset.joints ?? []) {
+    if (!mates.has(joint.mateId) || !parts.has(joint.drivenPartId))
+      fail("JOINT_REF", joint.id, "Unknown mate or driven part");
+    if (!nearlyUnit(joint.axisWorld) || !joint.pivotWorld.every(Number.isFinite))
+      fail("JOINT_AXIS", joint.id, "Non-unit joint axis / invalid pivot");
+    if (![joint.minRad, joint.maxRad, joint.initialRad].every(Number.isFinite) ||
+        joint.minRad > joint.initialRad || joint.initialRad > joint.maxRad)
+      fail("JOINT_LIMIT", joint.id, "Joint initial position violates limits");
+  }
+  const seenProxies = new Set<string>();
+  for (const proxy of asset.collisionProxies ?? []) {
+    if (!parts.has(proxy.partId) || seenProxies.has(proxy.partId))
+      fail("PROXY_REF", proxy.partId, "Missing part or duplicate proxy");
+    seenProxies.add(proxy.partId);
+    if (!proxy.center.every(Number.isFinite) ||
+        !proxy.halfExtents.every(v => Number.isFinite(v) && v > 0))
+      fail("PROXY_SHAPE", proxy.partId, "Invalid collision proxy dimensions");
+  }
+  for (const path of asset.motionPaths ?? []) {
+    if (!path.targetPartIds.length || path.targetPartIds.some(id => !parts.has(id)))
+      fail("PATH_TARGET", path.id, "Missing target part");
+    if (path.kind === "hinge" && (!path.jointId || !joints.has(path.jointId)))
+      fail("PATH_JOINT", path.id, "Missing revolute joint");
+    if (path.kind === "screw" &&
+        (!path.axisWorld || !nearlyUnit(path.axisWorld) || !Number.isFinite(path.turns) || path.turns === 0))
+      fail("PATH_SCREW", path.id, "Screw path needs unit axis and nonzero turns");
+    if (path.samples !== undefined && (!Number.isInteger(path.samples) || path.samples < 2 || path.samples > 256))
+      fail("PATH_SAMPLES", path.id, "Sample count must be 2–256");
+    for (const ignored of path.ignorePartIds ?? [])
+      if (!parts.has(ignored)) fail("PATH_IGNORE", path.id, "Unknown ignored part " + ignored);
+  }
   for (const op of asset.operations) {
     if (!nodes.has(op.targetId)) fail("OP_TARGET", op.id, "Target node missing");
+    if (op.pathId && !paths.has(op.pathId))
+      fail("OP_PATH", op.id, "Unknown operation motion path");
     for (const dep of op.dependsOn)
       if (!ops.has(dep)) fail("OP_DEPENDENCY", op.id, "Unknown dependency " + dep);
     for (const p of op.requires) {
       if (p.kind === "part" && !parts.has(p.id)) fail("PREDICATE", op.id, p.id);
       if (p.kind === "mate" && !mates.has(p.id)) fail("PREDICATE", op.id, p.id);
+      if (p.kind === "joint" && !joints.has(p.id)) fail("PREDICATE", op.id, p.id);
     }
     for (const effect of op.effects) {
       if ((effect.kind === "part" || effect.kind === "offset") && !parts.has(effect.id))
@@ -141,6 +212,12 @@ export function validateAsset(asset: MechanicalAsset): ValidationIssue[] {
         fail("EFFECT", op.id, "Missing mate " + effect.id);
       if (effect.kind === "offset" && !effect.value.every(Number.isFinite))
         fail("EFFECT", op.id, "Nonfinite offset");
+      if (effect.kind === "joint") {
+        const j = joints.get(effect.id);
+        if (!j || !Number.isFinite(effect.angleRad) ||
+            effect.angleRad < j.minRad - 1e-8 || effect.angleRad > j.maxRad + 1e-8)
+          fail("EFFECT_JOINT", op.id, "Missing joint or target violates limits");
+      }
     }
     if (!Number.isFinite(op.durationMs) || op.durationMs < 0)
       fail("DURATION", op.id, "Negative or nonfinite duration");
