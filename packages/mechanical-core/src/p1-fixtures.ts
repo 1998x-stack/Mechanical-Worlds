@@ -48,13 +48,13 @@ export function createP1WheelAsset():MechanicalAsset{
   ];
   for(let i=1;i<=5;i++){
     const id="wheel.fl.lug."+String(i).padStart(2,"0");
-    const common={axisWorld:[-1,0,0] as Vec3,turns:2,
+    const common={axisWorld:[-1,0,0] as Vec3,turns:2,axialTravelM:.13,screwPhaseFraction:.54,
       ignorePartIds:["wheel.fl.rim","wheel.fl.tire","wheel.fl.valve",...lugs],samples:22,
       collisionPolicy:"required" as const};
     assign(a,"op.wheel.lug."+i+".remove",
       path("path.wheel.lug."+i+".out","screw",[id],common));
     assign(a,"op.wheel.lug."+i+".install",
-      path("path.wheel.lug."+i+".in","screw",[id],{...common,turns:-2}));
+      path("path.wheel.lug."+i+".in","screw",[id],{...common,axisWorld:[1,0,0],turns:-2}));
   }
   assign(a,"op.wheel.detach",path("path.wheel.fl.out","linear",wheelParts,
     {collisionPolicy:"required",ignorePartIds:lugs,samples:36}));
@@ -108,11 +108,11 @@ export function createP1GlassesAsset():MechanicalAsset{
     const remove=a.operations.find(op=>op.id==="op.g.screw."+side+".remove")!;
     remove.requires.push({kind:"joint",id:jointId,equalsRad:0});
     assign(a,remove.id,path("path.g.screw."+side+".out","screw",
-      ["g.screw."+side],{axisWorld:[0,1,0],turns:3,
+      ["g.screw."+side],{axisWorld:[0,1,0],turns:3,axialTravelM:.14,screwPhaseFraction:.55,
       ignorePartIds:["g.frame","g.hinge."+side,"g.temple."+side],collisionPolicy:"advisory"}));
     assign(a,"op.g.screw."+side+".install",
       path("path.g.screw."+side+".in","screw",["g.screw."+side],
-        {axisWorld:[0,1,0],turns:-3,ignorePartIds:["g.frame","g.hinge."+side,"g.temple."+side]}));
+        {axisWorld:[0,-1,0],turns:-3,axialTravelM:.14,screwPhaseFraction:.55,ignorePartIds:["g.frame","g.hinge."+side,"g.temple."+side]}));
     assign(a,"op.g.temple."+side+".remove",path("path.g.temple."+side+".out","linear",
       ["g.temple."+side],{collisionPolicy:"advisory",ignorePartIds:["g.hinge."+side]}));
     assign(a,"op.g.temple."+side+".attach",path("path.g.temple."+side+".in","linear",
