@@ -34,3 +34,14 @@ footer{margin-top:auto;padding:12px 26px;border-top:1px solid #243c50;color:#719
 @media(max-width:1200px){.app{grid-template-columns:220px minmax(0,1fr) 265px}.heading h1{font-size:22px}#viewport-wrap{min-height:340px;height:54vh}}
 @media(max-width:920px){.app{display:block}.left{display:flex;flex-direction:row;flex-wrap:wrap;gap:12px;align-items:center;padding:10px 13px}.brand{margin:0}.left>.side-label,.parts-list,.sidebar-foot{display:none}.kpi{padding:9px 12px;margin:0}.kpi strong{font-size:20px}.kpi small,.kpi em,.kpi .meter{display:none}#search{max-width:180px}.filter-buttons{margin:0}.right{border-left:0;border-top:1px solid #264056;display:grid;grid-template-columns:1fr 1fr;gap:13px}.right .panel-label{grid-column:1/-1}.heading{padding:21px}.status{display:none}#viewport-wrap{margin:0 19px}.toolbar{padding:15px 20px}}
 @media(max-width:600px){.brand{width:100%}#search{max-width:none;flex:1}.topbar{height:53px;padding:0 14px}.heading{padding:19px 14px}.heading h1{font-size:22px}#viewport-wrap{height:55vh;min-height:315px;margin:0 10px}.toolbar{padding:12px 10px}.toolbar button{flex:1}.right{display:block}.disclaimer{margin:0 11px 14px}footer{padding:11px 13px}}
+
+
+.servicebar{margin:0 27px 13px;background:#102438;border:1px solid #2c526f;border-radius:11px;padding:16px}
+.service-title{display:flex;align-items:center;gap:12px;font-size:12px;color:#e7f4ff;font-weight:800;margin-bottom:12px}
+.service-title span{color:#8eacc2;font-size:9px;letter-spacing:1.1px;font-weight:600}
+.service-actions{display:flex;flex-wrap:wrap;gap:8px}
+.service-actions button,.service-actions select{background:#1c3d59;color:#ddf0ff;border:1px solid #376589;border-radius:7px;padding:9px 10px;font-size:11px}
+.service-actions button:hover{background:#276086}
+.service-actions select{background:#14334f;min-width:110px}
+#service-status{padding-top:11px;color:#93bfd2;font-size:10px;line-height:1.6}
+@media(max-width:600px){.servicebar{margin:0 11px 12px;padding:12px}.service-title{display:block}.service-title span{display:block;margin-top:7px}.service-actions button{flex:1}}
