@@ -53,6 +53,10 @@ export interface MotionPath {
   /** Normalized world-axis for screw rotation. */
   axisWorld?: Vec3;
   turns?: number;
+  /** Demo screw extraction depth (meters) along axisWorld, before tray translation. */
+  axialTravelM?: number;
+  /** [0,1] fraction of animation spent in the threaded extraction/installation phase. */
+  screwPhaseFraction?: number;
   /** required blocks new AABB contacts; advisory reports but permits demo. */
   collisionPolicy: "required" | "advisory" | "none";
   ignorePartIds?: string[];
@@ -189,6 +193,11 @@ export function validateAsset(asset: MechanicalAsset): ValidationIssue[] {
     if (path.kind === "screw" &&
         (!path.axisWorld || !nearlyUnit(path.axisWorld) || !Number.isFinite(path.turns) || path.turns === 0))
       fail("PATH_SCREW", path.id, "Screw path needs unit axis and nonzero turns");
+    if (path.kind === "screw" &&
+        (path.axialTravelM === undefined || !Number.isFinite(path.axialTravelM) || path.axialTravelM <= 0 ||
+         path.screwPhaseFraction === undefined || !Number.isFinite(path.screwPhaseFraction) ||
+         path.screwPhaseFraction <= 0 || path.screwPhaseFraction >= 1))
+      fail("PATH_SCREW_PHASE", path.id, "Screw path needs positive axial travel and phase in (0,1)");
     if (path.samples !== undefined && (!Number.isInteger(path.samples) || path.samples < 2 || path.samples > 256))
       fail("PATH_SAMPLES", path.id, "Sample count must be 2–256");
     for (const ignored of path.ignorePartIds ?? [])
