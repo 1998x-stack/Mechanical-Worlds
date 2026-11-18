@@ -1,0 +1,39 @@
+{
+  "kind": "engine-kinematics-brief",
+  "assetId": "mw.engine.example",
+  "sourceBatchId": "",
+  "geometrySource": "unknown",
+  "units": "m",
+  "crankAxisWorld": [
+    1,
+    0,
+    0
+  ],
+  "pistonAxisWorld": [
+    0,
+    1,
+    0
+  ],
+  "throwRadiusM": null,
+  "rodLengthM": null,
+  "pistonPinToCenterM": null,
+  "cylinderPhasesRad": [
+    0,
+    3.141592653589793,
+    3.141592653589793,
+    0
+  ],
+  "driverJointId": "",
+  "partIds": [],
+  "mateIds": [],
+  "authoringTier": "generated-conceptual",
+  "sourceId": "",
+  "CADVerified": false,
+  "collisionCertified": false,
+  "acceptance": [
+    "closure",
+    "two-revolution",
+    "teardown-reassembly",
+    "rollback"
+  ]
+}
