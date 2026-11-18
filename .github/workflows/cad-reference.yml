@@ -28,7 +28,11 @@ jobs:
           npm install
       - name: Generate real parametric B-Rep + STEP and triangulated GLB
         run: python tools/cad/generate_engine_reference.py --output dist-cad/engine-i4
-      - name: Check B-Rep geometry and 18 GLB identities with Three.js loader
+      - name: Compile Mechanical Core for kinematic reference
+        run: npm run build:core
+      - name: Audit 18 real B-Rep meshes with fail-closed continuous BVH
+        run: node tools/cad/audit_cad_mesh.mjs --step-deg=180
+      - name: Check B-Rep, named GLB loading and collision audit evidence
         run: node --test tests-cad/*.test.mjs
       - uses: actions/upload-artifact@v4
         with:

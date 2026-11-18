@@ -26,6 +26,14 @@ jobs:
       - run: npm run assets:validate
       - run: npm run test
       - run: GITHUB_PAGES=true npm run build
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install CAD B-Rep kernel
+        run: python -m pip install cadquery==2.8.0
+      - name: Publish 18-Part B-Rep STEP and CAD-derived GLB as separate evidence-tier assets
+        run: python tools/cad/generate_engine_reference.py --output dist/models
+
       - uses: actions/configure-pages@v5
         with:
           enablement: true
