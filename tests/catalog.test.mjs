@@ -57,3 +57,17 @@ test("front-wheel hub/brake parts stay in chassis, removable wheel in wheels",()
     assert.equal(systemOf(byId.get(id)),"wheels");
   }
 });
+test("viewer UI derives delivered counts from the catalog instead of stale literals",()=>{
+  const main=readFileSync(new URL("../src/main.ts",import.meta.url),"utf8");
+  const auto=readFileSync(new URL("../src/automotive.ts",import.meta.url),"utf8");
+  assert.match(main,/automotiveCatalog\.stats\.generatedParts/,"index page must read live generated count");
+  assert.match(main,/automotiveCatalog\.stats\.plannedParts/,"index page must read live planned count");
+  assert.match(auto,/\$\{generated\.length\}/,"automotive page must derive part count from the catalog");
+  // Regression guard: the pre-106 batch-01 literals must never reappear in the shipped UI.
+  const stale=["76 GENERATED","76 个已生成","76 个真实 GLB 零件","241 个尚未建模","106 个零件均可独立选择"];
+  for(const [file,src] of [["src/main.ts",main],["src/automotive.ts",auto]]){
+    for(const literal of stale){
+      assert.ok(!src.includes(literal),file+" still hardcodes stale UI text: "+literal);
+    }
+  }
+});

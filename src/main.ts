@@ -39,10 +39,10 @@ $("app").innerHTML=`
     <div class="caption">验收案例 / SCENARIOS</div>
     <button id="scenario-wheel" class="scenario active"><span class="scenario-symbol">◉</span><span><b>汽车左前轮</b><small>五颗螺母 · 轮毂 · 制动系统</small></span>›</button>
     <button id="scenario-glasses" class="scenario"><span class="scenario-symbol">⌐</span><span><b>机械眼镜</b><small>镜片 · 镜腿 · 铰链 · 螺钉</small></span>›</button>
-    <a class="scenario" href="${import.meta.env.BASE_URL}automotive.html"><span class="scenario-symbol">▣</span><span><b>汽车 GLB 资产预览</b><small>76 个已生成零件 · 完整 3D 文件</small></span>›</a>
+    <a class="scenario" href="${import.meta.env.BASE_URL}automotive.html"><span class="scenario-symbol">▣</span><span><b>汽车 GLB 资产预览</b><small>${automotiveCatalog.stats.generatedParts} 个已生成零件 · 完整 3D 文件</small></span>›</a>
     <div class="caption second">机械结构 / ASSEMBLY TREE</div>
     <div id="tree" class="tree"></div>
-    <button id="show-catalog" class="catalog-launch"><span>▤ &nbsp; 整车零件目录</span><strong>76 GENERATED / 317 PLANNED</strong><small>76 个真实 GLB 零件，其余仍需建模</small></button>
+    <button id="show-catalog" class="catalog-launch"><span>▤ &nbsp; 整车零件目录</span><strong>${automotiveCatalog.stats.generatedParts} GENERATED / ${automotiveCatalog.stats.plannedParts} PLANNED</strong><small>${automotiveCatalog.stats.generatedParts} 个真实 GLB 零件，其余仍需建模</small></button>
     <div class="sidebar-foot"><span class="status-dot"></span>SCHEMA 0.1 · CORE 0.1</div>
   </aside>
   <main class="main">
@@ -96,7 +96,7 @@ $("app").innerHTML=`
     <div class="catalog-card">
       <div class="catalog-header">
         <div><div class="eyebrow">ASSET CATALOG / PLANNED</div><h2 id="catalog-title">汽车完整机械零件目录</h2>
-          <p>共 317 个计划零件，76 个已生成可加载 GLB；其余 241 个尚未建模。全部零件均未进行 OEM CAD/制造精度验证。</p></div>
+          <p>共 ${automotiveCatalog.stats.parts} 个计划零件，${automotiveCatalog.stats.generatedParts} 个已生成可加载 GLB；其余 ${automotiveCatalog.stats.plannedParts} 个尚未建模。全部零件均未进行 OEM CAD/制造精度验证。</p></div>
         <button id="close-catalog" aria-label="关闭目录">✕</button>
       </div>
       <div class="catalog-filters"><input id="catalog-search" type="search" placeholder="搜索零件名称或 ID…" aria-label="搜索零件"/>
