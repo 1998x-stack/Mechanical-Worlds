@@ -2,7 +2,7 @@
   "project": "Mechanical-Worlds",
   "handoffVersion": "1.1",
   "baseCommit": "c843033b5d0e7bd27f06cc35d0fcd8b92fe75180",
-  "resultCommit": "PENDING",
+  "resultCommit": "96ab23f4a04f28be8aa7306b60f0248fc546d092",
   "branch": "agent/pi/handoff-and-browser-acceptance",
   "agent": "Pi (second round: collision trajectory fix, cross-environment reproduction, merge prep)",
   "repositoryBase": "bb74622cdc9327eab82b409f37bd3e56ce1eb521",
