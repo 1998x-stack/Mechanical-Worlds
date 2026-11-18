@@ -46,7 +46,7 @@ export function getPartPose(asset:MechanicalAsset,state:RuntimeState,id:string,
   };
   const base=world(id),n=nodes.get(id);
   if(n?.kind!=="part")return base;
-  const offset=state.offsets[id]??[0,0,0];
+  const offset:Vec3=state.offsets[id]??[0,0,0];
   let result:WorldPose={position:add(base.position,offset),rotation:base.rotation};
   const j=asset.joints?.find(item=>item.drivenPartId===id);
   if(j){
@@ -146,8 +146,9 @@ export function screwPreview(asset:MechanicalAsset,op:Operation,t:number):
   Record<string,{axis:Vec3;angleRad:number}>{
   const path=asset.motionPaths?.find(p=>p.id===op.pathId);
   if(path?.kind!=="screw"||!path.axisWorld||!path.turns)return {};
+  const axis=path.axisWorld,turns=path.turns;
   return Object.fromEntries(path.targetPartIds.map(id=>
-    [id,{axis:path.axisWorld!,angleRad:2*Math.PI*path.turns*t}]));
+    [id,{axis,angleRad:2*Math.PI*turns*t}]));
 }
 export function jointPreview(op:Operation,state:RuntimeState,t:number):Record<string,number>{
   const values:Record<string,number>={};
