@@ -8,6 +8,9 @@ import {
   type Corner,type GeneratedManifest
 } from "../packages/mechanical-core/src/automotive-corners.js";
 import type {Vec3} from "../packages/mechanical-schema/src/index.js";
+import {
+  createEngineI4Asset,engineI4Constraint,solveEngineI4
+} from "../packages/mechanical-core/src/engine-i4.js";
 import catalog from "../assets/catalog/automotive-fwd-i4-001.json";
 import manifest01 from "../assets/generated/automotive/manifest.json";
 import manifest02 from "../assets/generated/automotive/manifest-02.json";
@@ -86,7 +89,22 @@ $("car-app").innerHTML=`
       </div>
       <div id="service-status" role="status">模型加载后可执行。汽车制动与紧固件动作仅用于概念级软件演示。</div>
     </section>
-    <div class="disclaimer">当前 106 个 GLB 零件具备可选中几何；四轮角总成具有演示级拆装 DAG。动力系统尚未具备实际拆装约束。爆炸预览与拆装状态相互独立。所有示例均非 OEM CAD 或真实维修规程。</div>
+    <section class="servicebar enginebar">
+      <div class="service-title">四缸发动机 · 曲柄连杆机构 <span>ANALYTIC SLIDER-CRANK / 4 CYLINDERS</span></div>
+      <div class="engine-controls">
+        <label for="engine-angle">曲轴角度 <output id="engine-angle-value">0°</output></label>
+        <input type="range" id="engine-angle" min="0" max="360" step="1" value="0" aria-label="曲轴角度"/>
+        <button id="engine-rotate">连续旋转</button>
+        <button id="engine-stop">停止旋转</button>
+        <button id="engine-focus">聚焦发动机</button>
+        <button id="engine-teardown">发动机拆卸</button>
+        <button id="engine-assemble">重新装配</button>
+        <button id="engine-home">归零位置</button>
+      </div>
+      <div id="engine-status" role="status">运动学闭环和拆装状态由 Headless Mechanical Core 验证，载入后可操作。</div>
+      <div class="engine-note">4 个活塞和连杆根据同一曲轴角度解析求解；进排气凸轮轴按 2:1 比例转动。发动机零件仍为程序生成概念几何，不代表实车工程配合、真实正时或扫掠碰撞已验证。</div>
+    </section>
+    <div class="disclaimer">106 个零件均可独立选择；四轮及制动组件、概念四缸发动机已接入独立机械操作 DAG。完整变速箱、自动碰撞窄相与 OEM CAD 制造精度仍未实现。视觉爆炸预览不会修改机械状态。</div>
     <footer>MECHANICAL WORLDS · CONCEPT GEOMETRY ENGINE <span id="render-info">GLB LOADING</span></footer>
   </main>
   <aside class="right">
@@ -148,6 +166,17 @@ let operating=false;
 let chosenCorner:Corner="fl";
 let mechanical:MechanicalEngine|null=null;
 let previewOffsets:Record<string,Vec3>={};
+let engineMechanical:MechanicalEngine|null=null;
+let enginePreviewOffsets:Record<string,Vec3>={};
+let engineSpinning=false;
+let enginePreviousFrame=0;
+const engineJointId="joint.engine.i4.crankshaft";
+const engineStatus=(message:string)=>{$("engine-status").textContent=message;};
+const updateEngineLabel=(angle:number)=>{
+  const deg=Math.round(angle*180/Math.PI);
+  ($("engine-angle") as HTMLInputElement).value=String(deg);
+  $("engine-angle-value").textContent=deg+"°";
+};
 class FrameDriver implements AnimationDriver {
   async play(ms:number,update:(t:number)=>void,signal?:AbortSignal):Promise<void>{
     await new Promise<void>((resolve,reject)=>{
@@ -174,18 +203,30 @@ const cornerFromId=(id:string):Corner|null=>{
 const serviceMessage=(message:string)=>{$("service-status").textContent=message;};
 function applyPositions():void{
   const state=mechanical?.getState();
+  const engineState=engineMechanical?.getState();
+  const theta=engineState?.jointAngles[engineJointId]??0;
+  const engineFrame=engineMechanical
+    ?solveEngineI4(engineI4Constraint(engineMechanical.asset),theta,manifest02)
+    :null;
   for(const [id,obj] of byId){
     const original=originalPos.get(id)!;
-    const offset=previewOffsets[id]??state?.offsets[id]??[0,0,0];
+    const authored=engineFrame?.parts[id];
+    const pose=authored?.position??[original.x,original.y,original.z];
+    const offset=previewOffsets[id]??enginePreviewOffsets[id]??state?.offsets[id]??
+      engineState?.offsets[id]??[0,0,0];
     const system=systemFor(id);
     const extra=exploded?system==="body"?new THREE.Vector3(0,.55,0):
       system==="wheels"?new THREE.Vector3(Math.sign(original.x)*.45,0,0):
-      system==="chassis"?new THREE.Vector3(Math.sign(original.x)*.12,-.13,0):new THREE.Vector3():new THREE.Vector3();
-    obj.position.copy(original).add(new THREE.Vector3(...offset)).add(extra);
+      system==="chassis"?new THREE.Vector3(Math.sign(original.x)*.12,-.13,0):
+      new THREE.Vector3():new THREE.Vector3();
+    obj.position.set(pose[0]+offset[0],pose[1]+offset[1],pose[2]+offset[2]).add(extra);
+    if(authored){
+      const rotation=authored.rotation;
+      obj.quaternion.set(rotation[0],rotation[1],rotation[2],rotation[3]);
+    }
   }
   if(selectedHelper)selectedHelper.update();
 }
-
 const raycaster=new THREE.Raycaster();
 const coords=new THREE.Vector2();
 const nodeOf=(hit:THREE.Object3D):string|null=>{
@@ -221,7 +262,10 @@ function displayPart(id:string):void{
     '<div class="pair"><span>世界尺寸</span><b>'+dims+'</b></div>',
     '<div class="pair"><span>几何状态</span><b class="good">generated</b></div>',
     '<div class="pair"><span>制造认证</span><b class="warn">否</b></div>',
-    ...(mechanical?.getState().partStatus[id]?['<div class="pair"><span>机械演示状态</span><b>'+mechanical.getState().partStatus[id]+'</b></div>']:[]),
+    ...((mechanical?.getState().partStatus[id]??engineMechanical?.getState().partStatus[id])
+      ?['<div class="pair"><span>机械演示状态</span><b>'+
+          (mechanical?.getState().partStatus[id]??engineMechanical?.getState().partStatus[id])+'</b></div>']
+      :[]),
     '<p class="inspector-tip">这是从参数化生成脚本构造出的独立 GLB 节点，可用于渲染和结构探索。实际装配配合、强度和制造公差尚未验证。</p>'
   ].join("");
 }
@@ -313,6 +357,63 @@ $("service-reset").addEventListener("click",()=>{
   mechanical.reset();previewOffsets={};applyPositions();
   serviceMessage("已恢复所有四轮角总成的初始机械状态。");
 });
+$("engine-angle").addEventListener("input",()=>{
+  engineSpinning=false;
+  if(!engineMechanical){engineStatus("请先载入发动机 GLB");return;}
+  if(operating){engineStatus("拆装任务进行中，不允许旋转曲轴。");return;}
+  const value=Number(($("engine-angle") as HTMLInputElement).value)*Math.PI/180;
+  try{
+    engineMechanical.setRevoluteAngle(engineJointId,value,false);
+    updateEngineLabel(value);
+    applyPositions();
+  }catch(error){engineStatus("曲轴受阻："+String(error));}
+});
+$("engine-rotate").addEventListener("click",()=>{
+  if(!engineMechanical||operating){engineStatus("引擎未就绪或拆装任务未完成。");return;}
+  try{
+    const current=engineMechanical.getState().jointAngles[engineJointId]??0;
+    engineMechanical.setRevoluteAngle(engineJointId,current,false);
+    enginePreviousFrame=0;engineSpinning=true;
+    engineStatus("发动机运转中：曲轴↔活塞↔连杆运动由相同约束求解。");
+  }catch(error){engineSpinning=false;engineStatus("发动机启动受阻："+String(error));}
+});
+$("engine-stop").addEventListener("click",()=>{
+  engineSpinning=false;engineStatus("曲轴已停止；可调整角度或执行拆装。");
+});
+$("engine-focus").addEventListener("click",()=>{
+  camera.position.set(2.9,2.25,.65);
+  controls.target.set(.06,.94,-1.44);controls.update();
+  select("engine.crankshaft");
+});
+$("engine-home").addEventListener("click",()=>{
+  engineSpinning=false;
+  if(!engineMechanical||operating){engineStatus("引擎未就绪或拆装正在执行。");return;}
+  try{
+    engineMechanical.setRevoluteAngle(engineJointId,0);
+    updateEngineLabel(0);applyPositions();
+    engineStatus("发动机曲轴已归位 0°；现在可运行拆装流程。");
+  }catch(error){engineStatus("归位受阻："+String(error));}
+});
+async function runEnginePlan(intent:"disassemble"|"assemble"):Promise<void>{
+  engineSpinning=false;
+  if(!engineMechanical||operating){engineStatus("发动机未就绪或机械操作尚未结束。");return;}
+  operating=true;exploded=false;$("explosion").textContent="结构爆炸预览";
+  const name="plan.engine.i4."+intent;
+  try{
+    const steps=engineMechanical.operationsFor(name).length;
+    engineStatus("执行四缸发动机 "+intent+"，共 "+steps+" 个概念拆装操作。");
+    await engineMechanical.runPlan(name);
+    engineStatus("已执行："+intent+"；Core Revision "+
+      engineMechanical.getState().revision+"。未认证实车维修。");
+  }catch(error){
+    engineStatus("发动机流程被 Core 阻断："+(error instanceof Error?error.message:String(error)));
+  }finally{
+    operating=false;applyPositions();
+    if(selectedId)displayPart(selectedId);
+  }
+}
+$("engine-teardown").addEventListener("click",()=>void runEnginePlan("disassemble"));
+$("engine-assemble").addEventListener("click",()=>void runEnginePlan("assemble"));
 
 renderFilters();renderList();
 const loader=new GLTFLoader();
@@ -343,7 +444,14 @@ Promise.all(waiters).then(()=>{
   if(missing.length)throw new Error("缺少 "+missing.length+" 个已标记生成的 GLB 零件");
   $("loading").style.display="none";
   $("render-info").textContent=byId.size+" GLB PARTS LOADED";
-  mechanical=new MechanicalEngine(createGeneratedCarCornerAsset(manifest01 as unknown as GeneratedManifest),new FrameDriver());
+  engineMechanical=new MechanicalEngine(createEngineI4Asset(manifest02),new FrameDriver());
+  engineMechanical.subscribe(event=>{
+    if(event.type==="preview")enginePreviewOffsets=event.offsets;
+    else if(event.type==="commit"||event.type==="cancel"||event.type==="state")enginePreviewOffsets={};
+    if(event.type==="diagnostic")engineStatus("路径审查警告："+event.message);
+    applyPositions();
+  });
+    mechanical=new MechanicalEngine(createGeneratedCarCornerAsset(manifest01 as unknown as GeneratedManifest),new FrameDriver());
   mechanical.subscribe(event=>{
     if(event.type==="preview")previewOffsets=event.offsets;
     else if(event.type==="commit"||event.type==="cancel"||event.type==="state")previewOffsets={};
@@ -359,8 +467,23 @@ Promise.all(waiters).then(()=>{
   $("loading").textContent="资产载入失败："+String(error);
   $("render-info").textContent="LOAD ERROR";
 });
-function animate():void{
-  requestAnimationFrame(animate);controls.update();
+function animate(now=0):void{
+  requestAnimationFrame(animate);
+  if(engineSpinning&&engineMechanical&&!operating){
+    if(!enginePreviousFrame)enginePreviousFrame=now;
+    const dt=Math.max(0,Math.min(100,now-enginePreviousFrame));
+    enginePreviousFrame=now;
+    const angle=engineMechanical.getState().jointAngles[engineJointId]??0;
+    const next=(angle+dt*Math.PI*2/4200)%(Math.PI*2);
+    try{
+      engineMechanical.setRevoluteAngle(engineJointId,next,false);
+      updateEngineLabel(next);
+      applyPositions();
+    }catch(error){
+      engineSpinning=false;engineStatus("旋转被阻止："+String(error));
+    }
+  }
+  controls.update();
   if(selectedHelper)selectedHelper.update();
   renderer.render(scene,camera);
 }
