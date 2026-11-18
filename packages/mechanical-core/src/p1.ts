@@ -94,7 +94,8 @@ export function snapPosition(asset:MechanicalAsset,state:RuntimeState,
 type Box={min:Vec3;max:Vec3};
 function bounds(asset:MechanicalAsset,state:RuntimeState,proxy:CollisionProxy):Box{
   const pose=getPartPose(asset,state,proxy.partId),c=add(pose.position,rotateVector(proxy.center,pose.rotation));
-  const axes:Vec3[]=[[1,0,0],[0,1,0],[0,0,1]].map(v=>rotateVector(v,pose.rotation));
+  const basis:Vec3[]=[[1,0,0],[0,1,0],[0,0,1]];
+  const axes:Vec3[]=basis.map(v=>rotateVector(v,pose.rotation));
   const e=proxy.halfExtents;
   const extent:[number,number,number]=[0,1,2].map(i=>
     Math.abs(axes[0][i])*e[0]+Math.abs(axes[1][i])*e[1]+Math.abs(axes[2][i])*e[2]) as Vec3;
