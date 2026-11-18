@@ -33,6 +33,7 @@ npm run cad:mesh-audit # 审查真实CAD网格的全720°接触/未判定区间
 npm run assets:cad-stage # 用 CadQuery 生成 CAD GLB 到 public/models（浏览器验收前置）
 npm run test:browser # 真实 Chromium：106 GLB + 18 B-Rep 替换 + 左前轮流程
 npm run test:acceptance # 真实 Chromium 端到端验收：四角/相位/拆装/撤销/目录（20 项检查）
+npm run test:pages-base # GitHub Pages base 子路径静态托管验收（非 vite preview）
 npm run test         # 编译 schema/core；执行 Node.js 自动测试
 npm run build        # TypeScript Web 类型检查 + Vite 发布产物
 npm run check        # 测试和构建
@@ -167,8 +168,8 @@ Mechanical Core 不依赖 Three.js。编辑器/渲染器只是适配器，装配
 
 新 `tools/cad/generate_engine_reference.py` 使用 Open CASCADE/CadQuery **实体造型**输出 18 个四缸相关 CAD Part：真实贯通缸孔、曲轴对应四缸相位的偏心轴颈、连杆孔、空心活塞、贯穿活塞销及三道活塞环。它生成可独立下载的 `STEP` 和 CAD 曲面三角化的 `GLB`。Pages 会优先用这 18 件替换对应渲染节点，保留相同的 Mechanical Core ID；其它 12 件动力系统仍来自概念 GLB。
 
-这是项目**自创参数化 CAD**，不是经可信外部来源核实的 OEM STEP，故标签为 `parametric-brep-unreviewed` 而不是 `cad-reviewed`。最新全 720° 保守 BVH 审查的初始结果包含 32 个接触事件、100 个未判定区间，**整机碰撞不合格为“未验证”**。被动接触可能是预期的销/轴承配合，也可能是几何错误，不能在工程审核前免检。
+这是项目**自创参数化 CAD**，不是经可信外部来源核实的 OEM STEP，故标签为 `parametric-brep-unreviewed` 而不是 `cad-reviewed`。连续碰撞审查使用**真实非线性姿态**：连杆/活塞/销/环按解析 slider-crank 闭解 `poseAt(theta)` 采样，而不是对区间端点做线性/SLERP 插值（端点弦对非线性机构是不可靠的，可产生错误的 `surface-clear`）。每个被认证为 `surface-clear` 的区间都用刚体点速度上界 `engineI4SpeedBounds × meshMotionRadius` 证明；预算不足则回退为 `unresolved`，绝不误报为安全。当前 720° 结果：**32 个 `surface-contact` + 32 个 `unresolved`**，全部属于已声明 Mate 的设计接口（曲柄↔连杆、活塞↔活塞环、销↔活塞/连杆），无“无 Mate 的未审查接触”。**整机碰撞仍为“未验证”**，因为三角形面距离无法证明实体不包含且尺寸非制造商提供。
 
-STEP 与 GLB 均为**字节可复现**：生成器已将 Open CASCADE 写入 `FILE_NAME` 的墙钟时间戳归一化为固定 epoch，并在 manifest 记录 `stepSha256`/`glbSha256`；`tests-cad` 会用两次独立进程比对字节一致性。
+STEP 与 GLB 均为**字节可复现**：生成器已将 Open CASCADE 写入 `FILE_NAME` 的墙钟时间戳归一化为固定 epoch，并在 manifest 记录 `stepSha256`/`glbSha256`；`tests-cad` 会用两次独立进程比对字节一致性，且 Python 3.11 与 3.12（相同 OCP 7.9.3.1.1）输出已验证逐字节相同。
 
 CAD 源码：[generate_engine_reference.py](tools/cad/generate_engine_reference.py)。完整边界与数据：[CAD-BREP-AND-CCD.md](docs/CAD-BREP-AND-CCD.md)。

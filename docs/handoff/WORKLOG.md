@@ -76,3 +76,67 @@ docs/handoff/*                           # 本目录
 - 整机碰撞仍 NOT_VERIFIED；曲柄视觉相位与缸孔形状需可信 CAD（`BLOCKED`）。
 - 许可证未选定。
 - dev 工具链 `npm audit` 报 4 个 high（vite→picomatch 系，dev-only）。
+
+---
+
+## 2026-11-18 · Agent: Pi (第二轮：碰撞轨迹修正 + 跨环境复现 + 合并准备)
+
+**起始 Git SHA**: `c843033b5d0e7bd27f06cc35d0fcd8b92fe75180`（第一轮 HEAD，工作区 clean）
+**任务目标**: 交接一致性；修复连续碰撞验证的运动路径错误；跨 Node/Python/浏览器/CAD 复现；升级 Handoff；准备远端合并。
+
+### 第一工作包 — 交接一致性
+
+- 核对 `manifest.resultCommit=80f6323` 与 HEAD `c843033` 的关系：前者是“代码+文档”提交，后者是其后的 bookkeeping 提交（仅记录该 SHA）。判定为**含糊指向**，本轮改为：`resultCommit` 一律记录代码+文档主提交，并在 `CURRENT_STATUS.md` 同时给出 HEAD。
+- 复跑全部门禁（详见 `TEST_MATRIX.md`），检查敏感文件（无 `.env`/token/cert）、生成工件（`dist/`、`public/models/`、`dist-cad/`、`dist-pages/` 均 gitignore）、许可证（仍未选定，IS-05）。
+
+### 第二工作包 — 连续碰撞验证的根因与修复
+
+**Phase 1 根因**：`tools/cad/audit_cad_mesh.mjs` 取区间端点姿态 `poseAt(id,start)/poseAt(id,end)`，`src/mesh-ccd.mjs` 的 `check()` 对端点做 `lerp`+`slerp` 插值。但 `solveEngineI4` 的连杆/活塞/销/环位姿是曲轴角的非线性函数，且外层 broadphase 也用端点运动量扩张。→ 端点弦可“安全”而真实路径中途接触，**可能误报 `surface-clear`**。
+**可复现反例**：端点**完全相同**的闭合回环 `B(t)=(sin2πt, 1-cos2πt)`，障碍在回环顶点。`check()` 因端点零位移直接 `surface-clear`（错误）；`checkTrajectory` 在中点命中 → `surface-contact`。单元测试 `tests/mesh-ccd.test.mjs` 固定该反例。
+
+**Phase 4 实现（一处根因、最小改动）**：
+1. `src/mesh-ccd.mjs`：新增 `checkTrajectory(getPoseA,getPoseB,{start,end,speedA,speedB,marginM,maxDepth,maxEvaluations})`；中点查真实姿态，`certifiedLower = d − (speedA+speedB)*(end−start)/2`，仅当 > margin 才 `surface-clear`；预算耗尽 `unresolved`。新增导出 `meshMotionRadius()`。`solve()` 抽为共享内部函数；`check()` 保留（线性弦专用）并加显著警示。
+2. `packages/mechanical-core/src/engine-i4.ts`：新增 `engineI4SpeedBounds()`。解析上界（每缸、相位无关的最坏情况）：
+   `|d(rise)/dφ| ≤ r²/(2√(L²−r²))`；`|d(pistonY)/dφ| ≤ r + 上式`；`|d(rodPitch)/dφ| ≤ r(L+上式)/L²`（分母恒为 L²）。曲柄/皮带轮旋转速度 1，凸轮 0.5，静态件不在表中。
+3. `tools/cad/audit_cad_mesh.mjs`：外层 broadphase 改为**真实姿态分片 swept AABB**（每 5° 片，按 `speed*Δt` 扩张后并集），内层用 `checkTrajectory`；接触分类 `design-fit-candidate / design-fit-unresolved / unreviewed-contact / numerical-unresolved`（依据 status + 已声明 Mate），并输出 `trajectoryModel`。
+4. `tests/engine-i4.test.mjs`：新增“解析速度上界 ≥ 数值采样速度”（4001 采样点）与“连杆/活塞路径非线性（弦偏差 > 0.1mm）”两项，证明上界严谨且弦插值不成立。
+
+**自检发现的次生缺陷（本轮内修复）**：初版 `checkTrajectory` 仍让 `solve()` 在归一化 `[0,1]` 上递归，除非 `start=0,end=1` 会查询错误的参数。反例测试暴露后改为在**真实参数域**递归（`lo/hi`），并新增 `tests/mesh-ccd.test.mjs`：非 `[0,1]` 区间（θ∈[10.3,11.3]）必须命中顶点接触（红→绿已验证）。修复后的默认预算 `--max-evals=256 --max-depth=18`。
+
+**720° 结果**：612 对 → broadphase-clear 400 / surface-clear 148 / surface-contact 32 / unresolved 32；**全部非 clear 对均为已声明 Mate 的设计接口**；状态 `NOT_VERIFIED`（如实保留，未用忽略名单提升通过率）。
+
+### 第三工作包 — 跨环境复现
+
+- Node 22（`brew node@22` v22.23.5）：`npm run check` 退出 0，`63 pass / 0 fail`。Node 26 同样 63/0。Node 24 本机二进制损坏（缺 `libsimdjson.34.dylib`，与本仓库无关）→ 未测。
+- Python 3.11.18 与 3.12.15（均 cadquery 2.8.0 / OCP 7.9.3.1.1）：`generate_engine_reference.py` 两次独立生成，**STEP 与 GLB 逐字节一致**（STEP sha `25d6f292…`，GLB sha `dadfd980…`）。
+- 浏览器：`test:browser`（106 GLB + 18 CAD，0 pageerror）、`test:acceptance`（20 检查）、`test:pages-base`（真实 base 子路径 + 查询参数，0 pageerror / 0 同源失败请求）。
+- 线上 Pages（只读）：`automotive.html` 200、STEP 200；本轮提交未部署 → NOT_VERIFIED。
+
+### 修改文件
+
+```
+src/mesh-ccd.mjs                          # +checkTrajectory +meshMotionRadius；check 标注为线性弦专用
+packages/mechanical-core/src/engine-i4.ts # +engineI4SpeedBounds
+tools/cad/audit_cad_mesh.mjs              # 真实姿态 swept AABB + checkTrajectory + 分类
+tests/mesh-ccd.test.mjs                   # +5（含闭合回环反例）
+tests/engine-i4.test.mjs                  # +2（速度上界严谨性、非线性证据）
+tests-cad/collision.test.mjs              # +2（真实轨迹假设、分类确定性）
+tests-browser/pages-base.mjs              # 新增 Pages base 子路径验收
+tests-browser/acceptance.mjs              # 同源失败请求过滤
+package.json                              # +test:pages-base
+.github/workflows/browser-smoke.yml        # +pages-base 步骤
+README.md / .gitignore                    # 文档与忽略 dist-pages/
+docs/handoff/*                            # 本目录更新
+```
+
+### 提交
+
+- 工作分支：`agent/pi/handoff-and-browser-acceptance`
+- 结果 SHA：见 `manifest.json`
+- 推送/PR：见 `manifest.json` 的 `deployment`、`pullRequest`。
+
+### 未完成 / 延续
+
+- 整机碰撞仍 `NOT_VERIFIED`：32 接触 + 32 未判定均为有 Mate 的设计接口，尚未证明其在预期配合内（可能真实干涉）——需 CAD/工程判定（IS-01）。
+- 曲柄视觉相位/缸孔形状仍依赖可信 CAD（IS-02，`BLOCKED`）。
+- 许可证未选定（IS-05，`BLOCKED`）。
