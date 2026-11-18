@@ -1,0 +1,32 @@
+name: Mechanical Worlds Browser GLB Smoke
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "tests-browser/**"
+      - ".github/workflows/browser-smoke.yml"
+      - "package.json"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  chromium-glb:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npm install
+      - run: npx playwright install --with-deps chromium
+      - run: npm run build
+      - name: Real Chromium WebGL GLB page and wheel integration smoke
+        run: node tests-browser/smoke.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: automotive-playwright-smoke-screenshot
+          path: dist-reports/automotive-browser-smoke.png
+          if-no-files-found: ignore

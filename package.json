@@ -21,7 +21,8 @@
     "engine:audit": "npm run build:core && node tools/asset-pipeline/audit-engine-i4.mjs",
     "engine:clearance": "npm run build:core && node tools/asset-pipeline/audit-engine-clearance.mjs",
     "cad:build": "python tools/cad/generate_engine_reference.py --output dist-cad/engine-i4",
-    "cad:mesh-audit": "npm run build:core && node tools/cad/audit_cad_mesh.mjs --step-deg=180"
+    "cad:mesh-audit": "npm run build:core && node tools/cad/audit_cad_mesh.mjs --step-deg=180",
+    "test:browser": "node tests-browser/smoke.mjs"
   },
   "dependencies": {
     "three": "^0.181.2",
@@ -30,6 +31,7 @@
   "devDependencies": {
     "@types/three": "^0.181.0",
     "typescript": "^5.9.3",
-    "vite": "^7.2.2"
+    "vite": "^7.2.2",
+    "playwright": "^1.65.1"
   }
 }
