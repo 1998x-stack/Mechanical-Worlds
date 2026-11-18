@@ -153,7 +153,7 @@ export function createGeneratedCarCornerAsset(manifest:GeneratedManifest):Mechan
       [detached(caliper),installed(disc),installed(padIn),installed(padOut)],
       [part(caliper,"installed"),mateEffect(brakeMates.caliper,"locked"),offset(caliper,[0,0,0])],
       motion(stem+".caliper.in",[caliper],"linear"));
-    action(installWheel,"回装"+corner.toUpperCase()+"车轮","assemble",rim,[installCaliper],
+    action(installWheel,"回装"+corner.toUpperCase()+"车轮","assemble",rim,[],
       [detached(rim),installed(disc),installed(caliper)],
       [mateEffect(wheelMate,"locked"),...moving.flatMap(id=>[part(id,"installed"),offset(id,[0,0,0])])],
       motion(stem+".wheel.in",moving,"linear",{collisionPolicy:"required",samples:36,ignorePartIds:lugs}));
