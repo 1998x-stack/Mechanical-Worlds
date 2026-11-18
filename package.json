@@ -15,7 +15,8 @@
     "assets:build": "node tools/asset-pipeline/generate-automotive.mjs",
     "assets:validate": "node tools/asset-pipeline/validate-glb.mjs --report",
     "assets:stage": "node tools/asset-pipeline/stage-assets.mjs",
-    "predev": "npm run assets:stage"
+    "predev": "npm run assets:stage",
+    "assets:plan": "node tools/asset-pipeline/plan-next-batch.mjs"
   },
   "dependencies": {
     "three": "^0.181.2"
