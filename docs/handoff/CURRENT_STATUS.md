@@ -10,7 +10,7 @@
 | 仓库 | https://github.com/1998x-stack/Mechanical-Worlds |
 | 分支 | `agent/pi/handoff-and-browser-acceptance`（本轮工作分支；`main` 保持 `bb74622`） |
 | 本轮起始 SHA | `bb74622cdc9327eab82b409f37bd3e56ce1eb521` |
-| 本轮结果 SHA | 见 `manifest.json` 的 `resultCommit`（本地提交，未推送） |
+| 本轮结果 SHA | 见 `manifest.json` 的 `resultCommit`（本地提交 `80f6323c72db447e68c1412794a96909bb8cb653`，未推送） |
 | 工作区 | commit 后 clean |
 | 远端/PR | 未推送、未创建 PR（本地无推送授权假设） |
 
